@@ -1,95 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { CalendarCheck2, FileText, Search, Trophy } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="flex justify-center items-center w-full  text-white px-4 py-3">
+      <div className="w-full max-w-7xl space-y-4">
+        <h1 className="text-2xl sm:text-3xl text-foreground">Home</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <Link
+            href="/vacancy"
+            className="flex flex-col items-center justify-center gap-3 text-blue-700 bg-gray-300 hover:bg-gray-400/70 min-h-30 p-2 rounded-md shadow-md transition-all duration-200 ease-in-out"
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
+            <div className="flex items-center justify-center bg-gray-400/40 rounded-full p-3">
+              <Search size={30} />
+            </div>
+            Hire / Vacancy
+          </Link>
+          <Link
+            href="/internship"
+            className="flex flex-col items-center justify-center gap-3 text-blue-700 bg-gray-300 hover:bg-gray-400/70 min-h-30 p-2 rounded-md shadow-md transition-all duration-200 ease-in-out"
           >
-            Read our docs
-          </a>
+            <div className="flex items-center justify-center bg-gray-400/40 rounded-full p-3">
+              <FileText size={30} />
+            </div>
+            Internship
+          </Link>
+          <Link
+            href="/project"
+            className="flex flex-col items-center justify-center gap-3 text-blue-700 bg-gray-300 hover:bg-gray-400/70 min-h-30 p-2 rounded-md shadow-md transition-all duration-200 ease-in-out"
+          >
+            <div className="flex items-center justify-center bg-gray-400/40 rounded-full p-3">
+              <CalendarCheck2 size={30} />
+            </div>
+            One-time Task/Project
+          </Link>
+          <Link
+            href="/opportunities"
+            className="flex flex-col items-center justify-center gap-3 text-blue-700 bg-gray-300 hover:bg-gray-400/70 min-h-30 p-2 rounded-md shadow-md transition-all duration-200 ease-in-out"
+          >
+            <div className="flex items-center justify-center bg-gray-400/40 rounded-full p-3">
+              <Trophy size={30} />
+            </div>
+            Opportunities & Grants
+          </Link>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
