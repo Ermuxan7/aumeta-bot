@@ -1,9 +1,6 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
-import {
-  VacancyFormValue,
-  VacancySchema,
-} from "@/app/schema/VacancyFormSchema";
+import { InternshipFormValue, InternshipSchema } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -13,11 +10,11 @@ const Internship = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<VacancyFormValue>({
-    resolver: zodResolver(VacancySchema),
+  } = useForm<InternshipFormValue>({
+    resolver: zodResolver(InternshipSchema),
   });
 
-  const onSubmit = (data: VacancyFormValue) => {
+  const onSubmit = (data: InternshipFormValue) => {
     console.log("Data: ", data);
   };
 
@@ -27,35 +24,19 @@ const Internship = () => {
       <h2 className="text-2xl md:text-3xl mb-4">Internship</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
-          legend="Aymaq"
+          legend="Lawazim ati"
           type="text"
           placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-        />
-        {errors.aymaq && <p className="text-red-500">{errors.aymaq.message}</p>}
-        <FormInput
-          legend="Lawazım"
-          type="text"
-          placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
         />
-        {errors.lawazim && (
-          <p className="text-red-500">{errors.lawazim.message}</p>
-        )}
+        {errors.lawazim && <p className="text-red-500">{errors.lawazim.message}</p>}
+        
         <FormInput
           legend="Mekeme"
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
         />
-        <FormInput
-          legend="Mánzil"
-          type="text"
-          placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
-          registration={register("manzil")}
-        />
-        {errors.manzil && (
-          <p className="text-red-500">{errors.manzil.message}</p>
-        )}
+       
         <FormInput
           legend="Talaplar"
           as="textarea"
@@ -75,21 +56,26 @@ const Internship = () => {
           <p className="text-red-500">{errors.májburiyatlar.message}</p>
         )}
         <FormInput
-          legend="Jumıs waqıtı "
-          type="text"
-          placeholder="9:00 - 18:00, erkin grafik, 5/2"
-          registration={register("jumisWaqiti")}
+          legend="Sharayatlar"
+          as="textarea"
+          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
+          registration={register("sharayatlar")}
         />
-        {errors.jumisWaqiti && (
-          <p className="text-red-500">{errors.jumisWaqiti.message}</p>
+         <FormInput
+          legend="Mánzil hám format"
+          type="text"
+          placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
+          registration={register("manzil")}
+        />
+        {errors.manzil && (
+          <p className="text-red-500">{errors.manzil.message}</p>
         )}
         <FormInput
-          legend="Aylıq"
+          legend="To'lem"
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
-          registration={register("ayliq")}
+          registration={register("tolem")}
         />
-        {errors.ayliq && <p className="text-red-500">{errors.ayliq.message}</p>}
         <FormInput
           legend="Baylanıs"
           type="text"
