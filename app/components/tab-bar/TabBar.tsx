@@ -12,7 +12,7 @@ const tabs = [
 const TabBar = () => {
   const pathName = usePathname();
   return (
-    <nav className="fixed top-0 left-0 z-10 bg-white flex items-center justify-around gap-3 w-full py-4 px-6 md:px-20 lg:px-40 xl:px-60">
+    <nav className="fixed top-0 left-0 z-10 bg-background flex items-center justify-around gap-3 w-full py-4 px-6 md:px-20 lg:px-40 xl:px-60">
       {tabs.map((tab, index) => (
         <div key={index}>
           <Link

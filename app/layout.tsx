@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TabBar from "./components/tab-bar/TabBar";
+import ThemeProvider from "./providers/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className="">
+      <body className={`${geistSans.variable} ${geistMono.variable} `}>
+        <ThemeProvider />
         <TabBar />
         <div className="mt-18">{children}</div>
       </body>

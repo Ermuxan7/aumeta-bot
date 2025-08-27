@@ -1,84 +1,57 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-}
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: oklch(100% 0.00011 271.152);
+  --foreground: oklch(20.463% 0.00002 271.152);
+  --primary: oklch(62.31% 0.1881 259.83); /* blue-500 */
+  --primary-foreground: oklch(100% 0 0);
+  --muted: oklch(96% 0.001 270); /* slate-100 */
+  --muted-foreground: oklch(40% 0.02 270); /* slate-600 */
 
+  --tg-bg-color: var(--background);
+  --tg-text-color: var(--foreground);
+  --tg-button-color: var(--primary);
+  --tg-button-text-color: var(--primary-foreground);
+
+  --attention-bg: #fef9c3; /* bg-yellow-100 */
+  --attention-text: #eab308; /* text-yellow-500 */
+  --attention-border: #facc15;
+}
+
+@theme inline {
+  --color-background: var(--tg-bg-color);
+  --color-foreground: var(--tg-text-color);
+  --color-primary: var(--tg-button-color);
+  --color-primary-foreground: var(--tg-button-text-color);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-attention-bg: var(--attention-bg);
+  --color-attention-text: var(--attention-text);
+  --color-attention-border: var(--attention-border);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 .dark {
-  --background: oklch(35.06% 0.15908 274.087);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --background: oklch(14.479% 0.00002 271.152);
+  --foreground: oklch(94.611% 0.00011 271.152);
+  --primary: oklch(62.31% 0.1881 259.83); /* blue-500 */
+  --primary-foreground: oklch(20.768% 0.03985 265.767);
 
+  --muted: oklch(27.95% 0.03688 260.049); /* slate-800 */
+  --muted-foreground: oklch(71.068% 0.0352 256.828); /* slate-400 */
+
+  --attention-bg: #422006; /* bg-yellow-900 */
+  --attention-text: #facc15; /* text-yellow-400 */
+  --attention-border: #fcd34d;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }

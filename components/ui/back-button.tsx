@@ -1,5 +1,5 @@
 "use client";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -8,10 +8,10 @@ const BackButton = () => {
   return (
     <button
       onClick={() => router.back()}
-      className="flex items-center justify-center gap-1 text-lg my-4 text-gray-500 hover:text-gray-600/60"
+      className="flex items-center justify-center gap-1 text-lg my-4 text-muted-foreground hover:text-muted-foreground/80 transition-colors"
     >
+      <ChevronLeft size={18} />
       Back
-      <ChevronRight size={18} />
     </button>
   );
 };

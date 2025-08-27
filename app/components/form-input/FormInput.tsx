@@ -29,14 +29,14 @@ const FormInput = (props: FormFieldProps) => {
 
   return (
     <div className={className}>
-      <fieldset className="border border-gray-400 dark:border-white rounded-lg px-2 py-1 focus-within:border-blue-600 dark:focus-within:border-blue-400 transition-colors duration-200">
-        <legend className="text-gray-800 dark:text-gray-400 text-sm lg:text-md px-2">
+      <fieldset className="border border-muted-foreground rounded-lg px-2 py-1 focus-within:border-primary transition-colors duration-200">
+        <legend className="text-muted-foreground  text-sm lg:text-md px-2">
           <label htmlFor={inputId}>{legend}</label>
         </legend>
         {as === "input" && (
           <input
             id={inputId}
-            className="bg-transparent w-full text-base md:text-lg outline-none border-none px-2 mb-1 "
+            className="bg-transparent w-full text-base md:text-lg outline-none border-none px-2 py-1 mb-1 "
             {...(props as InputProps)}
             {...registration}
           />
@@ -58,7 +58,7 @@ const FormInput = (props: FormFieldProps) => {
             {...registration}
           >
             {(props as SelectProps).options.map((option) => (
-              <option key={option} value={option}>
+              <option key={option} value={option} className="bg-background">
                 {option}
               </option>
             ))}

@@ -46,6 +46,7 @@ const Vacancy = () => {
           legend="Mekeme"
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
+          registration={register("mekeme")}
         />
         <FormInput
           legend="Mánzil"
@@ -103,10 +104,11 @@ const Vacancy = () => {
           legend="Qosımsha"
           as="textarea"
           placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
+          registration={register("qosimsha")}
         />
         <button
           type="submit"
-          className="px-4 py-2 fles justify-end w-full bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
           Jiberiw
         </button>
