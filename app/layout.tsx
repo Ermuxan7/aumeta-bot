@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TabBar />
-        <div className="mt-22">{children}</div>
+        <div className="mt-18">{children}</div>
       </body>
     </html>
   );

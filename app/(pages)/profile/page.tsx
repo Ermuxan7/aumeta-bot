@@ -5,16 +5,14 @@ import FormInput from "@/app/components/form-input/FormInput";
 
 type Profile = {
   fullName: string;
-  email: string;
   phone: string;
   company?: string;
   position?: string;
   region?: string;
-  language?: string;
 };
 
 const regions = ["Qaraqalpaqstan", "Tashkent", "Samarqand", "Xorezm", "Nawayi"];
-const languages = ["Uzbek", "Russian", "English"];
+// const languages = ["Uzbek", "Russian", "English"];
 
 const MyProfile = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -24,12 +22,10 @@ const MyProfile = () => {
     // TODO: replace with API call
     setProfile({
       fullName: "John Doe",
-      email: "example@gmail.com",
       phone: "+998901234567",
       company: "Bizler Group",
       position: "Menejer",
       region: "Tashkent",
-      language: "Uzbek",
     });
   }, []);
 
@@ -46,52 +42,32 @@ const MyProfile = () => {
       <BackButton />
       <h2 className="text-2xl font-semibold mb-4">My Profile</h2>
 
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 space-y-4">
+      <div className="bg-white dark:bg-gray-800 p-4 space-y-4">
         <FormInput
-          legend="Full Name"
+          legend="FAÁ"
           type="text"
           defaultValue={profile.fullName}
           readOnly={!editMode}
         />
-
-        <div className="flex flex-col sm:flex-row gap-4 w-full">
-          <FormInput
-            legend="Email"
-            type="email"
-            defaultValue={profile.email}
-            readOnly={!editMode}
-          />
-          <FormInput
-            legend="Phone"
-            type="text"
-            defaultValue={profile.phone}
-            readOnly={!editMode}
-          />
-        </div>
-
         <FormInput
-          legend="Company"
+          legend="Baylanıs"
+          type="text"
+          defaultValue={profile.phone}
+          readOnly={!editMode}
+        />
+        <FormInput
+          legend="Mekeme atı"
           type="text"
           defaultValue={profile.company}
           readOnly={!editMode}
         />
-
-        <div className="flex flex-col sm:flex-row gap-4 w-full">
-          <FormInput
-            legend="Region"
-            as="select"
-            options={regions}
-            defaultValue={profile.region}
-            disabled={!editMode}
-          />
-          <FormInput
-            legend="Language"
-            as="select"
-            options={languages}
-            defaultValue={profile.language}
-            disabled={!editMode}
-          />
-        </div>
+        <FormInput
+          legend="Jaylasqan mámleket"
+          as="select"
+          options={regions}
+          defaultValue={profile.region}
+          disabled={!editMode}
+        />
 
         <button
           onClick={editMode ? handleSave : () => setEditMode(true)}

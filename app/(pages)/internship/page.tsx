@@ -1,6 +1,9 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
-import { InternshipFormValue, InternshipSchema } from "@/app/schema/InternFormSchema";
+import {
+  InternshipFormValue,
+  InternshipSchema,
+} from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,19 +27,26 @@ const Internship = () => {
       <h2 className="text-2xl md:text-3xl mb-4">Internship</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
-          legend="Lawazim ati"
+          legend="Aymaq"
           type="text"
           placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
+          registration={register("aymaq")}
+        />
+        {errors.aymaq && <p className="text-red-500">{errors.aymaq.message}</p>}
+        <FormInput
+          legend="Lawazim ati"
+          type="text"
+          placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
         />
-        {errors.lawazim && <p className="text-red-500">{errors.lawazim.message}</p>}
-        
+        {errors.lawazim && (
+          <p className="text-red-500">{errors.lawazim.message}</p>
+        )}
         <FormInput
           legend="Mekeme"
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
         />
-       
         <FormInput
           legend="Talaplar"
           as="textarea"
@@ -58,10 +68,10 @@ const Internship = () => {
         <FormInput
           legend="Sharayatlar"
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
+          placeholder="Ofis, kompyuter, internet, obet ozimizden) h.t.b"
           registration={register("sharayatlar")}
         />
-         <FormInput
+        <FormInput
           legend="Mánzil hám format"
           type="text"
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
