@@ -76,7 +76,7 @@ const MyPosts = () => {
                   <h3 className="text-xl font-semibold text-foreground">
                     {vacancy.lawazim}
                   </h3>
-                  <p className="text-foreground/70 bg-muted-foreground/20 px-2 py-1 rounded-md ">
+                  <p className="px-2 py-1 rounded-md text-sm bg-primary/10 text-primary font-medium">
                     {vacancy.category}
                   </p>
                 </div>
