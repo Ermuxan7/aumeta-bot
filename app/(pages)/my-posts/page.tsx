@@ -56,7 +56,7 @@ const MyPosts = () => {
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-6 md:px-8">
       <BackButton />
       <h2 className="text-2xl font-semibold mb-6 text-foreground">
-        My Vacancies
+        Meniń vakansiyalarım
       </h2>
 
       {vacancies.length === 0 ? (

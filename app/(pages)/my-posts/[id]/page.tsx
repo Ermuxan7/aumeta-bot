@@ -39,7 +39,7 @@ const PostDetail = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-2xl md:text-3xl mb-4">Vakanciya id-{params.id}</h2>
+      <h2 className="text-2xl font-semibold mb-4">Meniń postım</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
           legend="Aymaq"
