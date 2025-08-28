@@ -3,22 +3,22 @@ import Link from "next/link";
 
 const Cards = [
   {
-    title: "Hire / Vacancy",
+    title: "Jumısshı kerek(Vakansiya)",
     icon: <Search className="size-8 lg:size-10" />,
     href: "/vacancy",
   },
   {
-    title: "Internship",
+    title: "Ámeliyat",
     icon: <FileText className="size-8 lg:size-10" />,
     href: "/internship",
   },
   {
-    title: "One-time Task/Project",
+    title: "Bir mártelik wazıypa/joybar",
     icon: <CalendarCheck2 className="size-8 lg:size-10" />,
     href: "/project",
   },
   {
-    title: "Opportunities & Grants",
+    title: "Imkaniyatlar & grantlar",
     icon: <Trophy className="size-8 lg:size-10" />,
     href: "/opportunities",
   },

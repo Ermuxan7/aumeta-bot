@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 const tabs = [
-  { name: "Dashboard", href: "/" },
-  { name: "My posts", href: "/my-posts" },
-  { name: "Profile", href: "/profile" },
+  { name: "Jańa daǵaza", href: "/" },
+  { name: "Daǵazalarım ", href: "/my-posts" },
+  { name: "Profil", href: "/profile" },
 ];
 
 const TabBar = () => {

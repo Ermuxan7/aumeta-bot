@@ -33,13 +33,29 @@ const MyPosts = () => {
         mekeme: "ООО Ромашка",
         createdAt: "2025-08-24",
       },
+      {
+        id: "3",
+        aymaq: "Nawayı",
+        lawazim: "Esapshı",
+        category: "Finance",
+        mekeme: "Delivery Express",
+        createdAt: "2025-08-23",
+      },
+      {
+        id: "4",
+        aymaq: "Xarezm",
+        lawazim: "Developer",
+        category: "IT",
+        mekeme: "Tech Solutions",
+        createdAt: "2025-08-22",
+      },
     ]);
   }, []);
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-6 md:px-8">
       <BackButton />
-      <h2 className="text-3xl font-semibold mb-6 text-foreground">
+      <h2 className="text-2xl font-semibold mb-6 text-foreground">
         My Vacancies
       </h2>
 

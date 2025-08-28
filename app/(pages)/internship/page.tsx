@@ -24,7 +24,7 @@ const Internship = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-2xl md:text-3xl mb-4">Internship</h2>
+      <h2 className="text-2xl md:text-3xl mb-4">Ámeliyat</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
           legend="Aymaq"

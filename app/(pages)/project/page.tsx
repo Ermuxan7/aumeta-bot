@@ -1,9 +1,9 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
 import {
-  VacancyFormValue,
-  VacancySchema,
-} from "@/app/schema/VacancyFormSchema";
+  ProjectSchema,
+  ProjectFormValue,
+} from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -13,18 +13,18 @@ const Project = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<VacancyFormValue>({
-    resolver: zodResolver(VacancySchema),
+  } = useForm<ProjectFormValue>({
+    resolver: zodResolver(ProjectSchema),
   });
 
-  const onSubmit = (data: VacancyFormValue) => {
+  const onSubmit = (data: ProjectFormValue) => {
     console.log("Data: ", data);
   };
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-2xl md:text-3xl mb-4">Project</h2>
+      <h2 className="text-2xl md:text-3xl mb-4">Bir mártelik wazıypa/joybar</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
           legend="Aymaq"
@@ -46,20 +46,23 @@ const Project = () => {
           legend="Ne islew kerek?"
           type="text"
           placeholder="Júk tasıw kerek, ońlaw kerek, logotip yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń."
+          registration={register("talaplar")}
         />
-          <FormInput
+        {errors.talaplar && (
+          <p className="text-red-500">{errors.talaplar.message}</p>
+        )}
+        <FormInput
           legend="Is haqı, tólem"
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
-          registration={register("ayliq")}
+          registration={register("tólem")}
         />
-        {errors.ayliq && <p className="text-red-500">{errors.ayliq.message}</p>}
-        
+        {errors.tólem && <p className="text-red-500">{errors.tólem.message}</p>}
         <FormInput
           legend="Orınlaw múddeti"
           as="textarea"
           placeholder="Búginge, 18:00 ge yáki 27 avgustqa shekem"
-          registration={register("talaplar")}
+          registration={register("deadline")}
         />
         <FormInput
           legend="Baylanıs"
