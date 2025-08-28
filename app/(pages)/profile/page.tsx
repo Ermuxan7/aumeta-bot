@@ -11,7 +11,33 @@ type Profile = {
   region?: string;
 };
 
-const regions = ["Qaraqalpaqstan", "Tashkent", "Samarqand", "Xorezm", "Nawayi"];
+const countries = ["Qaraqalpaqstan", "Uzbekistan", "Kazakhstan", "Russia"];
+const regions = [
+  "Tashkent",
+  "Samarqand",
+  "Buxoro",
+  "Xorezm",
+  "Nawayi",
+  "Farg‘ona",
+  "Andijon",
+  "Qashqadaryo",
+  "Surxondaryo",
+  "Jizzax",
+  "Sirdaryo",
+  "Qaraqalpaqstan",
+];
+const sectors = [
+  "IT / Texnologiya",
+  "Ta’lim",
+  "Sog‘liqni saqlash",
+  "Moliya / Bank",
+  "Qurilish",
+  "Qishloq xo‘jaligi",
+  "Ishlab chiqarish",
+  "Transport / Logistika",
+  "Savdo / Marketing",
+  "Turizm / Mehmonxona",
+];
 // const languages = ["Uzbek", "Russian", "English"];
 
 const MyProfile = () => {
@@ -39,9 +65,11 @@ const MyProfile = () => {
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
-          options={regions}
+          options={countries}
           defaultValue={profile.region}
         />
+        <FormInput legend="Region" as="select" options={regions} />
+        <FormInput legend="Taraw" as="select" options={sectors} />
         <FormInput
           legend="Mekeme atı"
           type="text"
