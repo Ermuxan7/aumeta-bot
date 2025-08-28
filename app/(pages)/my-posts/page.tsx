@@ -69,7 +69,7 @@ const MyPosts = () => {
             <Link
               href={`my-posts/${vacancy.id}`}
               key={vacancy.id}
-              className="bg-card/90 rounded-xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow"
+              className="bg-muted rounded-xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow"
             >
               <div>
                 <div className="flex items-center justify-between">
