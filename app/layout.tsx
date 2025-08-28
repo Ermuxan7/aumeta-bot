@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={`${robotoSans.variable} ${robotoMono.variable} `}>
         <ThemeProvider />
         <TabBar />
-        <div className="mt-6">{children}</div>
+        <div className="mt-8">{children}</div>
       </body>
     </html>
   );
