@@ -12,20 +12,17 @@ const tabs = [
 const TabBar = () => {
   const pathName = usePathname();
   return (
-    <nav className="fixed top-0 left-0 z-10 bg-background flex items-center justify-around gap-3 w-full py-4 px-6 md:px-20 lg:px-40 xl:px-60">
-      {tabs.map((tab, index) => (
-        <div key={index}>
-          <Link
-            href={tab.href}
-            className={`relative py-1 font-medium text-md md:text-xl  ${
-              pathName === tab.href
-                ? "text-blue-400 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-blue-400"
-                : "text-foreground hover:underline"
-            } transition-all duration-200`}
-          >
-            {tab.name}
-          </Link>
-        </div>
+    <nav className="bg-muted w-vw h-10 md:h-14 mx-6 my-4 flex items-center justify-between rounded-full">
+      {tabs.map((tab, idx) => (
+        <Link
+          key={idx}
+          href={tab.href}
+          className={`flex items-center justify-center font-semibold text-xs md:text-lg w-full h-full ${
+            pathName === tab.href && "bg-primary rounded-full"
+          } transition-all duration-300 ease-in-out`}
+        >
+          {tab.name}
+        </Link>
       ))}
     </nav>
   );

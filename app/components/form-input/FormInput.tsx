@@ -29,8 +29,8 @@ const FormInput = (props: FormFieldProps) => {
 
   return (
     <div className={className}>
-      <fieldset className="border border-muted-foreground rounded-lg px-2 py-1 focus-within:border-primary transition-colors duration-200">
-        <legend className="text-muted-foreground  text-sm lg:text-md px-2">
+      <fieldset className="border border-muted-foreground rounded-lg px-2 py-1 focus-within:border-primary transition-colors duration-200 group">
+        <legend className="text-muted-foreground  group-focus-within:text-primary text-sm lg:text-md px-2">
           <label htmlFor={inputId}>{legend}</label>
         </legend>
         {as === "input" && (

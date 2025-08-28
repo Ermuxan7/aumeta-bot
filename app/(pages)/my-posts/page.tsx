@@ -73,17 +73,13 @@ const MyPosts = () => {
             >
               <div>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold text-foreground">
-                    {vacancy.lawazim}
-                  </h3>
-                  <p className="px-2 py-1 rounded-md text-sm bg-primary/10 text-primary font-medium">
-                    {vacancy.category}
-                  </p>
+                  <p>{vacancy.mekeme}</p>
+                  <p>{vacancy.aymaq}</p>
                 </div>
-                <p className="text-muted-foreground mt-1">
-                  {vacancy.mekeme} — {vacancy.aymaq}
-                </p>
-                <p className="text-muted-foreground/80 text-sm mt-2">
+                <h2 className="text-foreground text-2xl font-bold mt-3">
+                  {vacancy.lawazim}
+                </h2>
+                <p className="text-muted-foreground/80 text-sm mt-5">
                   Posted on {vacancy.createdAt}
                 </p>
               </div>

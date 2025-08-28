@@ -108,7 +108,7 @@ const Vacancy = () => {
         />
         <button
           type="submit"
-          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
+          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
           Jiberiw
         </button>
