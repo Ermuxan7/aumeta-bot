@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(100% 0.00011 271.152);
-  --foreground: oklch(20.463% 0.00002 271.152);
+  --background: oklch(96% 0.004 270);
+  --foreground: oklch(20% 0.02 270);
   --primary: oklch(62.31% 0.1881 259.83); /* blue-500 */
   --primary-foreground: oklch(100% 0 0);
-  --muted: oklch(96% 0.001 270); /* slate-100 */
+  --muted: oklch(94% 0.001 270); /* slate-100 */
   --muted-foreground: oklch(40% 0.02 270); /* slate-600 */
 
   --tg-bg-color: var(--background);
@@ -16,6 +16,9 @@
   --attention-bg: #fef9c3; /* bg-yellow-100 */
   --attention-text: #eab308; /* text-yellow-500 */
   --attention-border: #facc15;
+
+  --card-bg: oklch(94% 0.00323 15.852);
+  --card-border: oklch(90% 0.01 270);
 }
 
 @theme inline {
@@ -31,13 +34,16 @@
   --color-attention-text: var(--attention-text);
   --color-attention-border: var(--attention-border);
 
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 .dark {
-  --background: oklch(14.479% 0.00002 271.152);
-  --foreground: oklch(94.611% 0.00011 271.152);
+  --background: oklch(20% 0.03 250);
+  --foreground: oklch(94% 0.01 270);
   --primary: oklch(62.31% 0.1881 259.83); /* blue-500 */
   --primary-foreground: oklch(20.768% 0.03985 265.767);
 
@@ -47,6 +53,9 @@
   --attention-bg: #422006; /* bg-yellow-900 */
   --attention-text: #facc15; /* text-yellow-400 */
   --attention-border: #fcd34d;
+
+  --card-bg: oklch(25% 0.03 270);
+  --card-border: oklch(40% 0.02 270);
 }
 
 body {
@@ -54,4 +63,5 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }

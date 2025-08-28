@@ -43,7 +43,7 @@ const MyPosts = () => {
       },
       {
         id: "4",
-        aymaq: "Xarezm",
+        aymaq: "Xorezm",
         lawazim: "Developer",
         category: "IT",
         mekeme: "Tech Solutions",
@@ -69,14 +69,14 @@ const MyPosts = () => {
             <Link
               href={`my-posts/${vacancy.id}`}
               key={vacancy.id}
-              className="bg-primary-foreground/80 hover:bg-primary-foreground rounded-xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow"
+              className="bg-card/90 rounded-xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow"
             >
               <div>
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-semibold text-foreground">
                     {vacancy.lawazim}
                   </h3>
-                  <p className="text-foreground bg-muted px-2 py-1 rounded-md ">
+                  <p className="text-foreground/70 bg-muted-foreground/20 px-2 py-1 rounded-md ">
                     {vacancy.category}
                   </p>
                 </div>

@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
         <ThemeProvider />
         <TabBar />
-        <div className="mt-18">{children}</div>
+        <div className="mt-16">{children}</div>
       </body>
     </html>
   );
