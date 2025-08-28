@@ -59,28 +59,29 @@ const MyProfile = () => {
   return (
     <div className="max-w-2xl mx-auto mt-8 px-4">
       <BackButton />
-      <h2 className="text-2xl font-semibold mb-4">Meniń profilim</h2>
+      <h2 className="text-xl font-semibold mb-4">Meniń profilim</h2>
 
-      <div className="bg-background p-4 space-y-4">
+      <div className="bg-background p-4 space-y-5">
+        <FormInput legend="FAÁ" type="text" defaultValue={profile.fullName} />
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
           options={countries}
           defaultValue={profile.region}
+          
         />
         <FormInput legend="Region" as="select" options={regions} />
-        <FormInput legend="Taraw" as="select" options={sectors} />
         <FormInput
           legend="Mekeme atı"
           type="text"
           defaultValue={profile.company}
         />
+        <FormInput legend="Taraw" as="select" options={sectors} />
         <FormInput legend="Baylanıs" type="text" defaultValue={profile.phone} />
-        <FormInput legend="FAÁ" type="text" defaultValue={profile.fullName} />
-
+      
         <button
           type="submit"
-          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
+          className="px-4 py-2 mt-0.5 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
           Saqlaw
         </button>

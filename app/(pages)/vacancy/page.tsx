@@ -31,80 +31,72 @@ const Vacancy = () => {
           type="text"
           placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
           registration={register("aymaq")}
+          error={errors.aymaq?.message}
         />
-        {errors.aymaq && <p className="text-red-500">{errors.aymaq.message}</p>}
         <FormInput
           legend="Lawazım"
           type="text"
           placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
+          error={errors.lawazim?.message}
         />
-        {errors.lawazim && (
-          <p className="text-red-500">{errors.lawazim.message}</p>
-        )}
         <FormInput
           legend="Mekeme"
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
           registration={register("mekeme")}
+        error={errors.mekeme?.message}
         />
         <FormInput
           legend="Mánzil"
           type="text"
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
           registration={register("manzil")}
+        error={errors.manzil?.message}
         />
-        {errors.manzil && (
-          <p className="text-red-500">{errors.manzil.message}</p>
-        )}
         <FormInput
           legend="Talaplar"
           as="textarea"
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
+        error={errors.talaplar?.message}
         />
-        {errors.talaplar && (
-          <p className="text-red-500">{errors.talaplar.message}</p>
-        )}
         <FormInput
           legend="Májburiyatlar"
           as="textarea"
           placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
           registration={register("májburiyatlar")}
+        error={errors.májburiyatlar?.message}
         />
-        {errors.májburiyatlar && (
-          <p className="text-red-500">{errors.májburiyatlar.message}</p>
-        )}
         <FormInput
           legend="Jumıs waqıtı "
           type="text"
           placeholder="9:00 - 18:00, erkin grafik, 5/2"
           registration={register("jumisWaqiti")}
+        error={errors.jumisWaqiti?.message}
         />
-        {errors.jumisWaqiti && (
-          <p className="text-red-500">{errors.jumisWaqiti.message}</p>
-        )}
         <FormInput
           legend="Aylıq"
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("ayliq")}
+          error={errors.ayliq?.message}
         />
-        {errors.ayliq && <p className="text-red-500">{errors.ayliq.message}</p>}
+
         <FormInput
           legend="Baylanıs"
           type="text"
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
+          error={errors.baylanis?.message}
         />
-        {errors.baylanis && (
-          <p className="text-red-500">{errors.baylanis.message}</p>
-        )}
+        
         <FormInput
           legend="Qosımsha"
           as="textarea"
           placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
           registration={register("qosimsha")}
+          error={errors.qosimsha?.message}
         />
         <button
           type="submit"

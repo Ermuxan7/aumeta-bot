@@ -29,21 +29,20 @@ const Opportunities = () => {
         <FormInput
           legend="Daǵaza teksti yáki mazmunı"
           as="textarea"
+          // rows={5}
           placeholder="Daǵaza mazmunı"
           registration={register("daǵaza")}
+          error={errors.daǵaza?.message}
         />
-        {errors.daǵaza && (
-          <p className="text-red-500">{errors.daǵaza.message}</p>
-        )}
+        
         <FormInput
           legend="Baylanıs yáki silteme"
           type="text"
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
+          error={errors.baylanis?.message}
         />
-        {errors.baylanis && (
-          <p className="text-red-500">{errors.baylanis.message}</p>
-        )}
+        
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"

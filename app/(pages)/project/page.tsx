@@ -31,61 +31,54 @@ const Project = () => {
           type="text"
           placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
           registration={register("aymaq")}
+          error={errors.aymaq?.message}
         />
-        {errors.aymaq && <p className="text-red-500">{errors.aymaq.message}</p>}
         <FormInput
           legend="Sizge kim kerek?"
           type="text"
           placeholder="Santexnik, Dilmash, Mobilograf, Muzikant"
           registration={register("lawazim")}
+          error={errors.lawazim?.message}
         />
-        {errors.lawazim && (
-          <p className="text-red-500">{errors.lawazim.message}</p>
-        )}
         <FormInput
           legend="Ne islew kerek?"
-          type="text"
+          as="textarea"
           placeholder="Júk tasıw kerek, ońlaw kerek, logotip yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń."
           registration={register("talaplar")}
+          error={errors.talaplar?.message}
         />
-        {errors.talaplar && (
-          <p className="text-red-500">{errors.talaplar.message}</p>
-        )}
         <FormInput
           legend="Is haqı, tólem"
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("tólem")}
+          error={errors.tólem?.message}
         />
-        {errors.tólem && <p className="text-red-500">{errors.tólem.message}</p>}
         <FormInput
           legend="Orınlaw múddeti"
-          as="textarea"
           placeholder="Búginge, 18:00 ge yáki 27 avgustqa shekem"
           registration={register("deadline")}
+          error={errors.deadline?.message}
         />
         <FormInput
           legend="Baylanıs"
           type="text"
           placeholder="+998901234567, ab@email.com, @user"
           registration={register("baylanis")}
+           error={errors.baylanis?.message}
         />
-        {errors.baylanis && (
-          <p className="text-red-500">{errors.baylanis.message}</p>
-        )}
         <FormInput
           legend="Mánzil, lokaciya"
           type="text"
           placeholder="Nókis, A.Dosnazarov 16, online"
           registration={register("manzil")}
+          error={errors.manzil?.message}
         />
-        {errors.manzil && (
-          <p className="text-red-500">{errors.manzil.message}</p>
-        )}
         <FormInput
           legend="Qosımsha"
           as="textarea"
           placeholder="Qosımsha zat bolsa jazıń"
+          error={errors.qosimsha?.message}
         />
         <button
           type="submit"

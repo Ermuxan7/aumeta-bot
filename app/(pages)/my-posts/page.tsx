@@ -10,6 +10,7 @@ type Vacancy = {
   category: string;
   mekeme: string;
   createdAt: string;
+  form: "Vacancy" | "Internship" | "One-time Task" | "Opportunities"
 };
 
 const MyPosts = () => {
@@ -24,6 +25,7 @@ const MyPosts = () => {
         category: "Design",
         mekeme: "Bizler Group",
         createdAt: "2025-08-25",
+        form: "Internship"
       },
       {
         id: "2",
@@ -32,6 +34,7 @@ const MyPosts = () => {
         category: "Marketing",
         mekeme: "ООО Ромашка",
         createdAt: "2025-08-24",
+        form: "One-time Task"
       },
       {
         id: "3",
@@ -40,6 +43,7 @@ const MyPosts = () => {
         category: "Finance",
         mekeme: "Delivery Express",
         createdAt: "2025-08-23",
+        form: "Opportunities"
       },
       {
         id: "4",
@@ -48,6 +52,7 @@ const MyPosts = () => {
         category: "IT",
         mekeme: "Tech Solutions",
         createdAt: "2025-08-22",
+        form: "Vacancy"
       },
     ]);
   }, []);
@@ -64,25 +69,27 @@ const MyPosts = () => {
           You haven't posted any vacancies yet.
         </p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {vacancies.map((vacancy) => (
             <Link
               href={`my-posts/${vacancy.id}`}
               key={vacancy.id}
               className="bg-muted rounded-xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow"
             >
-              <div>
-                <div className="flex items-center justify-between">
-                  <p>{vacancy.mekeme}</p>
-                  <p>{vacancy.aymaq}</p>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-xs text-primary">{vacancy.form}</p>
+                    <p className="text-xl mt-3 font-bold">{vacancy.lawazim}</p>
+                    </div>
+                  <div className="text-xs text-end">
+                    <p className="text-xs">{vacancy.aymaq}</p>
+                    <p className="">{vacancy.mekeme}</p>
+                  </div>
                 </div>
-                <h2 className="text-foreground text-2xl font-bold mt-3">
-                  {vacancy.lawazim}
-                </h2>
-                <p className="text-muted-foreground/80 text-sm mt-5">
+                <p className="text-muted-foreground/80 text-xs mt-5">
                   Posted on {vacancy.createdAt}
                 </p>
-              </div>
+
             </Link>
           ))}
         </div>
