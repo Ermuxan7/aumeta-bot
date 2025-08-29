@@ -26,46 +26,45 @@ const Cards = [
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
-      <div className="w-full max-w-5xl space-y-4">
-        <h1 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground leading-5 text-center mb-8">
-          Aumeta Jobs kanallarına daǵaza jaylastırıw ushın tómendegi túymege
-          basıń hám ondaǵı shablonlardı toltırıp kanalǵa jiberiń
-        </h1>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-6">
-          {Cards.map((card, index) => (
-            <Link
-              key={index}
-              href={card.href}
-              className="flex flex-col items-center justify-center gap-3 text-sm md:text-lg lg:text-xl text-primary-foreground bg-muted hover:bg-muted/80 min-h-38 md:min-h-60 xl:min-h-80 p-2 rounded-lg shadow-md transition-all duration-200 ease-in-out"
-            >
-              {/* <div className="flex items-center justify-center text-primary bg-primary/10 rounded-full p-3 lg:p-5"> */}
-              {/* </div> */}
-              {card.img}
-              <h3 className="text-foreground text-sm  font-medium h-10 text-center">
-                {card.title}
-              </h3>
-            </Link>
-          ))}
-        </div>
-        <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
-          <img
-            src="/attention.png"
-            alt="attention"
-            className="size-6 md:size-8 "
-          />
-          <p className="text-sm sm:text-lg text-primary-foreground font-medium">
-            Daǵazalaw ushın mámleket saylanbaǵan. Profilge ótiń → mámleket
-            saylań.
-          </p>
-        </div>
-        <div className="text-sm sm:text-md text-muted-foreground text-center my-8">
-          <p>
-            ❕ Daǵazalaw biypul. Aldawshılardan abaylań. <br />
-          </p>
-          <p>📩 Soraw hám usınıslar:{" "}
-            <Link href="https://t.me/bizlergroup">@bizlergroup</Link></p>
-        </div>
+    <div className="flex flex-col justify-center items-center w-full text-background py-3 px-4 md:px-6">
+      <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
+        Aumeta Jobs kanallarına daǵaza jaylastırıw ushın tómendegi túymege basıń
+        hám ondaǵı shablonlardı toltırıp kanalǵa jiberiń
+      </h1>
+      <div className="grid grid-cols-2 gap-3 sm:gap-x-5 sm:gap-y-6">
+        {Cards.map((card, index) => (
+          <Link
+            key={index}
+            href={card.href}
+            className="flex flex-col items-center justify-center gap-3 text-sm md:text-lg lg:text-xl text-primary-foreground bg-muted hover:bg-muted/80 min-h-38 md:min-h-60 xl:min-h-80 p-2 rounded-lg shadow-md transition-all duration-200 ease-in-out"
+          >
+            {/* <div className="flex items-center justify-center text-primary bg-primary/10 rounded-full p-3 lg:p-5"> */}
+            {/* </div> */}
+            {card.img}
+            <h3 className="text-foreground text-sm  font-medium h-10 text-center">
+              {card.title}
+            </h3>
+          </Link>
+        ))}
+      </div>
+      <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
+        <img
+          src="/attention.png"
+          alt="attention"
+          className="size-6 md:size-8 "
+        />
+        <p className="text-sm sm:text-lg text-primary-foreground font-medium">
+          Daǵazalaw ushın mámleket saylanbaǵan. Profilge ótiń → mámleket saylań.
+        </p>
+      </div>
+      <div className="text-sm sm:text-md text-muted-foreground text-center  sm:my-8">
+        <p>
+          ❕ Daǵazalaw biypul. Aldawshılardan abaylań. <br />
+        </p>
+        <p>
+          📩 Soraw hám usınıslar:{" "}
+          <Link href="https://t.me/bizlergroup">@bizlergroup</Link>
+        </p>
       </div>
     </div>
   );
