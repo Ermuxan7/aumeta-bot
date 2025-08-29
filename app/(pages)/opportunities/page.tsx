@@ -1,5 +1,6 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
+import FileUpload from "@/app/components/upload/FileUpload";
 import {
   OpportunitiesSchema,
   OpportunitiesFormValue,
@@ -34,7 +35,7 @@ const Opportunities = () => {
           registration={register("daǵaza")}
           error={errors.daǵaza?.message}
         />
-        
+
         <FormInput
           legend="Baylanıs yáki silteme"
           type="text"
@@ -42,7 +43,7 @@ const Opportunities = () => {
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
-        
+        <FileUpload />
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
