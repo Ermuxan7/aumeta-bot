@@ -1,99 +1,85 @@
 "use client";
-import React, { useState, DragEvent, useRef } from "react";
+import clsx from "clsx";
+import { useState, useRef } from "react";
 
 const FileUpload = () => {
-  const [openDrop, setOpenDrop] = useState<boolean>(false);
-  const [files, setFiles] = useState<File[]>([]);
-  const [dragActive, setDragActive] = useState<boolean>(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [isdragging, setIsDragging] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
-
-  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-  };
-
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setDragActive(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      setFiles(Array.from(e.dataTransfer.files));
-    }
-  };
 
   const handleBrowseClick = () => {
     fileInputRef.current?.click();
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const selected = e.target.files[0];
+      if (selected.type.startsWith("image/")) {
+        setFile(selected);
+      } else {
+        alert("Tek súwret júkley alasiz!");
+      }
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const dropped = e.dataTransfer.files[0];
+      if (dropped.type.startsWith("image/")) {
+        setFile(dropped);
+      } else {
+        alert("Tek súwret júkley alasiz!");
+      }
+    }
+  };
+
   return (
-    <div className="w-full flex flex-col">
-      {/* Asosiy bosiladigan label */}
-      <div
-        className="flex items-center justify-center gap-5 md:gap-7 h-25 cursor-pointer bg-muted text-white px-4 py-2 shadow-md rounded-lg hover:bg-muted/80 transition-all"
-        onClick={() => setOpenDrop(!openDrop)}
+    <div className="w-full flex flex-col gap-2">
+      <p className="text-muted-foreground ml-4">
+        <span className="font-semibold">Súwret júklew</span> (shárt emes)
+      </p>
+      <label
+        htmlFor="fileUpload"
+        className={clsx(
+          "flex items-center justify-center gap-3 md:gap-7 h-20 cursor-pointer bg-background  text-white px-4 py-3 shadow-md rounded-xl border-2 transition-all",
+          isdragging
+            ? "border-primary bg-primary/10"
+            : "border-muted hover:bg-background/90"
+        )}
+        onClick={handleBrowseClick}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragging(true);
+        }}
+        onDragLeave={() => setIsDragging(false)}
+        onDrop={handleDrop}
       >
-        <div className="flex items-center justify-center bg-background p-3 rounded-full border border-white">
-          <img src="/cloud-add.svg" alt="upload image" className="size-8" />
-        </div>
-        <div className="flex flex-col items-start gap-1.5">
-          <p className="text-foreground font-bold text-xl md:text-2xl">
-            Upload files
+        <img src="/camera.svg" alt="upload image" className="size-6" />
+
+        <div className="flex flex-col items-start gap-1">
+          <p className="text-foreground font-semibold text-xl md:text-2xl">
+            Fayldı júklew
           </p>
           <p className="text-muted-foreground/70 text-xs md:text-md">
-            Select and upload the files of your choice
+            Kerek fayldı belgilep usı jerge júkleń
           </p>
         </div>
-      </div>
+        <input
+          type="file"
+          id="fileUpload"
+          className="hidden"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </label>
 
-      {openDrop && (
-        <div
-          className={`border-t-2 ${
-            dragActive
-              ? "border-primary bg-primary/10"
-              : "border-muted-foreground"
-          } bg-muted h-56 flex flex-col items-center justify-center gap-6 text-center text-muted-foreground/70 px-4 py-6 transition-colors`}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <div className="flex flex-col items-center justify-center gap-2">
-            <img src="/cloud-add.svg" alt="upload image" className="size-12" />
-            <p>
-              Choose a file or drag & drop it here
-              <br />
-              JPEG, PNG, PDF, and MP4 formats, up to 50MB
-            </p>
-          </div>
-          <button
-            className="text-muted font-semibold bg-white hover:bg-white/90 rounded-md w-34 py-2"
-            onClick={handleBrowseClick}
-          >
-            Browse file
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            multiple
-            className="hidden"
-            onChange={(e) =>
-              e.target.files && setFiles(Array.from(e.target.files))
-            }
-          />
-        </div>
-      )}
-
-      {files.length > 0 && (
+      {file && (
         <div className="mt-4 space-y-2">
-          <p className="font-semibold text-foreground">📂 Selected files:</p>
+          <p className="font-semibold text-foreground">📂 Saylanǵan fayl:</p>
           <ul className="list-disc list-inside text-sm text-muted-foreground">
-            {files.map((file, idx) => (
-              <li key={idx}>{file.name}</li>
-            ))}
+            <li>{file.name}</li>
           </ul>
         </div>
       )}

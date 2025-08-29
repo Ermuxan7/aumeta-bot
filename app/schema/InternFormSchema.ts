@@ -4,12 +4,12 @@ export const InternshipSchema = z.object({
   aymaq: z.string().min(2, "Aymaq kiritiliwi sha'rt!"),
   lawazim: z.string().min(2, "Lawazım kiritiliwi sha'rt!"),
   mekeme: z.string().optional(),
-  talaplar: z.string().min(2, "Talaplar beriliwi kerek"),
-  májburiyatlar: z.string().min(2, "Májburiyatlar beriliwi kerek"),
+  talaplar: z.string().min(2, "Talaplar kiritiliwi sha'rt!"),
+  májburiyatlar: z.string().min(2, "Májburiyatlar kiritiliwi sha'rt!"),
   sharayatlar: z.string().optional(),
   manzil: z.string().min(2, "Ma'nzil kiritiliwi sha'rt!"),
   tolem: z.string().optional(),
-  baylanis: z.string().min(5, "Baylanıs toliq boliwi kerek"),
+  baylanis: z.string().min(5, "Baylanıs túrin kiritiw shárt!"),
   qosimsha: z.string().optional(),
 });
 

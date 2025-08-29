@@ -1,4 +1,3 @@
-import { CalendarCheck2, FileText, Search, Trophy } from "lucide-react";
 import Link from "next/link";
 
 const Cards = [
