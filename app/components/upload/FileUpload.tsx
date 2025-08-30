@@ -1,5 +1,6 @@
 "use client";
 import clsx from "clsx";
+import { X } from "lucide-react";
 import { useState, useRef } from "react";
 
 const FileUpload = () => {
@@ -35,6 +36,13 @@ const FileUpload = () => {
     }
   };
 
+  const handleRemove = () => {
+    setFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   return (
     <div className="w-full flex flex-col gap-2">
       <p className="text-muted-foreground ml-4">
@@ -43,7 +51,7 @@ const FileUpload = () => {
       <label
         htmlFor="fileUpload"
         className={clsx(
-          "flex items-center justify-center gap-3 md:gap-7 h-20 cursor-pointer bg-background  text-white px-4 py-3 shadow-md rounded-xl border-2 transition-all",
+          "flex items-center justify-center gap-3 md:gap-5 h-20 cursor-pointer bg-background  text-white px-4 py-3 shadow-md rounded-xl border-2 transition-all",
           isdragging
             ? "border-primary bg-primary/10"
             : "border-muted hover:bg-background/90"
@@ -56,7 +64,11 @@ const FileUpload = () => {
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
       >
-        <img src="/camera.svg" alt="upload image" className="size-6" />
+        <img
+          src="/camera.svg"
+          alt="upload image"
+          className="size-6 md:size-10"
+        />
 
         <div className="flex flex-col items-start gap-1">
           <p className="text-foreground font-semibold text-xl md:text-2xl">
@@ -78,9 +90,16 @@ const FileUpload = () => {
       {file && (
         <div className="mt-4 space-y-2">
           <p className="font-semibold text-foreground">📂 Saylanǵan fayl:</p>
-          <ul className="list-disc list-inside text-sm text-muted-foreground">
-            <li>{file.name}</li>
-          </ul>
+          <div className="relative inline-block">
+            <img
+              src={URL.createObjectURL(file)}
+              alt="preview"
+              className="w-60 md:w-full h-30 md:h-60 object-cover rounded-lg border"
+            />
+            <div className="absolute right-2 top-2 bg-muted/70 hover:bg-muted p-0.5 rounded-full">
+              <X className="size-4" onClick={handleRemove} />
+            </div>
+          </div>
         </div>
       )}
     </div>

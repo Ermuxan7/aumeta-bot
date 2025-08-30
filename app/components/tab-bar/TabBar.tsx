@@ -12,7 +12,7 @@ const tabs = [
 const TabBar = () => {
   const pathName = usePathname();
   return (
-    <nav className="bg-muted w-vw h-10 md:h-14 mx-6 my-4 flex items-center justify-between rounded-full p-0.5">
+    <nav className="bg-muted w-vw h-12 md:h-14 mx-6 my-4 flex items-center justify-between rounded-full p-0.5">
       {tabs.map((tab, idx) => (
         <Link
           key={idx}
