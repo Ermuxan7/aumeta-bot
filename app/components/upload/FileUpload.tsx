@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 const FileUpload = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isdragging, setIsDragging] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleBrowseClick = () => {
@@ -95,11 +96,28 @@ const FileUpload = () => {
               src={URL.createObjectURL(file)}
               alt="preview"
               className="w-60 md:w-full h-30 md:h-60 object-cover rounded-lg border"
+              onClick={() => setOpen(true)}
             />
             <div className="absolute right-2 top-2 bg-muted/70 hover:bg-muted p-0.5 rounded-full">
               <X className="size-4" onClick={handleRemove} />
             </div>
           </div>
+          {open && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+              <div className="relative">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="preview large"
+                  className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-lg"
+                />
+                <X
+                  className="absolute -top-4 -right-4 cursor-pointer bg-muted rounded-full p-1 shadow"
+                  size={28}
+                  onClick={() => setOpen(false)}
+                />
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
