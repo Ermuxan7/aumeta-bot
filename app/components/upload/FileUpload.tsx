@@ -69,7 +69,7 @@ const FileUpload = () => {
         <img
           src="/camera.svg"
           alt="upload image"
-          className="size-6 md:size-10"
+          className="size-7 md:size-10"
         />
 
         <div className="flex flex-col items-start gap-1">
@@ -109,12 +109,9 @@ const FileUpload = () => {
       {preview && (
         <div
           className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
-          onClick={() => setPreview(null)} // tashqarisini bossa yopiladi
+          onClick={() => setPreview(null)}
         >
-          <div
-            className="relative"
-            onClick={(e) => e.stopPropagation()} // rasm ichiga bossak yopilmaydi
-          >
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
             <img
               src={preview}
               alt="preview big"
@@ -123,7 +120,7 @@ const FileUpload = () => {
             <X
               className="absolute top-2 right-2 text-white cursor-pointer"
               size={20}
-              onClick={() => setPreview(null)} // faqat X ni bossa ham yopiladi
+              onClick={() => setPreview(null)}
             />
           </div>
         </div>
