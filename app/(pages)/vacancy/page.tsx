@@ -24,7 +24,7 @@ const Vacancy = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-2xl md:text-3xl mb-4">Jumisshi izlew</h2>
+      <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
           legend="Aymaq"
@@ -45,35 +45,35 @@ const Vacancy = () => {
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
           registration={register("mekeme")}
-        error={errors.mekeme?.message}
+          error={errors.mekeme?.message}
         />
         <FormInput
           legend="Mánzil"
           type="text"
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
           registration={register("manzil")}
-        error={errors.manzil?.message}
+          error={errors.manzil?.message}
         />
         <FormInput
           legend="Talaplar"
           as="textarea"
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
-        error={errors.talaplar?.message}
+          error={errors.talaplar?.message}
         />
         <FormInput
           legend="Májburiyatlar"
           as="textarea"
           placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
           registration={register("májburiyatlar")}
-        error={errors.májburiyatlar?.message}
+          error={errors.májburiyatlar?.message}
         />
         <FormInput
           legend="Jumıs waqıtı "
           type="text"
           placeholder="9:00 - 18:00, erkin grafik, 5/2"
           registration={register("jumisWaqiti")}
-        error={errors.jumisWaqiti?.message}
+          error={errors.jumisWaqiti?.message}
         />
         <FormInput
           legend="Aylıq"
@@ -90,7 +90,7 @@ const Vacancy = () => {
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
-        
+
         <FormInput
           legend="Qosımsha"
           as="textarea"

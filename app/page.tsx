@@ -39,7 +39,7 @@ export default function Home() {
               className="flex flex-col items-center justify-center gap-3 text-sm md:text-lg lg:text-xl text-primary-foreground bg-muted hover:bg-muted/80 min-h-38 md:min-h-60 xl:min-h-80 p-2 rounded-lg shadow-md transition-all duration-200 ease-in-out"
             >
               {card.img}
-              <h3 className="text-foreground text-sm  font-medium h-10 text-center">
+              <h3 className="text-foreground text-sm font-semibold h-10 text-center">
                 {card.title}
               </h3>
             </Link>
@@ -51,12 +51,12 @@ export default function Home() {
             alt="attention"
             className="size-6 md:size-8 "
           />
-          <p className="text-sm sm:text-lg text-primary-foreground font-medium">
+          <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
             Daǵazalaw ushın mámleket saylanbaǵan. Profilge ótiń → mámleket
             saylań.
           </p>
         </div>
-        <div className="text-sm sm:text-md text-muted-foreground text-center  sm:my-8">
+        <div className="text-sm sm:text-md text-muted-foreground text-center font-normal sm:my-8">
           <p>
             ❕ Daǵazalaw biypul. Aldawshılardan abaylań. <br />
           </p>

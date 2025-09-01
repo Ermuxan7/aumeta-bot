@@ -24,7 +24,9 @@ const Project = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-2xl md:text-3xl mb-4">Bir mártelik wazıypa/joybar</h2>
+      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        Bir mártelik wazıypa/joybar
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
           legend="Aymaq"
@@ -65,7 +67,7 @@ const Project = () => {
           type="text"
           placeholder="+998901234567, ab@email.com, @user"
           registration={register("baylanis")}
-           error={errors.baylanis?.message}
+          error={errors.baylanis?.message}
         />
         <FormInput
           legend="Mánzil, lokaciya"

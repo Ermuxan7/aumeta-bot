@@ -1,12 +1,19 @@
 import { ComponentPropsWithoutRef } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import clsx from "clsx";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type InputProps = {
   legend: string;
   as?: "input";
   registration?: UseFormRegisterReturn;
-  error?: string
+  error?: string;
 } & ComponentPropsWithoutRef<"input">;
 
 type TextareaProps = {
@@ -14,7 +21,7 @@ type TextareaProps = {
   as: "textarea";
   rows?: number;
   registration?: UseFormRegisterReturn;
-  error?: string
+  error?: string;
 } & ComponentPropsWithoutRef<"textarea">;
 
 type SelectProps = {
@@ -23,7 +30,7 @@ type SelectProps = {
   options: string[];
   className?: string;
   registration?: UseFormRegisterReturn;
-  error?: string
+  error?: string;
 } & ComponentPropsWithoutRef<"select">;
 
 type FormFieldProps = InputProps | TextareaProps | SelectProps;
@@ -34,9 +41,22 @@ const FormInput = (props: FormFieldProps) => {
 
   return (
     <div className={className}>
-      <fieldset className={clsx("border-1  rounded-lg px-2 py-1 transition-colors duration-200 group", error ? "border-red-500" : "border-muted-foreground focus-within:border-primary")}>
-        <legend className={clsx("text-sm lg:text-md font-semibold px-2", error ? "text-red-500"
-      : "text-muted-foreground group-focus-within:text-primary")}>
+      <fieldset
+        className={clsx(
+          "border-1 rounded-xl px-2 py-1 transition-colors duration-200 group",
+          error
+            ? "border-red-500"
+            : "border-muted-foreground/70 focus-within:border-primary/70"
+        )}
+      >
+        <legend
+          className={clsx(
+            "text-sm lg:text-md font-semibold px-2",
+            error
+              ? "text-red-500"
+              : "text-muted-foreground group-focus-within:text-primary"
+          )}
+        >
           <label htmlFor={inputId}>{legend}</label>
         </legend>
         {as === "input" && (
@@ -57,10 +77,10 @@ const FormInput = (props: FormFieldProps) => {
           />
         )}
 
-        {as === "select" && (
+        {/* {as === "select" && (
           <select
             id={inputId}
-            className="bg-transparent w-full text-base md:text-lg outline-none border-none px-2 py-1"
+            className="bg-transparent w-full text-base md:text-lg outline-none border-none px-2 pb-1.5"
             {...(props as SelectProps)}
             {...registration}
           >
@@ -70,11 +90,33 @@ const FormInput = (props: FormFieldProps) => {
               </option>
             ))}
           </select>
+        )} */}
+        {as === "select" && (
+          <Select {...registration}>
+            <SelectTrigger
+              id={inputId}
+              className={clsx(
+                "w-full bg-transparent text-base md:text-lg border-none outline-none pb-3",
+                error ? "border-red-500" : "border-muted-foreground/70"
+              )}
+            >
+              <SelectValue placeholder={legend} />
+            </SelectTrigger>
+            <SelectContent className="bg-background group">
+              {(props as SelectProps).options.map((option) => (
+                <SelectItem
+                  key={option}
+                  value={option}
+                  className="cursor-pointer px-2 py-1 rounded-md transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground"
+                >
+                  {option}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         )}
       </fieldset>
-      {error && (
-          <p className="text-red-500 text-sm px-2 mt-1">{props.error}</p>
-        )}
+      {error && <p className="text-red-500 text-sm px-2 mt-1">{props.error}</p>}
     </div>
   );
 };
