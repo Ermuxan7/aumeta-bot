@@ -71,7 +71,7 @@ const FormInput = (props: FormFieldProps) => {
           <textarea
             id={inputId}
             rows={(props as TextareaProps).rows ?? 3}
-            className="bg-transparent w-full min-h-20 max-h-80 text-base md:text-lg outline-none border-none px-2 resize-y"
+            className="bg-transparent w-full min-h-20 text-base md:text-lg outline-none border-none px-2 resize-y"
             {...(props as TextareaProps)}
             {...registration}
           />
