@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(96% 0.004 270);
-  --foreground: oklch(20% 0.02 270);
-  --primary: oklch(62.31% 0.1881 259.83); /* blue-500 */
+  --background: hsla(215, 40%, 9%, 1);
+  --foreground: oklch(90% 0.02 270);
+  --primary: hsla(228, 73%, 47%, 1); /* blue-500 */
   --primary-foreground: oklch(100% 0 0);
-  --muted: oklch(94% 0.001 270); /* slate-100 */
-  --muted-foreground: oklch(40% 0.02 270); /* slate-600 */
+  --muted: hsla(211, 36%, 15%, 1); /* slate-800 */
+  --muted-foreground: oklch(80% 0.01 270); /* slate-300 */
 
   --tg-bg-color: var(--background);
   --tg-text-color: var(--foreground);
   --tg-button-color: var(--primary);
   --tg-button-text-color: var(--primary-foreground);
 
-  --attention-bg: #fef9c3; /* bg-yellow-100 */
-  --attention-text: #eab308; /* text-yellow-500 */
-  --attention-border: #facc15;
+  --attention-bg: #78350f; /* bg-yellow-900 */
+  --attention-text: #facc15; /* text-yellow-400 */
+  --attention-border: #a16207;
 
-  --card-bg: oklch(94% 0.00323 15.852);
-  --card-border: oklch(90% 0.01 270);
+  --card-bg: oklch(20% 0.02 270);
+  --card-border: oklch(30% 0.02 270);
 }
 
 @theme inline {
@@ -39,29 +39,6 @@
 
   --font-sans: var(--font-roboto-sans);
   --font-mono: var(--font-roboto-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: hsla(215, 40%, 9%, 1);
-    --foreground: oklch(90% 0.02 270);
-    --primary: hsla(228, 73%, 47%, 1); /* blue-500 */
-    --primary-foreground: oklch(100% 0 0);
-    --muted: hsla(211, 36%, 15%, 1); /* slate-800 */
-    --muted-foreground: oklch(80% 0.01 270); /* slate-300 */
-
-    --tg-bg-color: var(--background);
-    --tg-text-color: var(--foreground);
-    --tg-button-color: var(--primary);
-    --tg-button-text-color: var(--primary-foreground);
-
-    --attention-bg: #78350f; /* bg-yellow-900 */
-    --attention-text: #facc15; /* text-yellow-400 */
-    --attention-border: #a16207;
-
-    --card-bg: oklch(20% 0.02 270);
-    --card-border: oklch(30% 0.02 270);
-  }
 }
 
 body {

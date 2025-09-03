@@ -1,3 +1,4 @@
+import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import Link from "next/link";
 
 const Cards = [
@@ -27,6 +28,7 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
       <div className="w-full max-w-7xl flex flex-col justify-center items-center">
+        <TelegramAuth />
         <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
           Aumeta Jobs kanallarına daǵaza jaylastırıw ushın tómendegi túymege
           basıń hám ondaǵı shablonlardı toltırıp kanalǵa jiberiń

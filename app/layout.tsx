@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import TabBar from "./components/tab-bar/TabBar";
-import ThemeProvider from "./providers/ThemeProvider";
+import ThemeProvider from "../providers/ThemeProvider";
+import QueryProvider from "../providers/QueryProvider";
+import TelegramAuth from "@/components/features/auth/TelegramAuth";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -27,9 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${robotoSans.variable} ${robotoMono.variable} `}>
-        <ThemeProvider />
-        <TabBar />
-        <div className="mt-5 sm:mt-8">{children}</div>
+        <QueryProvider>
+          <ThemeProvider />
+          <TabBar />
+          {/* <TelegramAuth /> */}
+
+          <div className="mt-5 sm:mt-8">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );
