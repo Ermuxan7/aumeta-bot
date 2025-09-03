@@ -2,6 +2,7 @@
 
 import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 import { useEffect } from "react";
+import Me from "./Me";
 
 export default function TelegramAuth() {
   const authMutation = useTelegramAuth();
@@ -21,12 +22,15 @@ export default function TelegramAuth() {
   }, []);
 
   //   if (authMutation.isLoading) return <p>Auth qilinyapti...</p>;
-  if (authMutation.isError) return <p>Xatolik: {String(authMutation.error)}</p>;
+  if (authMutation.isError)
+    return (
+      <p className="text-foreground">Xatolik: {String(authMutation.error)}</p>
+    );
 
   return (
     <div>
       {authMutation.isSuccess ? (
-        <pre>{JSON.stringify(authMutation.data, null, 2)}</pre>
+        <Me token={authMutation.data.access_token} />
       ) : (
         <p className="text-foreground">
           Telegram orqali avtorizatsiya qilinmoqda...
