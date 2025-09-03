@@ -5,6 +5,7 @@ import {
   VacancyFormValue,
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useCreateVacancy } from "@/hooks/useCreateVacancy";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,8 +18,25 @@ const Vacancy = () => {
     resolver: zodResolver(VacancySchema),
   });
 
+  const createVacancyMutation = useCreateVacancy();
+
   const onSubmit = (data: VacancyFormValue) => {
-    console.log("Data: ", data);
+    console.log("submit basild: ", data);
+    const payload = {
+      country_id: 0,
+      region_id: 0,
+      position_title: data.lawazim,
+      organization_name: data.mekeme,
+      address: data.manzil,
+      requirements: data.talaplar,
+      duties: data.májburiyatlar,
+      work_schedule: data.jumisWaqiti,
+      salary: data.ayliq,
+      contact: data.baylanis,
+      additional_info: data.qosimsha,
+    };
+
+    createVacancyMutation.mutate(payload);
   };
 
   return (
@@ -98,11 +116,21 @@ const Vacancy = () => {
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />
+        {createVacancyMutation.isError && (
+          <p className="text-red-500">
+            Xatolik: {String(createVacancyMutation.error)}
+          </p>
+        )}
+        {createVacancyMutation.isSuccess && (
+          <p className="text-green-500">
+            Vakansiya muvaffaqiyatli jiberildi ✅
+          </p>
+        )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          Jiberiw
+          {createVacancyMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
         </button>
       </form>
     </div>
