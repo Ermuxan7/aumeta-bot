@@ -13,7 +13,7 @@ export default function TelegramAuth() {
     const tg = (window as any).Telegram?.WebApp;
     console.log("TG:", tg);
 
-    const initData = tg?.initData ?? process.env.NEXT_PUBLIC_FAKE_INIT_DATA;
+    const initData = tg?.initData;
     console.log("INIT DATA:", initData);
 
     if (initData) {
@@ -21,10 +21,11 @@ export default function TelegramAuth() {
     }
   }, []);
 
-  //   if (authMutation.isLoading) return <p>Auth qilinyapti...</p>;
+  if (authMutation.isPending)
+    return <p className="text-foreground">Auth qilinyapti...</p>;
   if (authMutation.isError)
     return (
-      <p className="text-foreground">Xatolik: {String(authMutation.error)}</p>
+      <p className="text-red-400">Xatolik: {String(authMutation.error)}</p>
     );
 
   return (
@@ -32,9 +33,7 @@ export default function TelegramAuth() {
       {authMutation.isSuccess ? (
         <Me token={authMutation.data.access_token} />
       ) : (
-        <p className="text-foreground">
-          Telegram orqali avtorizatsiya qilinmoqda...
-        </p>
+        <p className="text-foreground">Telegram web arqali otin</p>
       )}
     </div>
   );

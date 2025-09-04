@@ -5,6 +5,6 @@ import { useMutation } from "@tanstack/react-query";
 
 export const useTelegramAuth = () => {
   return useMutation({
-    mutationFn: telegramAuth,
+    mutationFn: (initData: string) => telegramAuth(initData),
   });
 };
