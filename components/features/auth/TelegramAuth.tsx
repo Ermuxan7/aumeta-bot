@@ -1,5 +1,4 @@
 "use client";
-
 import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 import { useEffect } from "react";
 import Me from "./Me";
@@ -8,13 +7,9 @@ export default function TelegramAuth() {
   const authMutation = useTelegramAuth();
 
   useEffect(() => {
-    console.log("useEffect ishladi ✅");
-
     const tg = (window as any).Telegram?.WebApp;
-    console.log("TG:", tg);
 
     const initData = tg?.initData;
-    console.log("INIT DATA:", initData);
 
     if (initData) {
       authMutation.mutate(initData);

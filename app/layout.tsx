@@ -4,7 +4,8 @@ import "./globals.css";
 import TabBar from "./components/tab-bar/TabBar";
 import ThemeProvider from "../providers/ThemeProvider";
 import QueryProvider from "../providers/QueryProvider";
-import TelegramAuth from "@/components/features/auth/TelegramAuth";
+
+import Script from "next/script";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -28,6 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className={`${robotoSans.variable} ${robotoMono.variable} `}>
         <QueryProvider>
           <ThemeProvider />
