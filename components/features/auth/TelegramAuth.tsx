@@ -22,7 +22,12 @@ export default function TelegramAuth() {
     return <p className="text-foreground">Auth qilinyapti...</p>;
   if (authMutation.isError)
     return (
-      <p className="text-red-400">Xatolik: {String(authMutation.error)}</p>
+      <div>
+        <p className="text-red-400">Xatolik: {String(authMutation.error)}</p>
+        <p className="text-xs text-muted-foreground">
+          initData: {initData ? "BOR ✅" : "YO‘Q 🚫"}
+        </p>
+      </div>
     );
 
   return (
