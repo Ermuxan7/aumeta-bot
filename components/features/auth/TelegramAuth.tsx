@@ -25,7 +25,7 @@ export default function TelegramAuth() {
       <div>
         <p className="text-red-400">Xatolik: {String(authMutation.error)}</p>
         <p className="text-xs text-muted-foreground">
-          initData: {initData ? "BOR ✅" : "YO‘Q 🚫"}
+          initData: {initData ? `initData: ${initData}` : "YO‘Q 🚫"}
         </p>
       </div>
     );
