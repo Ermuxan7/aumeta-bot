@@ -10,7 +10,8 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const token = getAccessToken();
-  if (token) {
+
+  if (token && !config.url?.includes("/users/telegram/webapp/auth")) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
