@@ -17,10 +17,17 @@ export default function TelegramAuth() {
 
   if (authMutation.isPending)
     return <p className="text-foreground">Auth qilinyapti...</p>;
-  if (authMutation.isError)
+  if (authMutation.isError) {
+    const err = authMutation.error as any;
+    const status = err.response?.status;
+    const detail = err.response?.data?.detail;
+
     return (
-      <p className="text-red-400">Xatolik: {String(authMutation.error)}</p>
+      <p className="text-red-400">
+        Xatolik {status}: {detail ?? "Noma’lum xato"}
+      </p>
     );
+  }
 
   return (
     <div>
