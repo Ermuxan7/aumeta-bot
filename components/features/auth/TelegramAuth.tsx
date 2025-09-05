@@ -1,41 +1,37 @@
 "use client";
-import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 import { useEffect } from "react";
-import Me from "./Me";
+import { setTokens } from "@/lib/auth";
+import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 
 export default function TelegramAuth() {
-  const authMutation = useTelegramAuth();
+  const {
+    mutate: auth,
+    data,
+    isSuccess,
+    isError,
+    isPending,
+    error,
+  } = useTelegramAuth();
 
   useEffect(() => {
-    if (!authMutation.isIdle) return;
-    const tg = (window as any).Telegram?.WebApp;
-    const initData = tg?.initData;
-    if (initData) {
-      authMutation.mutate(initData);
+    auth();
+  }, [auth]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setTokens(data);
+      console.log("Auth muvaffaqiyatli:", data);
     }
-  }, [authMutation]);
+  }, [isSuccess, data]);
 
-  if (authMutation.isPending)
-    return <p className="text-foreground">Auth qilinyapti...</p>;
-  if (authMutation.isError) {
-    const err = authMutation.error as any;
-    const status = err.response?.status;
-    const detail = err.response?.data?.detail;
-
-    return (
-      <p className="text-red-400">
-        Xatolik {status}: {detail ?? "Noma’lum xato"}
-      </p>
-    );
-  }
+  if (isPending) return <div className="text-foreground">Loading auth...</div>;
+  if (isError)
+    return <div className="text-red-500">Xatolik: {error.message}</div>;
 
   return (
     <div>
-      {authMutation.isSuccess ? (
-        <Me token={authMutation.data.access_token} />
-      ) : (
-        <p className="text-foreground">Telegram web arqali otin</p>
-      )}
+      <p>{data?.access_token}</p>
+      <p>{data?.refresh_token}</p>
     </div>
   );
 }

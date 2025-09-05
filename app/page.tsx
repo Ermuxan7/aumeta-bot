@@ -1,6 +1,5 @@
-import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import Link from "next/link";
-
+import TelegramAuth from "@/components/features/auth/TelegramAuth";
 const Cards = [
   {
     title: "Jumısshı kerek(Vakansiya)",
