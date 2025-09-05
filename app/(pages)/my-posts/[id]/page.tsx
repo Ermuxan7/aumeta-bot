@@ -8,9 +8,16 @@ import BackButton from "@/components/ui/back-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
+import { useIdVacancy } from "@/hooks/useIdVacancy";
 
 const PostDetail = () => {
   const params = useParams();
+  const vacancyId = params.id as string;
+
+  const { data, error, isLoading, isError } = useIdVacancy(vacancyId);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p className="text-red-500">Xatolik: {error.message}</p>;
 
   const {
     register,

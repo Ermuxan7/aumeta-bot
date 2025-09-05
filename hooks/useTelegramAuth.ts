@@ -1,12 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { apiClient } from "@/lib/api-client";
 import { getInitData } from "@/lib/telegram";
-
-type Tokens = {
-  access_token: string;
-  refresh_token: string;
-  token_type: "bearer";
-};
+import { telegramAuth, Tokens } from "@/services/auth.service";
 
 export const useTelegramAuth = () => {
   return useMutation<Tokens, Error>({
@@ -14,10 +8,7 @@ export const useTelegramAuth = () => {
       const initData = getInitData();
       if (!initData) throw new Error("InitData topilmadi");
 
-      const res = await apiClient.post("/users/telegram/webapp/auth", {
-        init_data: initData,
-      });
-      return res.data as Tokens;
+      return telegramAuth(initData);
     },
   });
 };

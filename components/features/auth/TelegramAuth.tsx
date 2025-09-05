@@ -1,9 +1,11 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setTokens } from "@/lib/auth";
 import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 
 export default function TelegramAuth() {
+  const [initData, setInitData] = useState<string | null>(null);
+
   const {
     mutate: auth,
     data,
@@ -14,6 +16,16 @@ export default function TelegramAuth() {
   } = useTelegramAuth();
 
   useEffect(() => {
+    // ✅ Telegram initData ni olish
+    const tg = (window as any).Telegram?.WebApp;
+    if (tg?.initData) {
+      console.log("🔹 Telegram initData:", tg.initData);
+      setInitData(tg.initData);
+    } else {
+      console.warn("⚠️ Telegram initData topilmadi");
+    }
+
+    // auth chaqirish
     auth();
   }, [auth]);
 
@@ -28,7 +40,6 @@ export default function TelegramAuth() {
   if (isError) {
     console.error("❌ To‘liq xato:", error);
 
-    // AxiosError bo‘lsa, qo‘shimcha detail chiqaramiz
     const axiosErr = error as any;
     return (
       <div className="text-red-500 whitespace-pre-wrap">
@@ -54,6 +65,12 @@ export default function TelegramAuth() {
 
   return (
     <div>
+      <h2 className="font-bold">InitData:</h2>
+      <pre className="whitespace-pre-wrap break-all text-sm text-gray-600">
+        {initData || "Yo‘q"}
+      </pre>
+
+      <h2 className="font-bold mt-4">Tokens:</h2>
       <p>{data?.access_token}</p>
       <p>{data?.refresh_token}</p>
     </div>

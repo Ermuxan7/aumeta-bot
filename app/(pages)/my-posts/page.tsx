@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useMyVacancies } from "@/hooks/useMyVacancies";
+import { VacancyPayload } from "@/types/vacancyType";
 
 type Vacancy = {
   id: string;
@@ -14,6 +16,7 @@ type Vacancy = {
 
 const MyPosts = () => {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
+  const { data, error, isLoading, isError } = useMyVacancies();
 
   useEffect(() => {
     setVacancies([
@@ -56,6 +59,9 @@ const MyPosts = () => {
     ]);
   }, []);
 
+  if (isLoading) return <p>Loading...</p>;
+  // if (isError) return <p className="text-red-500">Xatolik: {error.message}</p>;
+
   return (
     <div className="w-full max-w-5xl mx-auto mt-2 px-4 sm:px-6 md:px-8">
       <h2 className="text-xl font-semibold mb-6 text-foreground">
@@ -63,6 +69,31 @@ const MyPosts = () => {
       </h2>
       {vacancies.length !== 0 ? (
         <div className="grid gap-3 md:grid-cols-2">
+          {/* {data.map((vacancy: VacancyPayload) => (
+            <Link
+              href={`my-posts/${vacancy.country_id}`}
+              key={vacancy.country_id}
+              className="bg-muted rounded-xl shadow-md p-5 flex flex-col justify-between hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs text-primary">
+                    {vacancy.work_schedule}
+                  </p>
+                  <p className="text-xl mt-3 font-bold">
+                    {vacancy.position_title}
+                  </p>
+                </div>
+                <div className="text-xs text-end">
+                  <p className="text-xs">{vacancy.address}</p>
+                  <p className="">{vacancy.organization_name}</p>
+                </div>
+              </div>
+              <p className="text-muted-foreground/80 text-xs mt-5">
+                Posted on {vacancy.duties}
+              </p>
+            </Link>
+          ))} */}
           {vacancies.map((vacancy) => (
             <Link
               href={`my-posts/${vacancy.id}`}
