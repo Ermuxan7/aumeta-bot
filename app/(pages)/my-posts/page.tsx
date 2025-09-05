@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useMyVacancies } from "@/hooks/useMyVacancies";
+
 import { VacancyPayload } from "@/types/vacancyType";
+import { useMyVacancies } from "@/hooks/useVacancy";
 
 type Vacancy = {
   id: string;

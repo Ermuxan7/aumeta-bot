@@ -5,6 +5,8 @@ import {
   InternshipSchema,
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useCreateInternship } from "@/hooks/useInternship";
+import { InternshipType } from "@/types/internshipType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,8 +19,26 @@ const Internship = () => {
     resolver: zodResolver(InternshipSchema),
   });
 
+  const createInternshipMutation = useCreateInternship();
+
   const onSubmit = (data: InternshipFormValue) => {
     console.log("Data: ", data);
+
+    const payload = {
+      country_id: 0,
+      region_id: 0,
+      position_title: data.lawazim,
+      organization_name: data.mekeme,
+      address: data.manzil,
+      requirements: data.talaplar,
+      conditions: data.sharayatlar,
+      duties: data.májburiyatlar,
+      salary: data.tolem,
+      contact: data.baylanis,
+      additional_info: data.qosimsha,
+    };
+
+    createInternshipMutation.mutate(payload);
   };
 
   return (
@@ -46,6 +66,7 @@ const Internship = () => {
           legend="Mekeme"
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
+          registration={register("mekeme")}
         />
         <FormInput
           legend="Talaplar"
@@ -99,12 +120,18 @@ const Internship = () => {
           legend="Qosımsha"
           as="textarea"
           placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
+          registration={register("qosimsha")}
         />
+        {createInternshipMutation.isSuccess && (
+          <p className="text-green-500">
+            Vakansiya muvaffaqiyatli jiberildi ✅
+          </p>
+        )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          Jiberiw
+          {createInternshipMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
         </button>
       </form>
     </div>

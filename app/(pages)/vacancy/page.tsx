@@ -5,7 +5,8 @@ import {
   VacancyFormValue,
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
-import { useCreateVacancy } from "@/hooks/useCreateVacancy";
+import { useCreateVacancy } from "@/hooks/useVacancy";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 

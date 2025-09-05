@@ -8,7 +8,7 @@ import BackButton from "@/components/ui/back-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useParams } from "next/navigation";
-import { useIdVacancy } from "@/hooks/useIdVacancy";
+import { useIdVacancy } from "@/hooks/useVacancy";
 
 const PostDetail = () => {
   const params = useParams();
