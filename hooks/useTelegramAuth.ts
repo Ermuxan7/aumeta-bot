@@ -5,6 +5,7 @@ import { getInitData } from "@/lib/telegram";
 type Tokens = {
   access_token: string;
   refresh_token: string;
+  token_type: "bearer";
 };
 
 export const useTelegramAuth = () => {
