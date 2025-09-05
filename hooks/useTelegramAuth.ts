@@ -14,7 +14,7 @@ export const useTelegramAuth = () => {
       if (!initData) throw new Error("InitData topilmadi");
 
       const res = await apiClient.post("/users/telegram/webapp/auth", {
-        initData,
+        init_data: initData,
       });
       return res.data as Tokens;
     },
