@@ -1,5 +1,4 @@
 import { apiClient } from "@/lib/api-client";
-import { headers } from "next/headers";
 
 export type Tokens = {
   access_token: string;

@@ -44,7 +44,7 @@ export default function Home() {
       <div className="w-full max-w-7xl flex flex-col justify-center items-center">
         {initData && (
           <div className="w-full mb-4 p-3 bg-green-100 text-green-800 rounded-md text-sm text-center">
-            <p>Telegramdan muvaffaqiyatli kirildi!</p>
+            <p>Telegramdan kirildi!</p>
             <p>{name}</p>
             <TelegramAuth />
           </div>

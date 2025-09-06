@@ -1,29 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getInitData } from "@/lib/telegram";
-import { telegramAuth, Tokens } from "@/services/auth.service";
-import { setTokens } from "@/lib/auth";
+import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 
 export default function TelegramAuthPage() {
-  const [tokens, setTokensState] = useState<Tokens | null>(null);
-  const [error, setError] = useState<any>(null);
+  const initData = getInitData();
+  const { mutate, data: tokens, error, isPending } = useTelegramAuth(initData);
 
   useEffect(() => {
-    const initData = getInitData();
-    if (!initData) {
-      setError("InitData tabilmadi");
-      return;
+    if (initData) {
+      mutate();
     }
-
-    telegramAuth(initData)
-      .then((data) => {
-        setTokens(data);
-        setTokensState(data);
-      })
-      .catch((err) => {
-        setError(err);
-      });
-  }, []);
+  }, [initData, mutate]);
 
   if (error) {
     return (
@@ -33,7 +21,9 @@ export default function TelegramAuthPage() {
     );
   }
 
-  if (!tokens) return <div>Loading...</div>;
+  if (isPending) return <div className="text-foreground">Loading...</div>;
+
+  if (!tokens) return <div className="text-foreground">No tokens</div>;
 
   return (
     <div>
