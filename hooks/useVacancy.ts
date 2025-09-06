@@ -1,5 +1,9 @@
 "use client";
-import { createVacancy, getIdVacancy, getVacancies } from "@/services/vacancy.service";
+import {
+  createVacancy,
+  getVacancies,
+  updateVacancy,
+} from "@/services/vacancy.service";
 import { VacancyPayload } from "@/types/vacancyType";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -17,9 +21,7 @@ export const useMyVacancies = () => {
 };
 
 export const useIdVacancy = (vacancyId: string) => {
-  return useQuery({
-    queryKey: ["id-vacancy", vacancyId],
-    queryFn: () => getIdVacancy(vacancyId),
-    enabled: !!vacancyId,
+  return useMutation({
+    mutationFn: (payload: VacancyPayload) => updateVacancy(vacancyId, payload),
   });
 };

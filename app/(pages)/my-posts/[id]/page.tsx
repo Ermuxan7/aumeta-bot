@@ -14,9 +14,9 @@ const PostDetail = () => {
   const params = useParams();
   const vacancyId = params.id as string;
 
-  const { data, error, isLoading, isError } = useIdVacancy(vacancyId);
+  const { data, error, isPending, isError } = useIdVacancy(vacancyId);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isPending) return <p>Loading...</p>;
   if (isError) return <p className="text-red-500">Xatolik: {error.message}</p>;
 
   const {

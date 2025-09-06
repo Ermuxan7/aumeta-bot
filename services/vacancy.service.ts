@@ -13,8 +13,11 @@ export const getVacancies = async () => {
   return res.data;
 };
 
-export const getIdVacancy = async (vacancyId: string) => {
-  const res = await apiClient.put(`/vacancy/jobvacancy/${vacancyId}`);
+export const updateVacancy = async (
+  vacancyId: string,
+  payload: VacancyPayload
+) => {
+  const res = await apiClient.put(`/vacancy/jobvacancy/${vacancyId}`, payload);
   return res.data;
 };
 
