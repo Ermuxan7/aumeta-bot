@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import { getInitData } from "@/lib/telegram";
 import { telegramAuth, Tokens } from "@/services/auth.service";
-import { setTokens } from "@/lib/auth";
+import { useAuthStore } from "@/store/authStore";
 
 export const useTelegramAuth = (initData: any) => {
+  const setTokens = useAuthStore((state) => state.setTokens);
   return useMutation<Tokens, Error>({
     mutationFn: async () => {
       if (!initData) throw new Error("InitData not found!");
 
       const tokens = await telegramAuth(initData);
-      setTokens(tokens);
+      setTokens(tokens.access_token, tokens.refresh_token);
       return tokens;
     },
   });
