@@ -19,7 +19,7 @@ export default function TelegramAuth() {
     if (initData) {
       auth(initData); // backendga yuboriladi
     } else {
-      console.warn("InitData yo‘q");
+      console.warn("InitData joq");
     }
   }, []);
 
@@ -32,7 +32,7 @@ export default function TelegramAuth() {
 
   if (isPending) return <div className="text-foreground">Loading auth...</div>;
   if (isError) {
-    console.error("❌ To‘liq xato:", error);
+    console.error("❌ Toliq qate:", error);
 
     const axiosErr = error as any;
     return (
