@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import { useEffect, useState } from "react";
