@@ -2,6 +2,8 @@
 import { useState, useEffect, FormEvent } from "react";
 import BackButton from "@/components/ui/back-button";
 import FormInput from "@/app/components/form-input/FormInput";
+import Me from "@/components/features/auth/Me";
+import { getAccessToken } from "@/lib/auth";
 
 type Profile = {
   fullName: string;
@@ -64,6 +66,7 @@ const MyProfile = () => {
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
+      <Me />
 
       <form onSubmit={handleSumbit} className="bg-background px-3 space-y-5">
         <FormInput legend="FAÁ" type="text" defaultValue={profile.fullName} />

@@ -1,9 +1,10 @@
 "use client";
-
 import { useMe } from "@/hooks/useMe";
+import { getAccessToken } from "@/lib/auth";
 
-export default function Me({ token }: { token: string }) {
-  const { data, isLoading, isError } = useMe(token);
+export default function Me() {
+  const token = getAccessToken();
+  const { data, isLoading, isError } = useMe(token || "");
 
   if (isLoading) return <p>Yuklanmoqda...</p>;
   if (isError) return <p>Xatolik yuz berdi</p>;
