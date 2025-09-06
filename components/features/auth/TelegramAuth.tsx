@@ -2,9 +2,8 @@
 import { useEffect } from "react";
 import { setTokens } from "@/lib/auth";
 import { useTelegramAuth } from "@/hooks/useTelegramAuth";
-import { getInitData } from "@/lib/telegram";
 
-export default function TelegramAuth() {
+export default function TelegramAuth({ initData }: { initData: string }) {
   const {
     mutate: auth,
     data,
@@ -12,16 +11,11 @@ export default function TelegramAuth() {
     isError,
     isPending,
     error,
-  } = useTelegramAuth();
+  } = useTelegramAuth(initData);
 
   useEffect(() => {
-    const initData = getInitData();
-    if (initData) {
-      auth(initData); // backendga yuboriladi
-    } else {
-      console.warn("InitData joq");
-    }
-  }, []);
+    auth();
+  }, [auth]);
 
   useEffect(() => {
     if (isSuccess && data) {

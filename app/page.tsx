@@ -1,5 +1,6 @@
 import Link from "next/link";
 import TelegramAuth from "@/components/features/auth/TelegramAuth";
+import { useEffect, useState } from "react";
 const Cards = [
   {
     title: "Jumısshı kerek(Vakansiya)",
@@ -24,10 +25,28 @@ const Cards = [
 ];
 
 export default function Home() {
+  const [initData, setInitData] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const tg = (window as any).Telegram?.WebApp;
+      if (tg) {
+        tg.ready();
+        setInitData(tg.initData);
+        setName(tg.initDataUnsafe?.user?.first_name || null);
+      }
+    }
+  }, []);
   return (
     <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
       <div className="w-full max-w-7xl flex flex-col justify-center items-center">
-        <TelegramAuth />
+        {initData && (
+          <div className="w-full mb-4 p-3 bg-green-100 text-green-800 rounded-md text-sm text-center">
+            <p>Telegramdan muvaffaqiyatli kirildi!</p>
+            <p>{name}</p>
+            <TelegramAuth initData={initData} />
+          </div>
+        )}
         <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
           Aumeta Jobs kanallarına daǵaza jaylastırıw ushın tómendegi túymege
           basıń hám ondaǵı shablonlardı toltırıp kanalǵa jiberiń
