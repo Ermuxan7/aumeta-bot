@@ -1,14 +1,13 @@
 "use client";
 import { getMe } from "@/services/user.service";
+import { useAuthStore } from "@/store/authStore";
 import { useQuery } from "@tanstack/react-query";
 
-export function useMe(token?: string) {
+export function useMe() {
+  const accessToken = useAuthStore((state) => state.accessToken);
   return useQuery({
-    queryKey: ["me", token],
-    queryFn: () => {
-      if (!token) throw new Error("Token is required");
-      return getMe(token);
-    },
-    enabled: !!token,
+    queryKey: ["me"],
+    queryFn: () => getMe(),
+    enabled: !!accessToken,
   });
 }
