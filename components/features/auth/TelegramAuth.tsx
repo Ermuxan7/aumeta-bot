@@ -1,60 +1,44 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getInitData } from "@/lib/telegram";
+import { telegramAuth, Tokens } from "@/services/auth.service";
 import { setTokens } from "@/lib/auth";
-import { useTelegramAuth } from "@/hooks/useTelegramAuth";
 
-export default function TelegramAuth({ initData }: { initData: string }) {
-  const {
-    mutate: auth,
-    data,
-    isSuccess,
-    isError,
-    isPending,
-    error,
-  } = useTelegramAuth(initData);
+export default function TelegramAuthPage() {
+  const [tokens, setTokensState] = useState<Tokens | null>(null);
+  const [error, setError] = useState<any>(null);
 
   useEffect(() => {
-    auth();
-  }, [auth]);
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      setTokens(data);
-      console.log("✅ Auth muvaffaqiyatli:", data);
+    const initData = getInitData();
+    if (!initData) {
+      setError("InitData tabilmadi");
+      return;
     }
-  }, [isSuccess, data]);
 
-  if (isPending) return <div className="text-foreground">Loading auth...</div>;
-  if (isError) {
-    console.error("❌ Toliq qate:", error);
+    telegramAuth(initData)
+      .then((data) => {
+        setTokens(data);
+        setTokensState(data);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }, []);
 
-    const axiosErr = error as any;
+  if (error) {
     return (
       <div className="text-red-500 whitespace-pre-wrap">
-        <p>
-          <b>Xatolik:</b> {axiosErr.message}
-        </p>
-        {axiosErr.response && (
-          <>
-            <p>
-              <b>Status:</b> {axiosErr.response.status}
-            </p>
-            <p>
-              <b>Status text:</b> {axiosErr.response.statusText}
-            </p>
-            <p>
-              <b>Detail:</b> {JSON.stringify(axiosErr.response.data, null, 2)}
-            </p>
-          </>
-        )}
+        {JSON.stringify(error, null, 2)}
       </div>
     );
   }
 
+  if (!tokens) return <div>Loading...</div>;
+
   return (
     <div>
-      <p>{data?.access_token}</p>
-      <p>{data?.refresh_token}</p>
+      <p>{tokens.access_token}</p>
+      <p>{tokens.refresh_token}</p>
     </div>
   );
 }

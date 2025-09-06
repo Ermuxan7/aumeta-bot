@@ -2,6 +2,7 @@
 import Link from "next/link";
 import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import { useEffect, useState } from "react";
+
 const Cards = [
   {
     title: "Jumısshı kerek(Vakansiya)",
@@ -45,7 +46,7 @@ export default function Home() {
           <div className="w-full mb-4 p-3 bg-green-100 text-green-800 rounded-md text-sm text-center">
             <p>Telegramdan muvaffaqiyatli kirildi!</p>
             <p>{name}</p>
-            <TelegramAuth initData={initData} />
+            <TelegramAuth />
           </div>
         )}
         <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
