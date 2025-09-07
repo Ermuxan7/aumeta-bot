@@ -22,7 +22,7 @@ const Vacancy = () => {
   const createVacancyMutation = useCreateVacancy();
 
   const onSubmit = (data: VacancyFormValue) => {
-    console.log("submit basild: ", data);
+    console.log("submit basildi: ", data);
     const payload = {
       country_id: 0,
       region_id: 0,
