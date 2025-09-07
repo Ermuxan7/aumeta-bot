@@ -10,7 +10,19 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().accessToken;
+  let token = useAuthStore.getState().accessToken;
+
+  if (!token) {
+    const saved = localStorage.getItem("auth-storage");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        token = parsed.state.access_token;
+      } catch (error) {
+        console.error("Failed to parse auth-storage from localStorage", error);
+      }
+    }
+  }
 
   if (token && !config.url?.includes("/users/telegram/webapp/auth")) {
     config.headers.Authorization = `Bearer ${token}`;
