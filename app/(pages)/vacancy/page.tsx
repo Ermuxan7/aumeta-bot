@@ -24,8 +24,8 @@ const Vacancy = () => {
   const onSubmit = (data: VacancyFormValue) => {
     console.log("submit basildi: ", data);
     const payload = {
-      country_id: 0,
-      region_id: 0,
+      country_id: undefined,
+      region_id: undefined,
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,

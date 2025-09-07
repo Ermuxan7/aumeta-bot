@@ -1,6 +1,6 @@
 export type VacancyPayload = {
-  country_id: number;
-  region_id: number;
+  country_id: number | undefined;
+  region_id: number | undefined;
   position_title: string;
   organization_name: string | undefined;
   address: string;
