@@ -76,11 +76,6 @@ const MyProfile = () => {
   //   });
   // }, []);
 
-  const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted", profile);
-  };
-
   if (!profile) return <p className="text-center mt-8">Loading...</p>;
 
   return (
@@ -88,11 +83,10 @@ const MyProfile = () => {
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
       <Me />
 
-      <form onSubmit={handleSumbit} className="bg-background px-3 space-y-5">
+      <form onSubmit={handleSubmit} className="bg-background px-3 space-y-5">
         <FormInput
           legend="FAÁ"
           type="text"
-          defaultValue={profile.fullName}
           value={form.full_name}
           onChange={(e) => handleChange("full_name", e.target.value)}
         />
@@ -100,7 +94,6 @@ const MyProfile = () => {
           legend="Jaylasqan mámleket"
           as="select"
           options={countries}
-          defaultValue={profile.region}
           value={form.country_id}
           onChange={(e) => handleChange("country_id", e.target.value)}
         />
@@ -114,7 +107,6 @@ const MyProfile = () => {
         <FormInput
           legend="Mekeme atı"
           type="text"
-          defaultValue={profile.company}
           value={form.company_name}
           onChange={(e) => handleChange("company_name", e.target.value)}
         />
@@ -122,7 +114,6 @@ const MyProfile = () => {
         <FormInput
           legend="Baylanıs"
           type="text"
-          defaultValue={profile.phone}
           value={form.contact}
           onChange={(e) => handleChange("contact", e.target.value)}
         />
