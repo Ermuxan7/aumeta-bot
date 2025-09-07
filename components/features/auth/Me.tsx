@@ -2,11 +2,10 @@
 import { useMe } from "@/hooks/useMe";
 
 import { useAuthStore } from "@/store/authStore";
-import { error } from "console";
 
 export default function Me() {
   const accessToken = useAuthStore((state) => state.accessToken);
-  const { data, isLoading, isError } = useMe();
+  const { data, isLoading, isError, error } = useMe();
 
   if (!accessToken) return <p>Token tabilmadi</p>;
   if (isLoading) return <p>Loading...</p>;
