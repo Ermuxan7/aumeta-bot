@@ -24,9 +24,5 @@ apiClient.interceptors.request.use((config) => {
     }
   }
 
-  if (token && !config.url?.includes("/users/telegram/webapp/auth")) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
   return config;
 });
