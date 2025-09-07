@@ -1,7 +1,7 @@
 "use client";
-import { getMe } from "@/services/user.service";
+import { getMe, updateMe, UpdateUserPayload } from "@/services/user.service";
 import { useAuthStore } from "@/store/authStore";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useMe() {
   const accessToken = useAuthStore((state) => state.accessToken);
@@ -11,3 +11,9 @@ export function useMe() {
     enabled: !!accessToken,
   });
 }
+
+export const useUpdateProfile = () => {
+  return useMutation({
+    mutationFn: (payload: UpdateUserPayload) => updateMe(payload),
+  });
+};
