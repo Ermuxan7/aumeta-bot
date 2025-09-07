@@ -118,10 +118,25 @@ const Vacancy = () => {
           error={errors.qosimsha?.message}
         />
         {createVacancyMutation.isError && (
-          <p className="text-red-500">
-            Xatolik: {String(createVacancyMutation.error)}
-          </p>
+          <div className="text-red-500">
+            <p>Xatolik: {String(createVacancyMutation.error)}</p>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createVacancyMutation.error as any)?.response?.data,
+                null,
+                2
+              )}
+            </pre>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createVacancyMutation.error as any)?.config,
+                null,
+                2
+              )}
+            </pre>
+          </div>
         )}
+
         {createVacancyMutation.isSuccess && (
           <p className="text-green-500">
             Vakansiya muvaffaqiyatli jiberildi ✅
