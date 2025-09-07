@@ -47,8 +47,8 @@ const MyProfile = () => {
     full_name: "",
     contact: "",
     company_name: "",
-    country_id: 0,
-    region_id: 0,
+    country_id: countries[0].id,
+    region_id: countries[0].id,
     language_code: "uz", // default
   });
 
@@ -58,6 +58,7 @@ const MyProfile = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     updateProfileMutation.mutate(form);
   };
 
@@ -87,16 +88,22 @@ const MyProfile = () => {
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
-          options={countries.map((c) => ({ label: c.name, value: c.id }))}
+          options={[
+            { label: "Saylań...", value: "" },
+            ...countries.map((c) => ({ label: c.name, value: c.id })),
+          ]}
           value={form.country_id}
-          onChange={(e) => handleChange("country_id", e.target.value)}
+          onChange={(e) => handleChange("country_id", Number(e.target.value))}
         />
         <FormInput
           legend="Region"
           as="select"
-          options={regions.map((c) => ({ label: c.name, value: c.id }))}
+          options={[
+            { label: "Saylań...", value: "" },
+            ...regions.map((c) => ({ label: c.name, value: c.id })),
+          ]}
           value={form.region_id}
-          onChange={(e) => handleChange("region_id", e.target.value)}
+          onChange={(e) => handleChange("region_id", Number(e.target.value))}
         />
         <FormInput
           legend="Mekeme atı"
