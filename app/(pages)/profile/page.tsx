@@ -14,20 +14,17 @@ type Profile = {
   region?: string;
 };
 
-const countries = ["Qaraqalpaqstan", "Uzbekistan", "Kazakhstan", "Russia"];
+const countries = [
+  { id: 1, name: "Qaraqalpaqstan" },
+  { id: 2, name: "Uzbekistan" },
+  { id: 3, name: "Kazakhstan" },
+  { id: 4, name: "Russia" },
+];
+
 const regions = [
-  "Tashkent",
-  "Samarqand",
-  "Buxoro",
-  "Xorezm",
-  "Nawayi",
-  "Farg‘ona",
-  "Andijon",
-  "Qashqadaryo",
-  "Surxondaryo",
-  "Jizzax",
-  "Sirdaryo",
-  "Qaraqalpaqstan",
+  { id: 1, name: "Tashkent" },
+  { id: 2, name: "Samarqand" },
+  { id: 3, name: "Buxoro" },
 ];
 const sectors = [
   "IT / Texnologiya",
@@ -44,7 +41,6 @@ const sectors = [
 // const languages = ["Uzbek", "Russian", "English"];
 
 const MyProfile = () => {
-  const [profile, setProfile] = useState<Profile | null>(null);
   const updateProfileMutation = useUpdateProfile();
 
   const [form, setForm] = useState({
@@ -76,8 +72,6 @@ const MyProfile = () => {
   //   });
   // }, []);
 
-  if (!profile) return <p className="text-center mt-8">Loading...</p>;
-
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
@@ -93,14 +87,14 @@ const MyProfile = () => {
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
-          options={countries}
+          options={countries.map((c) => ({ label: c.name, value: c.id }))}
           value={form.country_id}
           onChange={(e) => handleChange("country_id", e.target.value)}
         />
         <FormInput
           legend="Region"
           as="select"
-          options={regions}
+          options={regions.map((c) => ({ label: c.name, value: c.id }))}
           value={form.region_id}
           onChange={(e) => handleChange("region_id", e.target.value)}
         />

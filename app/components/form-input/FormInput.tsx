@@ -9,6 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+type Option = { label: string; value: string | number };
+
 type InputProps = {
   legend: string;
   as?: "input";
@@ -27,7 +29,7 @@ type TextareaProps = {
 type SelectProps = {
   legend: string;
   as: "select";
-  options: string[];
+  options: string[] | Option[];
   className?: string;
   registration?: UseFormRegisterReturn;
   error?: string;
@@ -103,15 +105,22 @@ const FormInput = (props: FormFieldProps) => {
               <SelectValue placeholder={legend} />
             </SelectTrigger>
             <SelectContent className="bg-background group">
-              {(props as SelectProps).options.map((option) => (
-                <SelectItem
-                  key={option}
-                  value={option}
-                  className="cursor-pointer px-2 py-1 rounded-md transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground"
-                >
-                  {option}
-                </SelectItem>
-              ))}
+              {(props as SelectProps).options.map((option) => {
+                const value =
+                  typeof option === "string" ? option : option.value.toString();
+                const label =
+                  typeof option === "string" ? option : option.label;
+
+                return (
+                  <SelectItem
+                    key={value}
+                    value={value}
+                    className="cursor-pointer px-2 py-1 rounded-md transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground"
+                  >
+                    {label}
+                  </SelectItem>
+                );
+              })}
             </SelectContent>
           </Select>
         )}
