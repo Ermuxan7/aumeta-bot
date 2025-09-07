@@ -1,18 +1,8 @@
 "use client";
-import { useState, useEffect, FormEvent } from "react";
-import BackButton from "@/components/ui/back-button";
+import { useState, FormEvent } from "react";
 import FormInput from "@/app/components/form-input/FormInput";
 import Me from "@/components/features/auth/Me";
-import { getAccessToken } from "@/lib/auth";
 import { useUpdateProfile } from "@/hooks/useMe";
-
-type Profile = {
-  fullName: string;
-  phone: string;
-  company?: string;
-  position?: string;
-  region?: string;
-};
 
 const countries = [
   { id: 1, name: "Qaraqalpaqstan" },
@@ -20,7 +10,6 @@ const countries = [
   { id: 3, name: "Kazakhstan" },
   { id: 4, name: "Russia" },
 ];
-
 const regions = [
   { id: 1, name: "Tashkent" },
   { id: 2, name: "Samarqand" },
@@ -88,22 +77,16 @@ const MyProfile = () => {
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
-          options={[
-            { label: "Saylań...", value: "" },
-            ...countries.map((c) => ({ label: c.name, value: c.id })),
-          ]}
+          options={countries.map((c) => ({ value: c.id, label: c.name }))}
           value={form.country_id}
-          onChange={(e) => handleChange("country_id", Number(e.target.value))}
+          onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
           legend="Region"
           as="select"
-          options={[
-            { label: "Saylań...", value: "" },
-            ...regions.map((c) => ({ label: c.name, value: c.id })),
-          ]}
+          options={regions.map((c) => ({ value: c.id, label: c.name }))}
           value={form.region_id}
-          onChange={(e) => handleChange("region_id", Number(e.target.value))}
+          onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput
           legend="Mekeme atı"

@@ -11,34 +11,43 @@ import {
 
 type Option = { label: string; value: string | number };
 
-type InputProps = {
+type BaseProps = {
   legend: string;
+  value?: string | number;
+  className?: string;
+  error?: string;
+};
+
+type InputProps = BaseProps & {
   as?: "input";
   registration?: UseFormRegisterReturn;
-  error?: string;
 } & ComponentPropsWithoutRef<"input">;
 
-type TextareaProps = {
-  legend: string;
+type TextareaProps = BaseProps & {
   as: "textarea";
   rows?: number;
   registration?: UseFormRegisterReturn;
-  error?: string;
 } & ComponentPropsWithoutRef<"textarea">;
 
-type SelectProps = {
-  legend: string;
+type SelectProps = BaseProps & {
   as: "select";
   options: string[] | Option[];
-  className?: string;
+  onChange?: (value: string | number) => void;
   registration?: UseFormRegisterReturn;
-  error?: string;
 } & ComponentPropsWithoutRef<"select">;
 
 type FormFieldProps = InputProps | TextareaProps | SelectProps;
 
 const FormInput = (props: FormFieldProps) => {
-  const { legend, as = "input", id, registration, className, error } = props;
+  const {
+    legend,
+    as = "input",
+    id,
+    registration,
+    value,
+    className,
+    error,
+  } = props;
   const inputId = id || legend.toLowerCase().replace(/\s+/g, "-");
 
   return (
@@ -94,30 +103,25 @@ const FormInput = (props: FormFieldProps) => {
           </select>
         )} */}
         {as === "select" && (
-          <Select {...registration}>
-            <SelectTrigger
-              id={inputId}
-              className={clsx(
-                "w-full bg-transparent text-base md:text-lg border-none outline-none pb-3",
-                error ? "border-red-500" : "border-muted-foreground/70"
-              )}
-            >
+          <Select
+            value={value?.toString()}
+            onValueChange={
+              (val) => (props as SelectProps).onChange?.(val) // <-- SelectProps deb narrow qildik
+            }
+          >
+            <SelectTrigger>
               <SelectValue placeholder={legend} />
             </SelectTrigger>
-            <SelectContent className="bg-background group">
-              {(props as SelectProps).options.map((option) => {
-                const value =
+            <SelectContent>
+              {(props as SelectProps).options.map((option: string | Option) => {
+                const optValue =
                   typeof option === "string" ? option : option.value.toString();
-                const label =
+                const optLabel =
                   typeof option === "string" ? option : option.label;
 
                 return (
-                  <SelectItem
-                    key={value}
-                    value={value}
-                    className="cursor-pointer px-2 py-1 rounded-md transition-colors data-[highlighted]:bg-muted data-[highlighted]:text-foreground"
-                  >
-                    {label}
+                  <SelectItem key={optValue} value={optValue}>
+                    {optLabel}
                   </SelectItem>
                 );
               })}
