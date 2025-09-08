@@ -49,19 +49,16 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (me && countries.length > 0) {
-      setForm((prev) => ({
-        ...prev,
+      setForm({
         full_name: me.full_name || "",
         contact: me.contact || "",
         company_name: me.company_name || "",
-        country_id: me.country_id || countries[0].id,
+        country_id: me.country_id || countries[0].id || 0,
         region_id: me.region_id || (regions[0]?.id || 0),
         language_code: me.language || "uz",
-      }));
+      });
     }
   }, [me, countries, regions]);
-
-
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -88,14 +85,14 @@ const MyProfile = () => {
           legend="Jaylasqan mámleket"
           as="select"
           options={countries.map((c: any) => ({ value: c.id, label: c.name }))}
-          value={form.country_id}
+          value={form.country_id || ""}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
           legend="Region"
           as="select"
           options={regions.map((c: any) => ({ value: c.id, label: c.name }))}
-          value={form.region_id}
+          value={form.region_id || ""}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput
