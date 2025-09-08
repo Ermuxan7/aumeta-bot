@@ -32,10 +32,10 @@ const sectors = [
 
 const MyProfile = () => {
 
-  const {data: me} = useMe()
-  const {data: countries = []} = useCountries()
+  const { data: me } = useMe()
+  const { data: countries = [] } = useCountries()
   const updateProfileMutation = useUpdateProfile();
-  
+
   const [form, setForm] = useState({
     full_name: "",
     contact: "",
@@ -45,21 +45,23 @@ const MyProfile = () => {
     language_code: "uz", // default
   });
 
-  const {data: regions = []} = useRegions(form.country_id || 0)
+  const { data: regions = [] } = useRegions(form.country_id || 0)
 
-    useEffect(() => {
-    if (me) {
-      setForm({
+  useEffect(() => {
+    if (me && countries.length > 0) {
+      setForm((prev) => ({
+        ...prev,
         full_name: me.full_name || "",
         contact: me.contact || "",
         company_name: me.company_name || "",
-        country_id: me.location?.country_id || 0,
-        region_id: me.location?.region_id || 0,
+        country_id: me.country_id || countries[0].id,
+        region_id: me.region_id || (regions[0]?.id || 0),
         language_code: me.language || "uz",
-      });
+      }));
     }
-  }, [me]);
-  
+  }, [me, countries, regions]);
+
+
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
