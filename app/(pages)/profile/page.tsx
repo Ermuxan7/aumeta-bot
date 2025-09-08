@@ -34,17 +34,18 @@ const MyProfile = () => {
 
   const {data: me} = useMe()
   const {data: countries = []} = useCountries()
-  const {data: regions = []} = useRegions(me.location?.country_id || 0)
   const updateProfileMutation = useUpdateProfile();
   
   const [form, setForm] = useState({
     full_name: "",
     contact: "",
     company_name: "",
-    country_id: countries[0].id,
-    region_id: countries[0].id,
+    country_id: 0,
+    region_id: 0,
     language_code: "uz", // default
   });
+
+  const {data: regions = []} = useRegions(form.country_id || 0)
 
     useEffect(() => {
     if (me) {
