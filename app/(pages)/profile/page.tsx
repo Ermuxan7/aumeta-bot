@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import FormInput from "@/app/components/form-input/FormInput";
 import Me from "@/components/features/auth/Me";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
@@ -31,7 +31,6 @@ const sectors = [
 
 
 const MyProfile = () => {
-
   const { data: me } = useMe()
   const { data: countries = [] } = useCountries()
   const updateProfileMutation = useUpdateProfile();
@@ -47,18 +46,18 @@ const MyProfile = () => {
 
   const { data: regions = [] } = useRegions(form.country_id || 0)
 
-  useEffect(() => {
-    if (me) {
-      setForm({
-        full_name: me.full_name || "",
-        contact: me.contact || "",
-        company_name: me.company_name || "",
-        country_id: me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
-        region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
-        language_code: me.language || "uz",
-      });
-    }
-  }, [me, countries, regions]);
+  // useEffect(() => {
+  //   if (me) {
+  //     setForm({
+  //       full_name: me.full_name || "",
+  //       contact: me.contact || "",
+  //       company_name: me.company_name || "",
+  //       country_id: me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
+  //       region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
+  //       language_code: me.language || "uz",
+  //     });
+  //   }
+  // }, [me, countries, regions]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -73,6 +72,16 @@ const MyProfile = () => {
     <div className="max-w-2xl mx-auto mt-2 px-4">
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
       <Me />
+      <div className="p-3 bg-gray-100 rounded text-xs whitespace-pre-wrap break-words">
+        <p className="font-bold">ME:</p>
+        <pre>{JSON.stringify(me, null, 2)}</pre>
+
+        <p className="font-bold mt-2">COUNTRIES:</p>
+        <pre>{JSON.stringify(countries, null, 2)}</pre>
+
+        <p className="font-bold mt-2">REGIONS:</p>
+        <pre>{JSON.stringify(regions, null, 2)}</pre>
+      </div>
 
       <form onSubmit={handleSubmit} className="bg-background px-3 space-y-5">
         <FormInput
