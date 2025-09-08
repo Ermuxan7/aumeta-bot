@@ -5,17 +5,17 @@ import Me from "@/components/features/auth/Me";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
 import { useCountries, useRegions } from "@/hooks/useCountries";
 
-const countries = [
-  { id: 1, name: "Qaraqalpaqstan" },
-  { id: 2, name: "Uzbekistan" },
-  { id: 3, name: "Kazakhstan" },
-  { id: 4, name: "Russia" },
-];
-const regions = [
-  { id: 1, name: "Tashkent" },
-  { id: 2, name: "Samarqand" },
-  { id: 3, name: "Buxoro" },
-];
+// const countries = [
+//   { id: 1, name: "Qaraqalpaqstan" },
+//   { id: 2, name: "Uzbekistan" },
+//   { id: 3, name: "Kazakhstan" },
+//   { id: 4, name: "Russia" },
+// ];
+// const regions = [
+//   { id: 1, name: "Tashkent" },
+//   { id: 2, name: "Samarqand" },
+//   { id: 3, name: "Buxoro" },
+// ];
 const sectors = [
   "IT / Texnologiya",
   "Ta’lim",
@@ -30,9 +30,11 @@ const sectors = [
 ];
 
 
+
+
 const MyProfile = () => {
   const { data: me } = useMe()
-  const { data: countries = [] } = useCountries()
+  const { data: countriesData } = useCountries()
   const updateProfileMutation = useUpdateProfile();
 
   const [form, setForm] = useState({
@@ -44,7 +46,10 @@ const MyProfile = () => {
     language_code: "uz", // default
   });
 
-  const { data: regions = [] } = useRegions(form.country_id || 0)
+  const { data: regionsData } = useRegions(form.country_id || 0)
+
+  const countries = countriesData ?? [];
+  const regions = regionsData ?? [];
 
   // useEffect(() => {
   //   if (me) {
