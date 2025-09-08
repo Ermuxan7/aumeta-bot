@@ -48,13 +48,13 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(form.country_id || 0)
 
   useEffect(() => {
-    if (me && countries.length > 0) {
+    if (me) {
       setForm({
         full_name: me.full_name || "",
         contact: me.contact || "",
         company_name: me.company_name || "",
-        country_id: me.country_id || countries[0].id || 0,
-        region_id: me.region_id || (regions[0]?.id || 0),
+        country_id: me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
+        region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
         language_code: me.language || "uz",
       });
     }
