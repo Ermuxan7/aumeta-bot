@@ -1,5 +1,4 @@
-import axios from "axios";
-import { getAccessToken } from "./auth";
+import axios, { AxiosRequestConfig  } from "axios"
 import { useAuthStore } from "@/store/authStore";
 
 export const apiClient = axios.create({
@@ -9,7 +8,7 @@ export const apiClient = axios.create({
   },
 });
 
-apiClient.interceptors.request.use((config) => {
+apiClient.interceptors.request.use((config ) => {
   let token = useAuthStore.getState().accessToken;
 
   if (!token) {

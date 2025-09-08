@@ -28,6 +28,7 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

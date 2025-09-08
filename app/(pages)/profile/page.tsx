@@ -1,8 +1,9 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import FormInput from "@/app/components/form-input/FormInput";
 import Me from "@/components/features/auth/Me";
-import { useUpdateProfile } from "@/hooks/useMe";
+import { useMe, useUpdateProfile } from "@/hooks/useMe";
+import { useCountries, useRegions } from "@/hooks/useCountries";
 
 const countries = [
   { id: 1, name: "Qaraqalpaqstan" },
@@ -27,11 +28,15 @@ const sectors = [
   "Savdo / Marketing",
   "Turizm / Mehmonxona",
 ];
-// const languages = ["Uzbek", "Russian", "English"];
+
 
 const MyProfile = () => {
-  const updateProfileMutation = useUpdateProfile();
 
+  const {data: me} = useMe()
+  const {data: countries = []} = useCountries()
+  const {data: regions = []} = useRegions(me.location?.country_id || 0)
+  const updateProfileMutation = useUpdateProfile();
+  
   const [form, setForm] = useState({
     full_name: "",
     contact: "",
@@ -41,26 +46,28 @@ const MyProfile = () => {
     language_code: "uz", // default
   });
 
+    useEffect(() => {
+    if (me) {
+      setForm({
+        full_name: me.full_name || "",
+        contact: me.contact || "",
+        company_name: me.company_name || "",
+        country_id: me.location?.country_id || 0,
+        region_id: me.location?.region_id || 0,
+        language_code: me.language || "uz",
+      });
+    }
+  }, [me]);
+  
+
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     updateProfileMutation.mutate(form);
   };
-
-  // useEffect(() => {
-  //   // TODO: replace with API call
-  //   setProfile({
-  //     fullName: "John Doe",
-  //     phone: "+998901234567",
-  //     company: "Bizler Group",
-  //     position: "Menejer",
-  //     region: "Tashkent",
-  //   });
-  // }, []);
 
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
@@ -77,14 +84,14 @@ const MyProfile = () => {
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
-          options={countries.map((c) => ({ value: c.id, label: c.name }))}
+          options={countries.map((c: any) => ({ value: c.id, label: c.name }))}
           value={form.country_id}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
           legend="Region"
           as="select"
-          options={regions.map((c) => ({ value: c.id, label: c.name }))}
+          options={regions.map((c: any) => ({ value: c.id, label: c.name }))}
           value={form.region_id}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
