@@ -105,14 +105,12 @@ const FormInput = (props: FormFieldProps) => {
         {as === "select" && (
           <Select
             value={value?.toString()}
-            onValueChange={
-              (val) => (props as SelectProps).onChange?.(val) // <-- SelectProps deb narrow qildik
-            }
+            onValueChange={(val) => (props as SelectProps).onChange?.(val)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="w-full border-none">
               <SelectValue placeholder={legend} />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-background">
               {(props as SelectProps).options.map((option: string | Option) => {
                 const optValue =
                   typeof option === "string" ? option : option.value.toString();
@@ -120,7 +118,11 @@ const FormInput = (props: FormFieldProps) => {
                   typeof option === "string" ? option : option.label;
 
                 return (
-                  <SelectItem key={optValue} value={optValue}>
+                  <SelectItem
+                    key={optValue}
+                    value={optValue}
+                    className="hover:bg-muted"
+                  >
                     {optLabel}
                   </SelectItem>
                 );

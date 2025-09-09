@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import FormInput from "@/app/components/form-input/FormInput";
 import Me from "@/components/features/auth/Me";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
@@ -29,12 +29,9 @@ const sectors = [
   "Turizm / Mehmonxona",
 ];
 
-
-
-
 const MyProfile = () => {
-  const { data: me } = useMe()
-  const { data: countriesData } = useCountries()
+  const { data: me } = useMe();
+  const { data: countriesData } = useCountries();
   const updateProfileMutation = useUpdateProfile();
 
   const [form, setForm] = useState({
@@ -46,23 +43,23 @@ const MyProfile = () => {
     language_code: "uz", // default
   });
 
-  const { data: regionsData } = useRegions(form.country_id || 0)
+  const { data: regions = [] } = useRegions(form.country_id || null);
 
-  const countries = countriesData ?? [];
-  const regions = regionsData ?? [];
+  const countries = countriesData?.data ?? [];
 
-  // useEffect(() => {
-  //   if (me) {
-  //     setForm({
-  //       full_name: me.full_name || "",
-  //       contact: me.contact || "",
-  //       company_name: me.company_name || "",
-  //       country_id: me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
-  //       region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
-  //       language_code: me.language || "uz",
-  //     });
-  //   }
-  // }, [me, countries, regions]);
+  useEffect(() => {
+    if (me) {
+      setForm({
+        full_name: me.full_name || "",
+        contact: me.contact || "",
+        company_name: me.company_name || "",
+        country_id:
+          me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
+        region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
+        language_code: me.language || "uz",
+      });
+    }
+  }, [me, countries, regions]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -77,16 +74,6 @@ const MyProfile = () => {
     <div className="max-w-2xl mx-auto mt-2 px-4">
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
       <Me />
-      <div className="p-3 bg-gray-100 rounded text-xs whitespace-pre-wrap break-words">
-        <p className="font-bold">ME:</p>
-        <pre>{JSON.stringify(me, null, 2)}</pre>
-
-        <p className="font-bold mt-2">COUNTRIES:</p>
-        <pre>{JSON.stringify(countries, null, 2)}</pre>
-
-        <p className="font-bold mt-2">REGIONS:</p>
-        <pre>{JSON.stringify(regions, null, 2)}</pre>
-      </div>
 
       <form onSubmit={handleSubmit} className="bg-background px-3 space-y-5">
         <FormInput
@@ -99,14 +86,15 @@ const MyProfile = () => {
           legend="Jaylasqan mámleket"
           as="select"
           options={countries.map((c: any) => ({ value: c.id, label: c.name }))}
-          value={form.country_id || ""}
+          value={form.country_id}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
           legend="Region"
           as="select"
-          options={regions.map((c: any) => ({ value: c.id, label: c.name }))}
-          value={form.region_id || ""}
+          disabled={!form.country_id}
+          options={regions.map((r: any) => ({ value: r.id, label: r.name }))}
+          value={form.region_id}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput
