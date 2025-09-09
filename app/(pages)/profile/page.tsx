@@ -5,33 +5,9 @@ import Me from "@/components/features/auth/Me";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
 import { useCountries, useRegions } from "@/hooks/useCountries";
 
-// const countries = [
-//   { id: 1, name: "Qaraqalpaqstan" },
-//   { id: 2, name: "Uzbekistan" },
-//   { id: 3, name: "Kazakhstan" },
-//   { id: 4, name: "Russia" },
-// ];
-// const regions = [
-//   { id: 1, name: "Tashkent" },
-//   { id: 2, name: "Samarqand" },
-//   { id: 3, name: "Buxoro" },
-// ];
-const sectors = [
-  "IT / Texnologiya",
-  "Ta’lim",
-  "Sog‘liqni saqlash",
-  "Moliya / Bank",
-  "Qurilish",
-  "Qishloq xo‘jaligi",
-  "Ishlab chiqarish",
-  "Transport / Logistika",
-  "Savdo / Marketing",
-  "Turizm / Mehmonxona",
-];
-
 const MyProfile = () => {
   const { data: me } = useMe();
-  const { data: countriesData } = useCountries();
+  const { data: countries = [] } = useCountries();
   const updateProfileMutation = useUpdateProfile();
 
   const [form, setForm] = useState({
@@ -44,8 +20,6 @@ const MyProfile = () => {
   });
 
   const { data: regions = [] } = useRegions(form.country_id || null);
-
-  const countries = countriesData ?? [];
 
   useEffect(() => {
     if (me) {
