@@ -85,7 +85,10 @@ const MyProfile = () => {
         <FormInput
           legend="Jaylasqan mámleket"
           as="select"
-          options={countries.map((c: any) => ({ value: c.id, label: c.name }))}
+          options={(countries ?? []).map((c: any) => ({
+            value: c.id,
+            label: c.name,
+          }))}
           value={form.country_id}
           onChange={(val) => handleChange("country_id", Number(val))}
         />

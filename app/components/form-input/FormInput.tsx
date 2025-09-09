@@ -16,6 +16,7 @@ type BaseProps = {
   value?: string | number;
   className?: string;
   error?: string;
+  disabled?: boolean;
 };
 
 type InputProps = BaseProps & {
@@ -47,14 +48,17 @@ const FormInput = (props: FormFieldProps) => {
     value,
     className,
     error,
+    disabled,
   } = props;
   const inputId = id || legend.toLowerCase().replace(/\s+/g, "-");
 
   return (
     <div className={className}>
       <fieldset
+        disabled={disabled}
         className={clsx(
           "border-1 rounded-xl px-2 py-1 transition-colors duration-200 group",
+          disabled && "border-muted/95",
           error
             ? "border-red-500"
             : "border-muted-foreground/70 focus-within:border-primary/70"
@@ -62,7 +66,8 @@ const FormInput = (props: FormFieldProps) => {
       >
         <legend
           className={clsx(
-            "text-sm lg:text-md font-semibold px-2",
+            "text-sm lg:text-md font-semibold px-2 transition-all duration-200 ease-in",
+            disabled && "text-muted-foreground/30",
             error
               ? "text-red-500"
               : "text-muted-foreground group-focus-within:text-primary"
@@ -106,6 +111,7 @@ const FormInput = (props: FormFieldProps) => {
           <Select
             value={value?.toString()}
             onValueChange={(val) => (props as SelectProps).onChange?.(val)}
+            disabled={disabled}
           >
             <SelectTrigger className="w-full border-none">
               <SelectValue placeholder={legend} />
