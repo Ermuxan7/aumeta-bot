@@ -14,12 +14,12 @@ const MyProfile = () => {
     full_name: "",
     contact: "",
     company_name: "",
-    country_id: 0,
-    region_id: 0,
+    country_id: null,
+    region_id: null,
     language_code: "uz", // default
   });
 
-  const { data: regions = [] } = useRegions(form.country_id || null);
+  const { data: regions = [] } = useRegions(form.country_id);
 
   useEffect(() => {
     if (me) {
@@ -63,7 +63,7 @@ const MyProfile = () => {
             value: c.id,
             label: c.name,
           }))}
-          value={form.country_id}
+          value={form.country_id || ""}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
@@ -71,7 +71,7 @@ const MyProfile = () => {
           as="select"
           disabled={!form.country_id}
           options={regions.map((r: any) => ({ value: r.id, label: r.name }))}
-          value={form.region_id}
+          value={form.region_id || ""}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput
