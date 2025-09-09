@@ -45,7 +45,7 @@ const MyProfile = () => {
 
   const { data: regions = [] } = useRegions(form.country_id || null);
 
-  const countries = countriesData?.data ?? [];
+  const countries = countriesData ?? [];
 
   useEffect(() => {
     if (me) {

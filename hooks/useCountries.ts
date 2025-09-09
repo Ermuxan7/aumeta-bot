@@ -6,7 +6,7 @@ export const useCountries = () => {
     queryKey: ["countries"],
     queryFn: async () => {
       const res = await apiClient.get("/countries/");
-      return res.data;
+      return res.data.data;
     },
   });
 };
