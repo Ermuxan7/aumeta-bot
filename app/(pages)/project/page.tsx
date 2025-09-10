@@ -5,6 +5,7 @@ import {
   ProjectFormValue,
 } from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useCreateProject } from "@/hooks/useProject";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,8 +18,22 @@ const Project = () => {
     resolver: zodResolver(ProjectSchema),
   });
 
+  const createProjectMutation = useCreateProject();
+
   const onSubmit = (data: ProjectFormValue) => {
-    console.log("Data: ", data);
+    const payload = {
+      country_id: 3,
+      region_id: 8,
+      who_needed: data.lawazim,
+      task_description: data.talaplar,
+      deadline: data.deadline,
+      salary: data.tólem,
+      contact: data.baylanis,
+      address: data.manzil,
+      additional_info: data.qosimsha,
+    };
+
+    createProjectMutation.mutate(payload);
   };
 
   return (
@@ -82,11 +97,33 @@ const Project = () => {
           placeholder="Qosımsha zat bolsa jazıń"
           error={errors.qosimsha?.message}
         />
+        {createProjectMutation.isError && (
+          <div className="text-red-500">
+            <p>Qatelik: {String(createProjectMutation.error)}</p>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createProjectMutation.error as any)?.response?.data,
+                null,
+                2
+              )}
+            </pre>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createProjectMutation.error as any)?.config,
+                null,
+                2
+              )}
+            </pre>
+          </div>
+        )}
+        {createProjectMutation.isSuccess && (
+          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+        )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          Jiberiw
+          {createProjectMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
         </button>
       </form>
     </div>
