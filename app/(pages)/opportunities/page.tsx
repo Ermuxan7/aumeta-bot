@@ -40,6 +40,7 @@ const Opportunities = () => {
     if (fileRef.current) {
       formData.append("img", fileRef.current, fileRef.current.name);
     }
+
     createOpportunityMutation.mutate(formData);
   };
 
