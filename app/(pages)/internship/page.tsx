@@ -22,11 +22,9 @@ const Internship = () => {
   const createInternshipMutation = useCreateInternship();
 
   const onSubmit = (data: InternshipFormValue) => {
-    console.log("Data: ", data);
-
     const payload = {
-      country_id: 0,
-      region_id: 0,
+      country_id: 4,
+      region_id: 6,
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,
@@ -123,9 +121,10 @@ const Internship = () => {
           registration={register("qosimsha")}
         />
         {createInternshipMutation.isSuccess && (
-          <p className="text-green-500">
-            Vakansiya muvaffaqiyatli jiberildi ✅
-          </p>
+          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+        )}
+        {createInternshipMutation.isError && (
+          <p className="text-red-500">Qatelik ju'z berdi ❌</p>
         )}
         <button
           type="submit"

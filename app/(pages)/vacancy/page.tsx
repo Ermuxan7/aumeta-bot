@@ -6,7 +6,6 @@ import {
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useCreateVacancy } from "@/hooks/useVacancy";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -22,7 +21,6 @@ const Vacancy = () => {
   const createVacancyMutation = useCreateVacancy();
 
   const onSubmit = (data: VacancyFormValue) => {
-    console.log("submit basildi: ", data);
     const payload = {
       country_id: 5,
       region_id: 3,
@@ -119,7 +117,7 @@ const Vacancy = () => {
         />
         {createVacancyMutation.isError && (
           <div className="text-red-500">
-            <p>Xatolik: {String(createVacancyMutation.error)}</p>
+            <p>Qatelik: {String(createVacancyMutation.error)}</p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (createVacancyMutation.error as any)?.response?.data,
@@ -138,9 +136,7 @@ const Vacancy = () => {
         )}
 
         {createVacancyMutation.isSuccess && (
-          <p className="text-green-500">
-            Vakansiya muvaffaqiyatli jiberildi ✅
-          </p>
+          <p className="text-green-500">Vakansiya jiberildi ✅</p>
         )}
         <button
           type="submit"
