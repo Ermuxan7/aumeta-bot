@@ -1,14 +1,11 @@
-import axios, { AxiosRequestConfig  } from "axios"
+import axios from "axios";
 import { useAuthStore } from "@/store/authStore";
 
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
-apiClient.interceptors.request.use((config ) => {
+apiClient.interceptors.request.use((config) => {
   let token = useAuthStore.getState().accessToken;
 
   if (!token) {

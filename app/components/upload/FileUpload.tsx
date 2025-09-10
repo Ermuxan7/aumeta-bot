@@ -3,7 +3,11 @@ import clsx from "clsx";
 import { X } from "lucide-react";
 import { useState, useRef } from "react";
 
-const FileUpload = () => {
+const FileUpload = ({
+  oneFileSelect,
+}: {
+  oneFileSelect?: (file: File | null) => void;
+}) => {
   const [file, setFile] = useState<File | null>(null);
   const [isdragging, setIsDragging] = useState<boolean>(false);
   const [preview, setPreview] = useState<string | null>(null);
@@ -18,6 +22,7 @@ const FileUpload = () => {
       const selected = e.target.files[0];
       if (selected.type.startsWith("image/")) {
         setFile(selected);
+        oneFileSelect?.(selected);
       } else {
         alert("Tek súwret júkley alasiz!");
       }
@@ -31,6 +36,7 @@ const FileUpload = () => {
       const dropped = e.dataTransfer.files[0];
       if (dropped.type.startsWith("image/")) {
         setFile(dropped);
+        oneFileSelect?.(dropped);
       } else {
         alert("Tek súwret júkley alasiz!");
       }
@@ -40,6 +46,7 @@ const FileUpload = () => {
   const handleRemove = () => {
     setPreview(null);
     setFile(null);
+    oneFileSelect?.(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }

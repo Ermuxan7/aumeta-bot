@@ -6,7 +6,9 @@ import {
   OpportunitiesFormValue,
 } from "@/app/schema/Opportunities";
 import BackButton from "@/components/ui/back-button";
+import { useOpportunities } from "@/hooks/useOpportunities";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
 const Opportunities = () => {
@@ -18,8 +20,27 @@ const Opportunities = () => {
     resolver: zodResolver(OpportunitiesSchema),
   });
 
+  const createOpportunityMutation = useOpportunities();
+
+  const fileRef = useRef<File | null>(null);
+
+  const oneFileSelect = (file: File | null) => {
+    fileRef.current = file;
+  };
+
   const onSubmit = (data: OpportunitiesFormValue) => {
-    console.log("Data: ", data);
+    const formData = new FormData();
+
+    formData.append("country_id", "1");
+    formData.append("region_id", "1");
+    formData.append("content", data.daǵaza);
+    formData.append("contact", data.baylanis);
+
+    if (fileRef.current) {
+      formData.append("img", fileRef.current);
+    }
+
+    createOpportunityMutation.mutate(formData);
   };
 
   return (
@@ -45,12 +66,34 @@ const Opportunities = () => {
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
-        <FileUpload />
+        <FileUpload oneFileSelect={oneFileSelect} />
+        {createOpportunityMutation.isError && (
+          <div className="text-red-500">
+            <p>Qatelik: {String(createOpportunityMutation.error)}</p>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createOpportunityMutation.error as any)?.response?.data,
+                null,
+                2
+              )}
+            </pre>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createOpportunityMutation.error as any)?.config,
+                null,
+                2
+              )}
+            </pre>
+          </div>
+        )}
+        {createOpportunityMutation.isSuccess && (
+          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+        )}
         <button
           type="submit"
-          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
+          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          Jiberiw
+          {createOpportunityMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
         </button>
       </form>
     </div>
