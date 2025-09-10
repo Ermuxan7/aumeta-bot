@@ -40,6 +40,9 @@ const Opportunities = () => {
       formData.append("img", fileRef.current);
     }
 
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
     createOpportunityMutation.mutate(formData);
   };
 
