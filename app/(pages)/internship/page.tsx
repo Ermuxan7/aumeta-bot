@@ -124,7 +124,23 @@ const Internship = () => {
           <p className="text-green-500">Vakansiya jiberildi ✅</p>
         )}
         {createInternshipMutation.isError && (
-          <p className="text-red-500">Qatelik ju'z berdi ❌</p>
+          <div className="text-red-500">
+            <p>Qatelik: {String(createInternshipMutation.error)}</p>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createInternshipMutation.error as any)?.response?.data,
+                null,
+                2
+              )}
+            </pre>
+            <pre className="text-xs whitespace-pre-wrap">
+              {JSON.stringify(
+                (createInternshipMutation.error as any)?.config,
+                null,
+                2
+              )}
+            </pre>
+          </div>
         )}
         <button
           type="submit"
