@@ -10,6 +10,7 @@ import { useOpportunities } from "@/hooks/useOpportunities";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { file } from "zod";
 
 const Opportunities = () => {
   const {
@@ -37,11 +38,7 @@ const Opportunities = () => {
     formData.append("contact", data.baylanis);
 
     if (fileRef.current) {
-      formData.append("img", fileRef.current);
-    }
-
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
+      formData.append("img", fileRef.current, fileRef.current.name);
     }
     createOpportunityMutation.mutate(formData);
   };
