@@ -46,7 +46,7 @@ const MyProfile = () => {
         language_code: me.language_code || "uz",
       });
     }
-  }, [me, countries, regions]);
+  }, [me]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
