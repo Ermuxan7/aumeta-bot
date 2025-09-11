@@ -14,8 +14,8 @@ const MyProfile = () => {
     full_name: "",
     contact: "",
     company_name: "",
-    country_id: null,
-    region_id: null,
+    country_id: 0,
+    region_id: 0,
     language_code: "uz", // default
   });
 
@@ -30,10 +30,10 @@ const MyProfile = () => {
         country_id:
           me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
         region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
-        language_code: me.language || "uz",
+        language_code: me.language_code || "uz",
       });
     }
-  }, [me, countries, regions]);
+  }, [me, countries]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -63,7 +63,7 @@ const MyProfile = () => {
             value: c.id,
             label: c.name,
           }))}
-          value={form.country_id || ""}
+          value={form.country_id}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
@@ -71,7 +71,7 @@ const MyProfile = () => {
           as="select"
           disabled={!form.country_id}
           options={regions.map((r: any) => ({ value: r.id, label: r.name }))}
-          value={form.region_id || ""}
+          value={form.region_id}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput
