@@ -22,28 +22,28 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(form.country_id);
 
   useEffect(() => {
-    if (me?.data) {
-      console.log("ME >>>", me.data);
+    if (me) {
+      console.log("ME >>>", me);
       console.log("COUNTRIES >>>", countries);
       console.log("REGIONS >>>", regions);
 
       const countryObj = countries.find(
-        (c: any) => c.name === me.data.location?.country
+        (c: any) => c.name === me.location?.country
       );
       const regionObj = regions.find(
-        (r: any) => r.name === me.data.location?.region
+        (r: any) => r.name === me.location?.region
       );
 
       console.log("countryObj >>>", countryObj);
       console.log("regionObj >>>", regionObj);
 
       setForm({
-        full_name: me.data.full_name || "",
-        contact: me.data.contact || "",
-        company_name: me.data.company_name || "",
+        full_name: me.full_name || "",
+        contact: me.contact || "",
+        company_name: me.company_name || "",
         country_id: countryObj?.id ?? 0,
         region_id: regionObj?.id ?? 0,
-        language_code: me.data.language_code || "uz",
+        language_code: me.language_code || "uz",
       });
     }
   }, [me, countries, regions]);

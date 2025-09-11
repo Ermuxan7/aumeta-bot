@@ -109,30 +109,37 @@ const FormInput = (props: FormFieldProps) => {
         )} */}
         {as === "select" && (
           <Select
-            value={value?.toString() || undefined}
-            onValueChange={(val) => (props as SelectProps).onChange?.(val)}
-            disabled={disabled || !(props as SelectProps).options.length}
+            value={value ? String(value) : undefined}
+            onValueChange={(val) => {
+              console.log("Select changed >>>", legend, val);
+              (props as SelectProps).onChange?.(val);
+            }}
+            disabled={disabled || !(props as SelectProps).options?.length}
           >
             <SelectTrigger className="w-full border-none" aria-label={legend}>
               <SelectValue placeholder={legend} />
             </SelectTrigger>
             <SelectContent className="bg-background">
-              {(props as SelectProps).options.map((option: string | Option) => {
-                const optValue =
-                  typeof option === "string" ? option : option.value.toString();
-                const optLabel =
-                  typeof option === "string" ? option : option.label;
+              {(props as SelectProps).options?.length ? (
+                (props as SelectProps).options.map(
+                  (option: string | Option) => {
+                    const optValue =
+                      typeof option === "string"
+                        ? option
+                        : String(option.value);
+                    const optLabel =
+                      typeof option === "string" ? option : option.label;
 
-                return (
-                  <SelectItem
-                    key={optValue}
-                    value={optValue}
-                    className="hover:bg-muted"
-                  >
-                    {optLabel}
-                  </SelectItem>
-                );
-              })}
+                    return (
+                      <SelectItem key={optValue} value={optValue}>
+                        {optLabel}
+                      </SelectItem>
+                    );
+                  }
+                )
+              ) : (
+                <div className="p-2 text-muted-foreground">No options</div>
+              )}
             </SelectContent>
           </Select>
         )}
