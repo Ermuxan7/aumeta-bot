@@ -16,7 +16,7 @@ const MyProfile = () => {
     company_name: "",
     country_id: 0,
     region_id: 0,
-    language: "uz", // default
+    language_code: "uz", // default
   });
 
   const { data: regions = [] } = useRegions(form.country_id);
@@ -36,7 +36,7 @@ const MyProfile = () => {
         company_name: me.company_name || "",
         country_id: countryObj?.id ?? 0,
         region_id: regionObj?.id ?? 0,
-        language: me.language || "uz",
+        language_code: me.language || "uz",
       });
     }
   }, [me]);

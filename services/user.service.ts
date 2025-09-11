@@ -6,7 +6,7 @@ export interface UpdateUserPayload {
   company_name: string;
   country_id: number | null;
   region_id: number | null;
-  language: string;
+  language_code: string;
 }
 
 export async function getMe() {
