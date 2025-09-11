@@ -60,18 +60,21 @@ const MyProfile = () => {
           legend="Jaylasqan mámleket"
           as="select"
           options={(countries ?? []).map((c: any) => ({
-            value: c.id,
+            value: String(c.id),
             label: c.name,
           }))}
-          value={form.country_id}
+          value={String(form.country_id)}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
           legend="Region"
           as="select"
-          disabled={!form.country_id}
-          options={regions.map((r: any) => ({ value: r.id, label: r.name }))}
-          value={form.region_id}
+          disabled={!form.region_id}
+          options={regions.map((r: any) => ({
+            value: String(r.id),
+            label: r.name,
+          }))}
+          value={String(form.region_id)}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput
