@@ -1,12 +1,12 @@
 import { apiClient } from "@/lib/api-client";
 
 export interface UpdateUserPayload {
-  language_code: string;
   full_name: string;
   contact: string;
   company_name: string;
   country_id: number | null;
   region_id: number | null;
+  language: string;
 }
 
 export async function getMe() {
