@@ -69,7 +69,7 @@ const MyProfile = () => {
         <FormInput
           legend="Region"
           as="select"
-          disabled={!form.region_id}
+          disabled={!form.country_id}
           options={regions.map((r: any) => ({
             value: String(r.id),
             label: r.name,
