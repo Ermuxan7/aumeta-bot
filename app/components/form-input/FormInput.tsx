@@ -109,11 +109,19 @@ const FormInput = (props: FormFieldProps) => {
         )} */}
         {as === "select" && (
           <Select
-            value={value?.toString()}
+            value={
+              (props as SelectProps).options.some((o) =>
+                typeof o === "string"
+                  ? o === value?.toString()
+                  : o.value.toString() === value?.toString()
+              )
+                ? value?.toString()
+                : undefined
+            }
             onValueChange={(val) => (props as SelectProps).onChange?.(val)}
-            disabled={disabled}
+            disabled={disabled || !(props as SelectProps).options.length}
           >
-            <SelectTrigger className="w-full border-none">
+            <SelectTrigger className="w-full border-none" aria-label={legend}>
               <SelectValue placeholder={legend} />
             </SelectTrigger>
             <SelectContent className="bg-background">
