@@ -23,17 +23,23 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (me) {
+      const countryObj = countries.find(
+        (c: any) => c.name === me.location?.country
+      );
+      const regionObj = regions.find(
+        (r: any) => r.name === me.location?.region
+      );
+
       setForm({
         full_name: me.full_name || "",
         contact: me.contact || "",
         company_name: me.company_name || "",
-        country_id:
-          me.country_id ?? (countries.length > 0 ? countries[0].id : 0),
-        region_id: me.region_id ?? (regions.length > 0 ? regions[0].id : 0),
+        country_id: countryObj?.id ?? 0,
+        region_id: regionObj?.id ?? 0,
         language_code: me.language_code || "uz",
       });
     }
-  }, [me, countries]);
+  }, [me, countries, regions]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -60,21 +66,21 @@ const MyProfile = () => {
           legend="Jaylasqan mámleket"
           as="select"
           options={(countries ?? []).map((c: any) => ({
-            value: String(c.id),
+            value: c.id,
             label: c.name,
           }))}
-          value={String(form.country_id)}
+          value={form.country_id}
           onChange={(val) => handleChange("country_id", Number(val))}
         />
         <FormInput
           legend="Region"
           as="select"
-          disabled={!form.country_id}
-          options={regions.map((r: any) => ({
-            value: String(r.id),
+          disabled={!form.country_id || !regions.length}
+          options={(regions ?? []).map((r: any) => ({
+            value: r.id,
             label: r.name,
           }))}
-          value={String(form.region_id)}
+          value={form.region_id}
           onChange={(val) => handleChange("region_id", Number(val))}
         />
         <FormInput

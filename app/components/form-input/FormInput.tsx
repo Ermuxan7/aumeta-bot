@@ -109,15 +109,7 @@ const FormInput = (props: FormFieldProps) => {
         )} */}
         {as === "select" && (
           <Select
-            value={
-              (props as SelectProps).options.some((o) =>
-                typeof o === "string"
-                  ? o === value?.toString()
-                  : o.value.toString() === value?.toString()
-              )
-                ? value?.toString()
-                : undefined
-            }
+            value={value?.toString() || undefined}
             onValueChange={(val) => (props as SelectProps).onChange?.(val)}
             disabled={disabled || !(props as SelectProps).options.length}
           >
