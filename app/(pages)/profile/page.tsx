@@ -22,7 +22,7 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(form.country_id);
 
   useEffect(() => {
-    if (me) {
+    if (me?.data) {
       console.log("ME >>>", me);
       console.log("COUNTRIES >>>", countries);
       console.log("REGIONS >>>", regions);
