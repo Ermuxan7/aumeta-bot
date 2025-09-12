@@ -1,5 +1,4 @@
 import { apiClient } from "@/lib/api-client";
-
 export interface UpdateUserPayload {
   full_name: string;
   contact: string;
