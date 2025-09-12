@@ -22,24 +22,29 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(form.country_id);
 
   useEffect(() => {
-    if (me) {
+    if (me && countries.length) {
       const countryObj = countries.find(
         (c: any) => c.name === me.location?.country
       );
-      const regionObj = regions.find(
-        (r: any) => r.name === me.location?.region
-      );
-
-      setForm({
+      setForm((prev) => ({
+        ...prev,
         full_name: me.full_name || "",
         contact: me.contact || "",
         company_name: me.company_name || "",
         country_id: countryObj?.id ?? 0,
-        region_id: regionObj?.id ?? 0,
         language_code: me.language || "uz",
-      });
+      }));
     }
-  }, [me]);
+  }, [me, countries]);
+
+  useEffect(() => {
+    if (me && regions.length) {
+      const regionObj = regions.find(
+        (r: any) => r.name === me.location?.region
+      );
+      setForm((prev) => ({ ...prev, region_id: regionObj?.id ?? 0 }));
+    }
+  }, [me, regions]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
