@@ -54,7 +54,8 @@ const MyProfile = () => {
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
-      <Me />
+
+      <pre>{JSON.stringify(me, null, 2)}</pre>
 
       <form onSubmit={handleSubmit} className="bg-background px-3 space-y-5">
         <FormInput
