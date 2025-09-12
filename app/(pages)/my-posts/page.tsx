@@ -1,9 +1,7 @@
 "use client";
-
 import { useMyVacancies } from "@/hooks/useVacancy";
 import { useMyInternships } from "@/hooks/useInternship";
 import { useMyProjects } from "@/hooks/useProject";
-
 import Link from "next/link";
 import { MyPost } from "@/types/myPostType";
 import { mapVacancy, mapInternship, mapOneTimeTask } from "@/lib/my-post";
@@ -20,7 +18,6 @@ export default function MyPosts() {
   const allPosts: MyPost[] = [
     ...(vacanciesData?.data || []).map(mapVacancy),
     ...(internshipsData?.data || []).map(mapInternship),
-
     ...(oneTimeTasksData?.data || []).map(mapOneTimeTask),
   ];
 
@@ -33,12 +30,12 @@ export default function MyPosts() {
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto mt-2 px-4 sm:px-6 md:px-8">
+    <div className="w-full max-w-5xl mx-auto mt-4 px-4">
       <h2 className="text-xl font-semibold mb-6 text-foreground">
         Meniń vakansiyalarım
       </h2>
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {allPosts.map((post) => (
           <Link
             key={`${post.form}-${post.id}`}
@@ -48,11 +45,13 @@ export default function MyPosts() {
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-xs text-primary">{post.form}</p>
-                <p className="text-xl mt-3 font-bold">{post.lawazim}</p>
+                <p className="text-lg sm:text-xl mt-3 font-bold break-words">
+                  {post.lawazim}
+                </p>
               </div>
               <div className="text-xs text-end">
-                <p className="text-xs">{post.aymaq}</p>
-                <p className="">{post.mekeme}</p>
+                <p>{post.aymaq}</p>
+                <p>{post.mekeme}</p>
               </div>
             </div>
             <p className="text-muted-foreground/80 text-xs mt-5">

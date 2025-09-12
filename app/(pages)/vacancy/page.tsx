@@ -1,152 +1,107 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
-import {
-  VacancySchema,
-  VacancyFormValue,
-} from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
-import { useCreateVacancy } from "@/hooks/useVacancy";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useMyVacancies } from "@/hooks/useVacancy";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-const Vacancy = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<VacancyFormValue>({
-    resolver: zodResolver(VacancySchema),
+export default function MyPostDetail() {
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading, isError, error } = useMyVacancies();
+
+  const vacancy = data?.data.find(
+    (item: any) => String(item.id) === String(id)
+  );
+
+  const { register } = useForm({
+    defaultValues: vacancy,
   });
 
-  const createVacancyMutation = useCreateVacancy();
-
-  const onSubmit = (data: VacancyFormValue) => {
-    const payload = {
-      country_id: 5,
-      region_id: 3,
-      position_title: data.lawazim,
-      organization_name: data.mekeme,
-      address: data.manzil,
-      requirements: data.talaplar,
-      duties: data.májburiyatlar,
-      work_schedule: data.jumisWaqiti,
-      salary: data.ayliq,
-      contact: data.baylanis,
-      additional_info: data.qosimsha,
-    };
-
-    createVacancyMutation.mutate(payload);
-  };
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p className="text-red-500">Error: {String(error)}</p>;
+  if (!vacancy) return <p>No data found</p>;
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
+      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        Vakansiya Id:{id}
+      </h2>
+
+      <form className="space-y-4 mb-8">
         <FormInput
           legend="Aymaq"
           type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-          error={errors.aymaq?.message}
+          registration={register("location.country")}
+          value={`${vacancy.location?.country}, ${vacancy.location?.region}`}
+          disabled
         />
         <FormInput
           legend="Lawazım"
           type="text"
-          placeholder="Dizayner, menejer, esapshı h.t.b"
-          registration={register("lawazim")}
-          error={errors.lawazim?.message}
+          registration={register("position_title")}
+          value={vacancy.position_title}
+          disabled
         />
         <FormInput
           legend="Mekeme"
           type="text"
-          placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
-          registration={register("mekeme")}
-          error={errors.mekeme?.message}
+          registration={register("organization_name")}
+          value={vacancy.organization_name}
+          disabled
         />
         <FormInput
           legend="Mánzil"
           type="text"
-          placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
-          registration={register("manzil")}
-          error={errors.manzil?.message}
+          registration={register("address")}
+          value={vacancy.address}
+          disabled
         />
         <FormInput
           legend="Talaplar"
           as="textarea"
-          placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
-          registration={register("talaplar")}
-          error={errors.talaplar?.message}
+          registration={register("requirements")}
+          value={vacancy.requirements}
+          disabled
         />
         <FormInput
           legend="Májburiyatlar"
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
-          registration={register("májburiyatlar")}
-          error={errors.májburiyatlar?.message}
+          registration={register("duties")}
+          value={vacancy.duties}
+          disabled
         />
         <FormInput
-          legend="Jumıs waqıtı "
+          legend="Jumıs waqıtı"
           type="text"
-          placeholder="9:00 - 18:00, erkin grafik, 5/2"
-          registration={register("jumisWaqiti")}
-          error={errors.jumisWaqiti?.message}
+          registration={register("work_schedule")}
+          value={vacancy.work_schedule}
+          disabled
         />
         <FormInput
           legend="Aylıq"
           type="text"
-          placeholder="Kelisimli, $800, 7 mln swm h.t.b"
-          registration={register("ayliq")}
-          error={errors.ayliq?.message}
+          registration={register("salary")}
+          value={vacancy.salary}
+          disabled
         />
-
         <FormInput
           legend="Baylanıs"
           type="text"
-          placeholder="998901234567, ab@email.com, @hr"
-          registration={register("baylanis")}
-          error={errors.baylanis?.message}
+          registration={register("contact")}
+          value={vacancy.contact}
+          disabled
         />
-
-        <FormInput
-          legend="Qosımsha"
-          as="textarea"
-          placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
-          registration={register("qosimsha")}
-          error={errors.qosimsha?.message}
-        />
-        {createVacancyMutation.isError && (
-          <div className="text-red-500">
-            <p>Qatelik: {String(createVacancyMutation.error)}</p>
-            <pre className="text-xs whitespace-pre-wrap">
-              {JSON.stringify(
-                (createVacancyMutation.error as any)?.response?.data,
-                null,
-                2
-              )}
-            </pre>
-            <pre className="text-xs whitespace-pre-wrap">
-              {JSON.stringify(
-                (createVacancyMutation.error as any)?.config,
-                null,
-                2
-              )}
-            </pre>
-          </div>
+        {vacancy.additional_info && (
+          <FormInput
+            legend="Qosımsha"
+            as="textarea"
+            registration={register("additional_info")}
+            value={vacancy.additional_info}
+            disabled
+          />
         )}
-
-        {createVacancyMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
-        )}
-        <button
-          type="submit"
-          className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
-        >
-          {createVacancyMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
-        </button>
       </form>
     </div>
   );
-};
-
-export default Vacancy;
+}
