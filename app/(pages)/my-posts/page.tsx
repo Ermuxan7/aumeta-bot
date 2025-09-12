@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import { VacancyPayload } from "@/types/vacancyType";
 import { useMyVacancies } from "@/hooks/useVacancy";
+import { useMyInternships } from "@/hooks/useInternship";
+import { useMyProjects } from "@/hooks/useProject";
 
 type Vacancy = {
   id: string;
@@ -18,6 +20,8 @@ type Vacancy = {
 const MyPosts = () => {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const { data, error, isLoading, isError } = useMyVacancies();
+  const { data: internship } = useMyInternships();
+  const { data: projects } = useMyProjects();
 
   useEffect(() => {
     setVacancies([
