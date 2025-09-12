@@ -26,14 +26,18 @@ const MyProfile = () => {
       const countryObj = countries.find(
         (c: any) => c.name === me.location?.country
       );
-      setForm((prev) => ({
-        ...prev,
-        full_name: me.full_name || "",
-        contact: me.contact || "",
-        company_name: me.company_name || "",
-        country_id: countryObj?.id ?? 0,
-        language_code: me.language || "uz",
-      }));
+      const id = countryObj?.id ?? 0;
+
+      if (form.country_id !== id) {
+        setForm((prev) => ({
+          ...prev,
+          full_name: me.full_name || "",
+          contact: me.contact || "",
+          company_name: me.company_name || "",
+          country_id: id,
+          language_code: me.language || "uz",
+        }));
+      }
     }
   }, [me, countries]);
 
@@ -42,7 +46,10 @@ const MyProfile = () => {
       const regionObj = regions.find(
         (r: any) => r.name === me.location?.region
       );
-      setForm((prev) => ({ ...prev, region_id: regionObj?.id ?? 0 }));
+      const id = regionObj?.id ?? 0;
+      if (form.region_id !== id) {
+        setForm((prev) => ({ ...prev, region_id: id }));
+      }
     }
   }, [me, regions]);
 

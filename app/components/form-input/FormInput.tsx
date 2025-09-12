@@ -109,10 +109,12 @@ const FormInput = (props: FormFieldProps) => {
         )} */}
         {as === "select" && (
           <Select
-            value={value ? String(value) : undefined}
+            value={
+              value !== undefined && value !== null ? String(value) : undefined
+            }
             onValueChange={(val) => {
-              console.log("Select changed >>>", legend, val);
-              (props as SelectProps).onChange?.(val);
+              const num = Number(val);
+              (props as SelectProps).onChange?.(isNaN(num) ? val : num);
             }}
             disabled={disabled || !(props as SelectProps).options?.length}
           >
