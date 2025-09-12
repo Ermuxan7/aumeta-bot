@@ -22,7 +22,7 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(form.country_id);
 
   useEffect(() => {
-    if (me && countries.length) {
+    if (me) {
       const countryObj = countries.find(
         (c: any) => c.name === me.location?.country
       );
@@ -39,7 +39,7 @@ const MyProfile = () => {
         language_code: me.language || "uz",
       });
     }
-  }, [me, countries, regions]);
+  }, [me]);
 
   const handleChange = (field: string, value: string | number) => {
     setForm((prev) => ({ ...prev, [field]: value }));
