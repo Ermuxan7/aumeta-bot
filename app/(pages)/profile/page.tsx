@@ -22,18 +22,13 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(form.country_id);
 
   useEffect(() => {
-    console.log("useEffect ishladi", { me, countries, regions });
-
     if (me && countries.length) {
-      console.log("Shart bajarildi – form set qilinyapti");
       const countryObj = countries.find(
         (c: any) => c.name === me.location?.country
       );
       const regionObj = regions.find(
         (r: any) => r.name === me.location?.region
       );
-
-      console.log("Tanlangan country/region >>>", { countryObj, regionObj });
 
       setForm({
         full_name: me.full_name || "",
@@ -43,10 +38,6 @@ const MyProfile = () => {
         region_id: regionObj?.id ?? 0,
         language_code: me.language || "uz",
       });
-
-      console.log("Form set qilindi");
-    } else {
-      console.log("useEffect sharti bajarilmadi");
     }
   }, [me, countries, regions]);
 

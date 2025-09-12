@@ -15,5 +15,5 @@ export async function getMe() {
 
 export const updateMe = async (payload: UpdateUserPayload) => {
   const res = await apiClient.put("/users/me", payload);
-  return res.data;
+  return res.data.data;
 };
