@@ -20,7 +20,7 @@ const MyProfile = () => {
   const { data: countries = [] } = useCountries();
   const updateProfileMutation = useUpdateProfile();
 
-  const { register, handleSubmit, reset, control, watch } =
+  const { register, handleSubmit, reset, control, watch, setValue } =
     useForm<ProfileForm>({
       defaultValues: {
         full_name: "",
@@ -44,18 +44,23 @@ const MyProfile = () => {
     );
     const countryId = countryObj?.id ?? 0;
 
-    const regionObj = regions.find((r: any) => r.name === me.location?.region);
-    const regionId = regionObj?.id ?? 0;
-
-    reset({
+    reset((prev) => ({
+      ...prev,
       full_name: me.full_name ?? "",
       contact: me.contact ?? "",
       company_name: me.company_name ?? "",
       country_id: countryId,
-      region_id: regionId,
       language_code: me.language ?? "uz",
-    });
-  }, [me, reset]);
+    }));
+  }, [me, countries, reset]);
+
+  useEffect(() => {
+    if (!me || !regions.length) return;
+    const regionObj = regions.find((r: any) => r.name === me.location?.region);
+    if (regionObj) {
+      setValue("region_id", regionObj.id);
+    }
+  }, [me, regions, setValue]);
 
   const onSubmit = (data: ProfileForm) => {
     updateProfileMutation.mutate(data);
