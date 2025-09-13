@@ -20,7 +20,7 @@ export const useMyVacancies = () => {
   });
 };
 
-export const useIdVacancy = (vacancyId: string) => {
+export const useIdUpdateVacancy = (vacancyId: string) => {
   return useMutation({
     mutationFn: (payload: VacancyPayload) => updateVacancy(vacancyId, payload),
   });

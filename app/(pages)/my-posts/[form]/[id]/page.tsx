@@ -14,7 +14,6 @@ export default function MyPostDetail() {
   if (isError) return <p className="text-red-500">Error: {String(error)}</p>;
   if (!vacancy) return <p>No data found</p>;
 
-  // 🔹 Backend ma’lumotlari sizdagi form input field lar bilan bir xil
   return (
     <div className="w-full max-w-5xl mx-auto mt-6 px-4 sm:px-6 md:px-8">
       <h2 className="text-2xl font-semibold mb-4">{vacancy.position_title}</h2>

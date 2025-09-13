@@ -4,63 +4,61 @@ import FormInput from "@/app/components/form-input/FormInput";
 import Me from "@/components/features/auth/Me";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
 import { useCountries, useRegions } from "@/hooks/useCountries";
+import { Controller, useForm } from "react-hook-form";
+
+type ProfileForm = {
+  full_name: string;
+  contact: string;
+  company_name: string;
+  country_id: number;
+  region_id: number;
+  language_code: string;
+};
 
 const MyProfile = () => {
   const { data: me } = useMe();
   const { data: countries = [] } = useCountries();
   const updateProfileMutation = useUpdateProfile();
 
-  const [form, setForm] = useState({
-    full_name: "",
-    contact: "",
-    company_name: "",
-    country_id: 0,
-    region_id: 0,
-    language_code: "uz", // default
-  });
+  const { register, handleSubmit, reset, control, watch } =
+    useForm<ProfileForm>({
+      defaultValues: {
+        full_name: "",
+        contact: "",
+        company_name: "",
+        country_id: 0,
+        region_id: 0,
+        language_code: "uz",
+      },
+    });
 
-  const { data: regions = [] } = useRegions(form.country_id);
+  const selectedCountryId = watch("country_id");
 
-  useEffect(() => {
-    if (me && countries.length) {
-      const countryObj = countries.find(
-        (c: any) => c.name === me.location?.country
-      );
-      const id = countryObj?.id ?? 0;
-
-      if (form.country_id !== id) {
-        setForm((prev) => ({
-          ...prev,
-          full_name: me.full_name || "",
-          contact: me.contact || "",
-          company_name: me.company_name || "",
-          country_id: id,
-          language_code: me.language || "uz",
-        }));
-      }
-    }
-  }, [me, countries]);
+  const { data: regions = [] } = useRegions(selectedCountryId);
 
   useEffect(() => {
-    if (me && regions.length) {
-      const regionObj = regions.find(
-        (r: any) => r.name === me.location?.region
-      );
-      const id = regionObj?.id ?? 0;
-      if (form.region_id !== id) {
-        setForm((prev) => ({ ...prev, region_id: id }));
-      }
-    }
-  }, [me, regions]);
+    if (!me || !countries.length) return;
 
-  const handleChange = (field: string, value: string | number) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  };
+    const countryObj = countries.find(
+      (c: any) => c.name === me.location?.country
+    );
+    const countryId = countryObj?.id ?? 0;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(form);
-    updateProfileMutation.mutate(form);
+    const regionObj = regions.find((r: any) => r.name === me.location?.region);
+    const regionId = regionObj?.id ?? 0;
+
+    reset({
+      full_name: me.full_name ?? "",
+      contact: me.contact ?? "",
+      company_name: me.company_name ?? "",
+      country_id: countryId,
+      region_id: regionId,
+      language_code: me.language ?? "uz",
+    });
+  }, [me, countries, regions, reset]);
+
+  const onSubmit = (data: ProfileForm) => {
+    updateProfileMutation.mutate(data);
   };
 
   return (
@@ -69,47 +67,52 @@ const MyProfile = () => {
 
       <pre>{JSON.stringify(me, null, 2)}</pre>
 
-      <form onSubmit={handleSubmit} className="bg-background px-3 space-y-5">
-        <FormInput
-          legend="FAÁ"
-          type="text"
-          value={form.full_name}
-          onChange={(e) => handleChange("full_name", e.target.value)}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-background px-3 space-y-5"
+      >
+        <FormInput legend="FAÁ" type="text" {...register("full_name")} />
+        <Controller
+          name="country_id"
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              legend="Jaylasqan mámleket"
+              as="select"
+              options={countries.map((c: any) => ({
+                value: c.id,
+                label: c.name,
+              }))}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
-        <FormInput
-          legend="Jaylasqan mámleket"
-          as="select"
-          options={(countries ?? []).map((c: any) => ({
-            value: c.id,
-            label: c.name,
-          }))}
-          value={form.country_id}
-          onChange={(val) => handleChange("country_id", Number(val))}
-        />
-        <FormInput
-          legend="Region"
-          as="select"
-          disabled={!form.country_id || !regions.length}
-          options={(regions ?? []).map((r: any) => ({
-            value: r.id,
-            label: r.name,
-          }))}
-          value={form.region_id}
-          onChange={(val) => handleChange("region_id", Number(val))}
+
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              legend="Region"
+              as="select"
+              disabled={!watch("country_id") || !regions.length}
+              options={regions.map((r: any) => ({
+                value: r.id,
+                label: r.name,
+              }))}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
         <FormInput
           legend="Mekeme atı"
           type="text"
-          value={form.company_name}
-          onChange={(e) => handleChange("company_name", e.target.value)}
+          {...register("company_name")}
         />
         {/* <FormInput legend="Taraw" as="select" options={sectors} /> */}
-        <FormInput
-          legend="Baylanıs"
-          type="text"
-          value={form.contact}
-          onChange={(e) => handleChange("contact", e.target.value)}
-        />
+        <FormInput legend="Baylanıs" type="text" {...register("contact")} />
         {updateProfileMutation.isError && (
           <p className="text-red-500">
             {JSON.stringify(

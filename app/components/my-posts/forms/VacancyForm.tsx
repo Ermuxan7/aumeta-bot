@@ -5,20 +5,25 @@ import {
   VacancyFormValue,
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
-import { useCreateVacancy } from "@/hooks/useVacancy";
+import { useIdUpdateVacancy } from "@/hooks/useVacancy";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const Vacancy = () => {
+type VacancyFormProps = {
+  data: any;
+};
+
+const VacancyForm = ({ data }: VacancyFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<VacancyFormValue>({
+    defaultValues: data,
     resolver: zodResolver(VacancySchema),
   });
 
-  const createVacancyMutation = useCreateVacancy();
+  const updateVacancyMutation = useIdUpdateVacancy(data.id);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
@@ -35,7 +40,7 @@ const Vacancy = () => {
       additional_info: data.qosimsha,
     };
 
-    createVacancyMutation.mutate(payload);
+    updateVacancyMutation.mutate(payload);
   };
 
   return (
@@ -53,6 +58,7 @@ const Vacancy = () => {
         <FormInput
           legend="Lawazım"
           type="text"
+          value={data.position_title}
           placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
           error={errors.lawazim?.message}
@@ -60,6 +66,7 @@ const Vacancy = () => {
         <FormInput
           legend="Mekeme"
           type="text"
+          value={data.organization_name}
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
           registration={register("mekeme")}
           error={errors.mekeme?.message}
@@ -67,6 +74,7 @@ const Vacancy = () => {
         <FormInput
           legend="Mánzil"
           type="text"
+          value={data.address}
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
           registration={register("manzil")}
           error={errors.manzil?.message}
@@ -74,6 +82,7 @@ const Vacancy = () => {
         <FormInput
           legend="Talaplar"
           as="textarea"
+          value={data.requirements}
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
           error={errors.talaplar?.message}
@@ -81,6 +90,7 @@ const Vacancy = () => {
         <FormInput
           legend="Májburiyatlar"
           as="textarea"
+          value={data.duties}
           placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
           registration={register("májburiyatlar")}
           error={errors.májburiyatlar?.message}
@@ -88,6 +98,7 @@ const Vacancy = () => {
         <FormInput
           legend="Jumıs waqıtı "
           type="text"
+          value={data.work_schedule}
           placeholder="9:00 - 18:00, erkin grafik, 5/2"
           registration={register("jumisWaqiti")}
           error={errors.jumisWaqiti?.message}
@@ -95,6 +106,7 @@ const Vacancy = () => {
         <FormInput
           legend="Aylıq"
           type="text"
+          value={data.salary}
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("ayliq")}
           error={errors.ayliq?.message}
@@ -103,6 +115,7 @@ const Vacancy = () => {
         <FormInput
           legend="Baylanıs"
           type="text"
+          value={data.contact}
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
           error={errors.baylanis?.message}
@@ -111,23 +124,24 @@ const Vacancy = () => {
         <FormInput
           legend="Qosımsha"
           as="textarea"
+          value={data.additional_info}
           placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />
-        {createVacancyMutation.isError && (
+        {updateVacancyMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(createVacancyMutation.error)}</p>
+            <p>Qatelik: {String(updateVacancyMutation.error)}</p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
-                (createVacancyMutation.error as any)?.response?.data,
+                (updateVacancyMutation.error as any)?.response?.data,
                 null,
                 2
               )}
             </pre>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
-                (createVacancyMutation.error as any)?.config,
+                (updateVacancyMutation.error as any)?.config,
                 null,
                 2
               )}
@@ -135,18 +149,18 @@ const Vacancy = () => {
           </div>
         )}
 
-        {createVacancyMutation.isSuccess && (
+        {updateVacancyMutation.isSuccess && (
           <p className="text-green-500">Vakansiya jiberildi ✅</p>
         )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          {createVacancyMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {updateVacancyMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
         </button>
       </form>
     </div>
   );
 };
 
-export default Vacancy;
+export default VacancyForm;

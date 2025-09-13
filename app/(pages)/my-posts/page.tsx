@@ -45,7 +45,7 @@ export default function MyPosts() {
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-xs text-primary">{post.form}</p>
-                <p className="text-lg sm:text-xl mt-3 font-bold break-words">
+                <p className="text-md sm:text-xl mt-3 font-bold break-all">
                   {post.lawazim}
                 </p>
               </div>
