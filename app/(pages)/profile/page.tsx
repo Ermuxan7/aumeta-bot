@@ -55,7 +55,7 @@ const MyProfile = () => {
       region_id: regionId,
       language_code: me.language ?? "uz",
     });
-  }, [me, countries, regions, reset]);
+  }, [me, reset]);
 
   const onSubmit = (data: ProfileForm) => {
     updateProfileMutation.mutate(data);
