@@ -7,6 +7,7 @@ import {
 import BackButton from "@/components/ui/back-button";
 import { useIdUpdateVacancy } from "@/hooks/useVacancy";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type VacancyFormProps = {
@@ -16,12 +17,41 @@ type VacancyFormProps = {
 const VacancyForm = ({ data }: VacancyFormProps) => {
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<VacancyFormValue>({
-    defaultValues: data,
+    defaultValues: {
+      aymaq: "",
+      lawazim: "",
+      mekeme: "",
+      manzil: "",
+      talaplar: "",
+      májburiyatlar: "",
+      jumisWaqiti: "",
+      ayliq: "",
+      baylanis: "",
+      qosimsha: "",
+    },
     resolver: zodResolver(VacancySchema),
   });
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        aymaq: data.location?.region ?? "",
+        lawazim: data.position_title ?? "",
+        mekeme: data.organization_name ?? "",
+        manzil: data.address ?? "",
+        talaplar: data.requirements ?? "",
+        májburiyatlar: data.duties ?? "",
+        jumisWaqiti: data.work_schedule ?? "",
+        ayliq: data.salary ?? "",
+        baylanis: data.contact ?? "",
+        qosimsha: data.additional_info ?? "",
+      });
+    }
+  }, [data, reset]);
 
   const updateVacancyMutation = useIdUpdateVacancy(data.id);
 
@@ -58,7 +88,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Lawazım"
           type="text"
-          value={data.position_title}
           placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
           error={errors.lawazim?.message}
@@ -66,7 +95,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Mekeme"
           type="text"
-          value={data.organization_name}
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
           registration={register("mekeme")}
           error={errors.mekeme?.message}
@@ -74,7 +102,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Mánzil"
           type="text"
-          value={data.address}
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
           registration={register("manzil")}
           error={errors.manzil?.message}
@@ -82,7 +109,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Talaplar"
           as="textarea"
-          value={data.requirements}
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
           error={errors.talaplar?.message}
@@ -90,7 +116,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Májburiyatlar"
           as="textarea"
-          value={data.duties}
           placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
           registration={register("májburiyatlar")}
           error={errors.májburiyatlar?.message}
@@ -98,7 +123,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Jumıs waqıtı "
           type="text"
-          value={data.work_schedule}
           placeholder="9:00 - 18:00, erkin grafik, 5/2"
           registration={register("jumisWaqiti")}
           error={errors.jumisWaqiti?.message}
@@ -106,7 +130,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Aylıq"
           type="text"
-          value={data.salary}
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("ayliq")}
           error={errors.ayliq?.message}
@@ -115,7 +138,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Baylanıs"
           type="text"
-          value={data.contact}
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
           error={errors.baylanis?.message}
@@ -124,7 +146,6 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
         <FormInput
           legend="Qosımsha"
           as="textarea"
-          value={data.additional_info}
           placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
