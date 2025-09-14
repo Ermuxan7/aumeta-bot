@@ -33,12 +33,13 @@ export function mapOpportunities(item: any): MyPost {
   return {
     id: item.id,
     aymaq: item.location.region,
-    lawazim: item.position_title,
-    mekeme: item.organization_name,
+    lawazim: item.content,
+    mekeme: item.contact,
     createdAt: `${year}-${String(month).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`,
     form: "Opportunities",
+    img: item.img || null,
   };
 }
 
@@ -55,5 +56,3 @@ export function mapOneTimeTask(item: any): MyPost {
     form: "Project",
   };
 }
-
-
