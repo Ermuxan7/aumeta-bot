@@ -4,14 +4,16 @@ import { useMyInternships } from "@/hooks/useInternship";
 import { useMyProjects } from "@/hooks/useProject";
 import Link from "next/link";
 import { MyPost } from "@/types/myPostType";
-import { mapVacancy, mapInternship, mapOneTimeTask } from "@/lib/my-post";
+import { mapVacancy, mapInternship, mapOneTimeTask, mapOpportunities } from "@/lib/my-post";
+import { useMyOpportunities } from "@/hooks/useOpportunities";
 
 export default function MyPosts() {
   const { data: vacanciesData, isLoading: vLoading } = useMyVacancies();
   const { data: internshipsData, isLoading: iLoading } = useMyInternships();
   const { data: oneTimeTasksData, isLoading: tLoading } = useMyProjects();
+  const { data: opportunitiesData, isLoading: oLoading } = useMyOpportunities();
 
-  if (vLoading || iLoading || tLoading) {
+  if (vLoading || iLoading || tLoading || oLoading) {
     return <p>Loading...</p>;
   }
 
@@ -19,6 +21,7 @@ export default function MyPosts() {
     ...(vacanciesData?.data || []).map(mapVacancy),
     ...(internshipsData?.data || []).map(mapInternship),
     ...(oneTimeTasksData?.data || []).map(mapOneTimeTask),
+    ...(opportunitiesData?.data || []).map(mapOpportunities),
   ];
 
   allPosts.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
