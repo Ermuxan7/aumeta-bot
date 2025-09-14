@@ -1,5 +1,6 @@
 "use client";
 import InternshipEditForm from "@/app/components/my-posts/forms/InternshipForm";
+import ProjectEditForm from "@/app/components/my-posts/forms/ProjectForm";
 import VacancyEditForm from "@/app/components/my-posts/forms/VacancyForm";
 import { useMyInternships } from "@/hooks/useInternship";
 import { useMyProjects } from "@/hooks/useProject";
@@ -28,6 +29,8 @@ export default function MyPostDetail() {
       return <VacancyEditForm data={post} />;
     case "internship":
       return <InternshipEditForm data={post} />;
+    case "project":
+      return <ProjectEditForm data={post} />;
   }
 
   return <p>Bunday turdegi form ele tayyar emes</p>;
