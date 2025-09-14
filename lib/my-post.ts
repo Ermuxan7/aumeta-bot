@@ -52,6 +52,6 @@ export function mapOneTimeTask(item: any): MyPost {
     createdAt: `${year}-${String(month).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`,
-    form: "One-time Task",
+    form: "Project",
   };
 }
