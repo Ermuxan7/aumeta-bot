@@ -110,7 +110,7 @@ const FileUpload = ({
 
       {serverImg && !file && (
         <div className="mt-4 space-y-2">
-          <p className="font-semibold text-foreground">📂 Mavjud rasm:</p>
+          <p className="font-semibold text-foreground">📂 Saylanǵan fayl</p>
           <div className="relative inline-block">
             <img
               src={serverImg}

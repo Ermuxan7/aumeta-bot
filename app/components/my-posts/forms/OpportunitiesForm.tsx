@@ -87,7 +87,7 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
         />
         <FileUpload
           oneFileSelect={oneFileSelect}
-          initialImage={data?.img ?? null}
+          initialImage={data?.img?.replace("space//", "space/") ?? null}
         />
         {updateOpportunityMutation.isError && (
           <div className="text-red-500">
