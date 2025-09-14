@@ -1,17 +1,26 @@
 "use client";
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const FileUpload = ({
   oneFileSelect,
+  initialImage,
 }: {
   oneFileSelect?: (file: File | null) => void;
+  initialImage?: string | null;
 }) => {
   const [file, setFile] = useState<File | null>(null);
   const [isdragging, setIsDragging] = useState<boolean>(false);
   const [preview, setPreview] = useState<string | null>(null);
+  const [serverImg, setServerImg] = useState<string | null>(
+    initialImage ?? null
+  );
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    setServerImg(initialImage ?? null);
+  }, [initialImage]);
 
   const handleBrowseClick = () => {
     fileInputRef.current?.click();
@@ -22,6 +31,7 @@ const FileUpload = ({
       const selected = e.target.files[0];
       if (selected.type.startsWith("image/")) {
         setFile(selected);
+        setServerImg(null);
         oneFileSelect?.(selected);
       } else {
         alert("Tek súwret júkley alasiz!");
@@ -36,6 +46,7 @@ const FileUpload = ({
       const dropped = e.dataTransfer.files[0];
       if (dropped.type.startsWith("image/")) {
         setFile(dropped);
+        setServerImg(null);
         oneFileSelect?.(dropped);
       } else {
         alert("Tek súwret júkley alasiz!");
@@ -46,6 +57,7 @@ const FileUpload = ({
   const handleRemove = () => {
     setPreview(null);
     setFile(null);
+    setServerImg(null);
     oneFileSelect?.(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -95,6 +107,23 @@ const FileUpload = ({
           onChange={handleFileChange}
         />
       </label>
+
+      {serverImg && !file && (
+        <div className="mt-4 space-y-2">
+          <p className="font-semibold text-foreground">📂 Mavjud rasm:</p>
+          <div className="relative inline-block">
+            <img
+              src={serverImg}
+              alt="server preview"
+              className="w-60 md:w-full h-30 md:h-60 object-cover rounded-lg border"
+              onClick={() => setPreview(serverImg)}
+            />
+            <div className="absolute right-2 top-2 bg-muted/70 hover:bg-muted p-0.5 rounded-full">
+              <X className="size-4" onClick={handleRemove} />
+            </div>
+          </div>
+        </div>
+      )}
 
       {file && (
         <div className="mt-4 space-y-2">

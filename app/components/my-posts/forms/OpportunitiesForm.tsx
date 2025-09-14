@@ -85,7 +85,10 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
-        <FileUpload oneFileSelect={oneFileSelect} />
+        <FileUpload
+          oneFileSelect={oneFileSelect}
+          initialImage={data?.img ?? null}
+        />
         {updateOpportunityMutation.isError && (
           <div className="text-red-500">
             <p>Qatelik: {String(updateOpportunityMutation.error)}</p>
