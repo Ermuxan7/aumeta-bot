@@ -1,4 +1,5 @@
 "use client";
+import InternshipEditForm from "@/app/components/my-posts/forms/InternshipForm";
 import VacancyEditForm from "@/app/components/my-posts/forms/VacancyForm";
 import { useMyInternships } from "@/hooks/useInternship";
 import { useMyProjects } from "@/hooks/useProject";
@@ -22,13 +23,12 @@ export default function MyPostDetail() {
 
   if (!post) return <p className="text-lg text-foreground">Not Found!</p>;
 
-  if (form === "vacancy") {
-    return <VacancyEditForm data={post} />;
+  switch (form) {
+    case "vacancy":
+      return <VacancyEditForm data={post} />;
+    case "internship":
+      return <InternshipEditForm data={post} />;
   }
-  // switch (form) {
-  //   case "vacancy":
-  //     return <VacancyEditForm data={post} />;
-  // }
 
   return <p>Bunday turdegi form ele tayyar emes</p>;
 }

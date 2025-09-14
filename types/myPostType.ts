@@ -4,5 +4,5 @@ export type MyPost = {
   lawazim: string;
   mekeme: string;
   createdAt: string;
-  form: "Vacancy" | "Internship" | "Opportunities" | "One-time Task";
+  form: "Vacancy" | "Internship" | "Opportunities" | "Project";
 };
