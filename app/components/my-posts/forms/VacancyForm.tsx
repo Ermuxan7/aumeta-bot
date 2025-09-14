@@ -14,7 +14,7 @@ type VacancyFormProps = {
   data: any;
 };
 
-const VacancyForm = ({ data }: VacancyFormProps) => {
+const VacancyEditForm = ({ data }: VacancyFormProps) => {
   const {
     register,
     reset,
@@ -184,4 +184,4 @@ const VacancyForm = ({ data }: VacancyFormProps) => {
   );
 };
 
-export default VacancyForm;
+export default VacancyEditForm;

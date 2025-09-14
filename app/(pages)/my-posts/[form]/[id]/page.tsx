@@ -1,55 +1,34 @@
 "use client";
+import VacancyEditForm from "@/app/components/my-posts/forms/VacancyForm";
+import { useMyInternships } from "@/hooks/useInternship";
+import { useMyProjects } from "@/hooks/useProject";
 import { useMyVacancies } from "@/hooks/useVacancy";
 import { useParams } from "next/navigation";
 
 export default function MyPostDetail() {
   const { id, form } = useParams<{ id: string; form: string }>();
-  const { data, isLoading, isError, error } = useMyVacancies();
+  const { data: vacancies } = useMyVacancies();
+  const { data: internships } = useMyInternships();
+  const { data: projects } = useMyProjects();
 
-  const vacancy = data?.data.find(
-    (item: any) => String(item.id) === String(id)
-  );
+  let post: any;
+  if (form === "vacancy") {
+    post = vacancies?.data.find((v: any) => String(v.id) === id);
+  } else if (form === "internship") {
+    post = internships?.data.find((i: any) => String(i.id) === id);
+  } else if (form === "project") {
+    post = projects?.data.find((p: any) => String(p.id) === id);
+  }
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p className="text-red-500">Error: {String(error)}</p>;
-  if (!vacancy) return <p>No data found</p>;
+  if (!post) return <p className="text-lg text-foreground">Not Found!</p>;
 
-  return (
-    <div className="w-full max-w-5xl mx-auto mt-6 px-4 sm:px-6 md:px-8">
-      <h2 className="text-2xl font-semibold mb-4">{vacancy.position_title}</h2>
+  if (form === "vacancy") {
+    return <VacancyEditForm data={post} />;
+  }
+  // switch (form) {
+  //   case "vacancy":
+  //     return <VacancyEditForm data={post} />;
+  // }
 
-      <div className="space-y-2 text-sm">
-        <p>
-          <strong>Mekeme:</strong> {vacancy.organization_name}
-        </p>
-        <p>
-          <strong>Aymaq:</strong> {vacancy.location?.country},{" "}
-          {vacancy.location?.region}
-        </p>
-        <p>
-          <strong>Manzil:</strong> {vacancy.address}
-        </p>
-        <p>
-          <strong>Talaplar:</strong> {vacancy.requirements}
-        </p>
-        <p>
-          <strong>Majburiyatlar:</strong> {vacancy.duties}
-        </p>
-        <p>
-          <strong>Jumıs waqıtı:</strong> {vacancy.work_schedule}
-        </p>
-        <p>
-          <strong>Aylıq:</strong> {vacancy.salary}
-        </p>
-        <p>
-          <strong>Baylanıs:</strong> {vacancy.contact}
-        </p>
-        {vacancy.additional_info && (
-          <p>
-            <strong>Qosımsha:</strong> {vacancy.additional_info}
-          </p>
-        )}
-      </div>
-    </div>
-  );
+  return <p>Bunday turdegi form ele tayyar emes</p>;
 }
