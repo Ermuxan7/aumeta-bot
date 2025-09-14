@@ -1,8 +1,10 @@
 "use client";
 import InternshipEditForm from "@/app/components/my-posts/forms/InternshipForm";
+import OpportunitiesEditForm from "@/app/components/my-posts/forms/OpportunitiesForm";
 import ProjectEditForm from "@/app/components/my-posts/forms/ProjectForm";
 import VacancyEditForm from "@/app/components/my-posts/forms/VacancyForm";
 import { useMyInternships } from "@/hooks/useInternship";
+import { useMyOpportunities } from "@/hooks/useOpportunities";
 import { useMyProjects } from "@/hooks/useProject";
 import { useMyVacancies } from "@/hooks/useVacancy";
 import { useParams } from "next/navigation";
@@ -12,6 +14,7 @@ export default function MyPostDetail() {
   const { data: vacancies } = useMyVacancies();
   const { data: internships } = useMyInternships();
   const { data: projects } = useMyProjects();
+  const { data: opportunities } = useMyOpportunities();
 
   let post: any;
   if (form === "vacancy") {
@@ -20,8 +23,9 @@ export default function MyPostDetail() {
     post = internships?.data.find((i: any) => String(i.id) === id);
   } else if (form === "project") {
     post = projects?.data.find((p: any) => String(p.id) === id);
+  } else if (form === "opportunities") {
+    post = opportunities?.data.find((o: any) => String(o.id) === id);
   }
-
   if (!post) return <p className="text-lg text-foreground">Not Found!</p>;
 
   switch (form) {
@@ -31,6 +35,8 @@ export default function MyPostDetail() {
       return <InternshipEditForm data={post} />;
     case "project":
       return <ProjectEditForm data={post} />;
+    case "opportunities":
+      return <OpportunitiesEditForm data={post} />;
   }
 
   return <p>Bunday turdegi form ele tayyar emes</p>;
