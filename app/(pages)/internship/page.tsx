@@ -6,6 +6,7 @@ import {
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useCreateInternship } from "@/hooks/useInternship";
+import { useLocationStore } from "@/store/locationStore";
 import { InternshipType } from "@/types/internshipType";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,11 +21,12 @@ const Internship = () => {
   });
 
   const createInternshipMutation = useCreateInternship();
+  const { countryId, regionId } = useLocationStore();
 
   const onSubmit = (data: InternshipFormValue) => {
     const payload = {
-      country_id: 4,
-      region_id: 6,
+      country_id: countryId,
+      region_id: regionId,
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,

@@ -10,6 +10,7 @@ import {
   useOpportunities,
   useUpdateOpportunity,
 } from "@/hooks/useOpportunities";
+import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -42,6 +43,7 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
   }, [data, reset]);
 
   const updateOpportunityMutation = useUpdateOpportunity(data.id);
+  const { countryId, regionId } = useLocationStore();
 
   const oneFileSelect = (file: File | null) => {
     fileRef.current = file;
@@ -50,8 +52,8 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
   const onSubmit = (data: OpportunitiesFormValue) => {
     const formData = new FormData();
 
-    formData.append("country_id", "1");
-    formData.append("region_id", "1");
+    formData.append("country_id", String(countryId));
+    formData.append("region_id", String(regionId));
     formData.append("content", data.daǵaza);
     formData.append("contact", data.baylanis);
 

@@ -1,6 +1,6 @@
 export interface InternshipType {
-  country_id: number;
-  region_id: number;
+  country_id: number | null;
+  region_id: number | null;
   position_title: string;
   organization_name: string | undefined;
   requirements: string;

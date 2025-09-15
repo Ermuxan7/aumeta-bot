@@ -116,7 +116,7 @@ const MyProfile = () => {
             />
           )}
         />
-        <Controller
+        {/* <Controller
           name="language_code"
           control={control}
           render={({ field }) => (
@@ -131,7 +131,7 @@ const MyProfile = () => {
               onChange={field.onChange}
             />
           )}
-        />
+        /> */}
         <FormInput
           legend="Mekeme atı"
           type="text"

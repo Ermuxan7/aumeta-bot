@@ -6,6 +6,7 @@ import {
 } from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useCreateProject, useIdProject } from "@/hooks/useProject";
+import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -50,11 +51,13 @@ const ProjectEditForm = ({ data }: ProjectType) => {
   }, [data, reset]);
 
   const updateProjectMutation = useIdProject(data.id);
+    const { countryId, regionId } = useLocationStore();
+  
 
   const onSubmit = (data: ProjectFormValue) => {
     const payload = {
-      country_id: 3,
-      region_id: 8,
+      country_id: countryId,
+      region_id: regionId,
       who_needed: data.lawazim,
       task_description: data.talaplar,
       deadline: data.deadline,

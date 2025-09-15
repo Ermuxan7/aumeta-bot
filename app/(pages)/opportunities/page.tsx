@@ -7,6 +7,7 @@ import {
 } from "@/app/schema/Opportunities";
 import BackButton from "@/components/ui/back-button";
 import { useOpportunities } from "@/hooks/useOpportunities";
+import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -22,6 +23,7 @@ const Opportunities = () => {
   });
 
   const createOpportunityMutation = useOpportunities();
+  const { countryId, regionId } = useLocationStore();
 
   const fileRef = useRef<File | null>(null);
 
@@ -32,8 +34,8 @@ const Opportunities = () => {
   const onSubmit = (data: OpportunitiesFormValue) => {
     const formData = new FormData();
 
-    formData.append("country_id", "1");
-    formData.append("region_id", "1");
+    formData.append("country_id", String(countryId));
+    formData.append("region_id", String(regionId));
     formData.append("content", data.daǵaza);
     formData.append("contact", data.baylanis);
 

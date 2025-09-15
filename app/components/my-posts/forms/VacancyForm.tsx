@@ -6,6 +6,7 @@ import {
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useIdUpdateVacancy } from "@/hooks/useVacancy";
+import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -54,11 +55,12 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
   }, [data, reset]);
 
   const updateVacancyMutation = useIdUpdateVacancy(data.id);
+  const { countryId, regionId } = useLocationStore();
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
-      country_id: 5,
-      region_id: 3,
+      country_id: countryId,
+      region_id: regionId,
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,
