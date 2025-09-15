@@ -44,25 +44,28 @@ const MyProfile = () => {
     if (!me || !countries.length) return;
 
     const countryObj = countries.find(
-      (c: any) => c.name === me.location?.country
+      (c: any) =>
+        c.name.trim().toLowerCase() ===
+        me.location?.country.trim().toLowerCase()
     );
-    const countryId = countryObj?.id ?? 0;
 
-    reset((prev) => ({
-      ...prev,
+    reset({
       full_name: me.full_name ?? "",
       contact: me.contact ?? "",
       company_name: me.company_name ?? "",
-      country_id: countryId,
+      country_id: countryObj?.id ?? 0,
       language_code: me.language ?? "kaa",
-    }));
+    });
   }, [me, countries, reset]);
 
   useEffect(() => {
     if (!me || !regions.length) return;
-    const regionObj = regions.find((r: any) => r.name === me.location?.region);
+    const regionObj = regions.find(
+      (r: any) =>
+        r.name.trim().toLowerCase() === me.location?.region.trim().toLowerCase()
+    );
     if (regionObj) {
-      setValue("region_id", regionObj.id);
+      setValue("region_id", regionObj.id ?? 0);
     }
   }, [me, regions, setValue]);
 
