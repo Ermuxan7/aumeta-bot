@@ -1,6 +1,6 @@
 export interface ProjectType {
-  country_id: number;
-  region_id: number;
+  country_id: number | null;
+  region_id: number | null;
   who_needed: string;
   task_description: string;
   deadline: string | undefined;

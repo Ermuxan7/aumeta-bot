@@ -2,6 +2,7 @@
 import Link from "next/link";
 import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import { useEffect, useState } from "react";
+import { useGetLanguages } from "@/hooks/useLanguages";
 
 const Cards = [
   {
@@ -29,6 +30,7 @@ const Cards = [
 export default function Home() {
   const [initData, setInitData] = useState<string | null>(null);
   const [name, setName] = useState<string | null>(null);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const tg = (window as any).Telegram?.WebApp;
@@ -39,6 +41,7 @@ export default function Home() {
       }
     }
   }, []);
+
   return (
     <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
       <div className="w-full max-w-7xl flex flex-col justify-center items-center">

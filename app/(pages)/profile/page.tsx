@@ -1,10 +1,12 @@
 "use client";
-import { useState, FormEvent, useEffect } from "react";
+import { useEffect } from "react";
 import FormInput from "@/app/components/form-input/FormInput";
-import Me from "@/components/features/auth/Me";
+
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
 import { useCountries, useRegions } from "@/hooks/useCountries";
 import { Controller, useForm } from "react-hook-form";
+import { useGetLanguages } from "@/hooks/useLanguages";
+import { useLocationStore } from "@/store/locationStore";
 
 type ProfileForm = {
   full_name: string;
@@ -18,7 +20,9 @@ type ProfileForm = {
 const MyProfile = () => {
   const { data: me } = useMe();
   const { data: countries = [] } = useCountries();
+  const { data: languages = [] } = useGetLanguages();
   const updateProfileMutation = useUpdateProfile();
+  const { setLocation } = useLocationStore();
 
   const { register, handleSubmit, reset, control, watch, setValue } =
     useForm<ProfileForm>({
@@ -28,7 +32,7 @@ const MyProfile = () => {
         company_name: "",
         country_id: 0,
         region_id: 0,
-        language_code: "uz",
+        language_code: "kaa",
       },
     });
 
@@ -50,7 +54,7 @@ const MyProfile = () => {
       contact: me.contact ?? "",
       company_name: me.company_name ?? "",
       country_id: countryId,
-      language_code: me.language ?? "uz",
+      language_code: me.language ?? "kaa",
     }));
   }, [me, countries, reset]);
 
@@ -63,6 +67,7 @@ const MyProfile = () => {
   }, [me, regions, setValue]);
 
   const onSubmit = (data: ProfileForm) => {
+    setLocation(data.country_id, data.region_id);
     updateProfileMutation.mutate(data);
   };
 
@@ -105,6 +110,22 @@ const MyProfile = () => {
               options={regions.map((r: any) => ({
                 value: r.id,
                 label: r.name,
+              }))}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        <Controller
+          name="language_code"
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              legend="Til"
+              as="select"
+              options={languages.map((l: any) => ({
+                value: l.code,
+                label: l.official_name,
               }))}
               value={field.value}
               onChange={field.onChange}
