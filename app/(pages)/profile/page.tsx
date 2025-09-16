@@ -43,12 +43,12 @@ const MyProfile = () => {
   useEffect(() => {
     if (!me) return;
     reset({
-      full_name: me.full_name ?? "",
-      contact: me.contact ?? "",
-      company_name: me.company_name ?? "",
-      country_id: me.location?.country?.id ?? 0,
-      region_id: me.location?.region?.id ?? 0,
-      language_code: me.language ?? "kaa",
+      full_name: me.data?.full_name ?? "",
+      contact: me.data?.contact ?? "",
+      company_name: me.data?.company_name ?? "",
+      country_id: me.data?.location?.country?.id ?? 0,
+      region_id: me.data?.location?.region?.id ?? 0,
+      language_code: me.data?.language ?? "kaa",
     });
   }, [me, reset]);
 
