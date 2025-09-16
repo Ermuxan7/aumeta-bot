@@ -12,8 +12,8 @@ type ProfileForm = {
   full_name: string;
   contact: string;
   company_name: string;
-  country_id: number;
-  region_id: number;
+  country_id: string;
+  region_id: string;
   language_code: string;
 };
 
@@ -30,13 +30,14 @@ const MyProfile = () => {
         full_name: "",
         contact: "",
         company_name: "",
-        country_id: 0,
-        region_id: 0,
+        country_id: "",
+        region_id: "",
         language_code: "kaa",
       },
     });
 
-  const selectedCountryId = watch("country_id");
+  const countryIdValue = watch("country_id");
+  const selectedCountryId = countryIdValue ? Number(countryIdValue) : 0;
 
   const { data: regions = [] } = useRegions(selectedCountryId);
 
@@ -46,15 +47,19 @@ const MyProfile = () => {
       full_name: me.data?.full_name ?? "",
       contact: me.data?.contact ?? "",
       company_name: me.data?.company_name ?? "",
-      country_id: me.data?.location?.country?.id ?? 0,
-      region_id: me.data?.location?.region?.id ?? 0,
+      country_id: me.data?.location?.country?.id?.toString() ?? "",
+      region_id: me.data?.location?.region?.id?.toString() ?? "",
       language_code: me.data?.language ?? "kaa",
     });
   }, [me, reset]);
 
   const onSubmit = (data: ProfileForm) => {
     setLocation(data.country_id, data.region_id);
-    updateProfileMutation.mutate(data);
+    updateProfileMutation.mutate({
+      ...data,
+      country_id: data.country_id ? Number(data.country_id) : null,
+      region_id: data.region_id ? Number(data.region_id) : null,
+    });
   };
 
   return (
