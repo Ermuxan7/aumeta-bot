@@ -54,7 +54,10 @@ const MyProfile = () => {
   }, [me, reset]);
 
   const onSubmit = (data: ProfileForm) => {
-    setLocation(data.country_id, data.region_id);
+    setLocation(
+      data.country_id ? Number(data.country_id) : 0,
+      data.region_id ? Number(data.region_id) : 0
+    );
     updateProfileMutation.mutate({
       ...data,
       country_id: data.country_id ? Number(data.country_id) : null,
