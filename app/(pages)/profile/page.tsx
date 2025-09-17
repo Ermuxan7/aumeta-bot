@@ -24,7 +24,7 @@ const MyProfile = () => {
   const updateProfileMutation = useUpdateProfile();
   const { setLocation } = useLocationStore();
 
-  const { register, handleSubmit, reset, control, watch } =
+  const { register, handleSubmit, reset, control, watch, setValue } =
     useForm<ProfileForm>({
       defaultValues: {
         full_name: "",
@@ -48,10 +48,16 @@ const MyProfile = () => {
       contact: me.data?.contact ?? "",
       company_name: me.data?.company_name ?? "",
       country_id: me.data?.location?.country?.id?.toString() ?? "",
-      region_id: me.data?.location?.region?.id?.toString() ?? "",
+      region_id: "",
       language_code: me.data?.language ?? "kaa",
     });
-  }, [me, reset]);
+  }, [me, countries, reset]);
+
+  useEffect(() => {
+    if (regions.length && me?.data?.location?.region?.id) {
+      setValue("region_id", me.data.location.region.id.toString());
+    }
+  }, [regions, me, setValue]);
 
   const onSubmit = (data: ProfileForm) => {
     setLocation(
@@ -100,7 +106,7 @@ const MyProfile = () => {
             <FormInput
               legend="Region"
               as="select"
-              disabled={!watch("country_id") || !regions.length}
+              disabled={!selectedCountryId || !regions.length}
               options={regions.map((r: any) => ({
                 value: r.id.toString(),
                 label: r.name,
