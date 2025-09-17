@@ -92,14 +92,27 @@ const MyProfile = () => {
                 label: c.name,
               }))}
               value={field.value}
-              onChange={field.onChange}
+              onChange={(val) => {
+                field.onChange(val);
+                setLocation(Number(val), 0);
+                setValue("region_id", "");
+              }}
             />
           )}
         />
         <Controller
           name="region_id"
           control={control}
-          render={({ field }) => <RegionSelect field={field} />}
+          render={({ field }) => (
+            <RegionSelect
+              field={field}
+              countryId={Number(watch("country_id"))}
+              onRegionChange={(val) => {
+                field.onChange(val);
+                setLocation(Number(watch("country_id")), Number(val));
+              }}
+            />
+          )}
         />
         {/* <Controller
           name="language_code"

@@ -90,7 +90,16 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
         <Controller
           name="region_id"
           control={control}
-          render={({ field }) => <RegionSelect field={field} />}
+          render={({ field }) => (
+            <RegionSelect
+              field={field}
+              countryId={countryId ?? 0}
+              onRegionChange={(val) => {
+                field.onChange(val);
+                setLocation(countryId ?? 0, Number(val));
+              }}
+            />
+          )}
         />
         <FormInput
           legend="Lawazım"
