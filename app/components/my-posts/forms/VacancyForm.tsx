@@ -39,9 +39,12 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
     resolver: zodResolver(VacancySchema),
   });
 
+  const { setLocation, countryId, regionId } = useLocationStore();
+
   useEffect(() => {
     if (data) {
       reset({
+        region_id: data.location?.region?.id?.toString() ?? "",
         lawazim: data.position_title ?? "",
         mekeme: data.organization_name ?? "",
         manzil: data.address ?? "",
@@ -52,11 +55,14 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
         baylanis: data.contact ?? "",
         qosimsha: data.additional_info ?? "",
       });
+      setLocation(
+        data.location?.country?.id ?? 0,
+        data.location?.region?.id ?? 0
+      );
     }
-  }, [data, reset]);
+  }, [data, reset, setLocation]);
 
   const updateVacancyMutation = useIdUpdateVacancy(data.id);
-  const { countryId, regionId } = useLocationStore();
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {

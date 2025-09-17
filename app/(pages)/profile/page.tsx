@@ -96,7 +96,6 @@ const MyProfile = () => {
             />
           )}
         />
-
         <Controller
           name="region_id"
           control={control}

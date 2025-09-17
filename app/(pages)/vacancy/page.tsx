@@ -6,14 +6,17 @@ import {
   VacancyFormValue,
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useMe } from "@/hooks/useMe";
 import { useCreateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const Vacancy = () => {
   const {
     register,
+    reset,
     handleSubmit,
     control,
     formState: { errors },
@@ -22,8 +25,18 @@ const Vacancy = () => {
     defaultValues: { region_id: "" },
   });
 
+  const { data: user } = useMe();
   const createVacancyMutation = useCreateVacancy();
-  const { countryId, regionId } = useLocationStore();
+  const { countryId, setLocation } = useLocationStore();
+
+  useEffect(() => {
+    if (user?.location) {
+      reset({
+        region_id: user.location.region.id.toString(),
+      });
+      setLocation(user.location.country.id, user.location.region.id);
+    }
+  }, [user, reset, setLocation]);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
