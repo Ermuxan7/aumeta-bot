@@ -25,10 +25,10 @@ export default function TelegramAuthPage() {
 
   if (!tokens) return <div className="text-foreground">No tokens</div>;
 
-  return (
-    <div>
-      <p>{tokens.access_token}</p>
-      <p>{tokens.refresh_token}</p>
-    </div>
-  );
+  // return (
+  //   <div>
+  //     <p>{tokens.access_token}</p>
+  //     <p>{tokens.refresh_token}</p>
+  //   </div>
+  // );
 }
