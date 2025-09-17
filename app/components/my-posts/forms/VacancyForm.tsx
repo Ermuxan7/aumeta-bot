@@ -56,8 +56,8 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
         qosimsha: data.additional_info ?? "",
       });
       setLocation(
-        data.location?.country?.id ?? 0,
-        data.location?.region?.id ?? 0
+        data.location?.country?.id ?? null,
+        data.location?.region?.id ?? null
       );
     }
   }, [data, reset, setLocation]);
@@ -93,7 +93,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId ?? 0}
+              countryId={countryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(countryId ?? 0, Number(val));

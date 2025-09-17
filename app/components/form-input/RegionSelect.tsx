@@ -5,7 +5,7 @@ import FormInput from "@/app/components/form-input/FormInput";
 
 type Props = {
   field: ControllerRenderProps<any, "region_id">;
-  countryId: number;
+  countryId: number | null;
   onRegionChange: (val: string) => void;
 };
 
@@ -20,7 +20,7 @@ export default function RegionSelect({
     <FormInput
       legend="Region"
       as="select"
-      disabled={!countryId}
+      disabled={countryId === null}
       options={regions.map((r: any) => ({
         value: r.id.toString(),
         label: r.name,

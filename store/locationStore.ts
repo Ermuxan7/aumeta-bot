@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 interface LocationState {
   countryId: number | null;
   regionId: number | null;
-  setLocation: (countryId: number, regionId: number) => void;
+  setLocation: (countryId: number | null, regionId: number | null) => void;
 }
 
 export const useLocationStore = create(

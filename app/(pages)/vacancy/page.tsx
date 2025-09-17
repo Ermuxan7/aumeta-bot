@@ -34,7 +34,10 @@ const Vacancy = () => {
       reset({
         region_id: user.location.region.id.toString(),
       });
-      setLocation(user.location.country.id, user.location.region.id);
+      setLocation(
+        user.location.country.id ?? null,
+        user.location.region.id ?? null
+      );
     }
   }, [user, reset, setLocation]);
 
@@ -74,7 +77,7 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId ?? 0}
+              countryId={countryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(countryId ?? 0, Number(val));
