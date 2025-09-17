@@ -7,6 +7,7 @@ import { useCountries, useRegions } from "@/hooks/useCountries";
 import { Controller, useForm } from "react-hook-form";
 import { useGetLanguages } from "@/hooks/useLanguages";
 import { useLocationStore } from "@/store/locationStore";
+import RegionSelect from "@/app/components/form-input/RegionSelect";
 
 type ProfileForm = {
   full_name: string;
@@ -74,9 +75,6 @@ const MyProfile = () => {
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
       <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
-
-      <pre>{JSON.stringify(me, null, 2)}</pre>
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-background px-3 space-y-5"
@@ -102,19 +100,7 @@ const MyProfile = () => {
         <Controller
           name="region_id"
           control={control}
-          render={({ field }) => (
-            <FormInput
-              legend="Region"
-              as="select"
-              disabled={!selectedCountryId || !regions.length}
-              options={regions.map((r: any) => ({
-                value: r.id.toString(),
-                label: r.name,
-              }))}
-              value={field.value}
-              onChange={field.onChange}
-            />
-          )}
+          render={({ field }) => <RegionSelect field={field} />}
         />
         {/* <Controller
           name="language_code"

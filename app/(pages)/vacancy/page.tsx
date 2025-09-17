@@ -1,5 +1,6 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
+import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   VacancySchema,
   VacancyFormValue,
@@ -8,15 +9,17 @@ import BackButton from "@/components/ui/back-button";
 import { useCreateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 const Vacancy = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<VacancyFormValue>({
     resolver: zodResolver(VacancySchema),
+    defaultValues: { region_id: "" },
   });
 
   const createVacancyMutation = useCreateVacancy();
@@ -25,7 +28,7 @@ const Vacancy = () => {
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
       country_id: countryId,
-      region_id: regionId,
+      region_id: Number(data.region_id),
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,
@@ -45,12 +48,17 @@ const Vacancy = () => {
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <FormInput
+        {/* <FormInput
           legend="Aymaq"
           type="text"
           placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
           registration={register("aymaq")}
           error={errors.aymaq?.message}
+        /> */}
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => <RegionSelect field={field} />}
         />
         <FormInput
           legend="Lawazım"
@@ -101,7 +109,6 @@ const Vacancy = () => {
           registration={register("ayliq")}
           error={errors.ayliq?.message}
         />
-
         <FormInput
           legend="Baylanıs"
           type="text"
@@ -109,7 +116,6 @@ const Vacancy = () => {
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
-
         <FormInput
           legend="Qosımsha"
           as="textarea"
@@ -136,7 +142,6 @@ const Vacancy = () => {
             </pre>
           </div>
         )}
-
         {createVacancyMutation.isSuccess && (
           <p className="text-green-500">Vakansiya jiberildi ✅</p>
         )}

@@ -9,7 +9,8 @@ import { useIdUpdateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import RegionSelect from "../../form-input/RegionSelect";
 
 type VacancyFormProps = {
   data: any;
@@ -19,11 +20,12 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
   const {
     register,
     reset,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<VacancyFormValue>({
     defaultValues: {
-      aymaq: "",
+      region_id: "",
       lawazim: "",
       mekeme: "",
       manzil: "",
@@ -40,7 +42,6 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
   useEffect(() => {
     if (data) {
       reset({
-        aymaq: data.location?.region ?? "",
         lawazim: data.position_title ?? "",
         mekeme: data.organization_name ?? "",
         manzil: data.address ?? "",
@@ -80,12 +81,10 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <FormInput
-          legend="Aymaq"
-          type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-          error={errors.aymaq?.message}
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => <RegionSelect field={field} />}
         />
         <FormInput
           legend="Lawazım"
