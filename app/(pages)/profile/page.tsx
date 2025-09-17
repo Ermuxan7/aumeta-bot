@@ -42,7 +42,7 @@ const MyProfile = () => {
   const { data: regions = [] } = useRegions(selectedCountryId);
 
   useEffect(() => {
-    if (!me) return;
+    if (!me || !countries.length) return;
     reset({
       full_name: me.data?.full_name ?? "",
       contact: me.data?.contact ?? "",
@@ -84,7 +84,7 @@ const MyProfile = () => {
               legend="Jaylasqan mámleket"
               as="select"
               options={countries.map((c: any) => ({
-                value: c.id,
+                value: c.id.toString(),
                 label: c.name,
               }))}
               value={field.value}
@@ -102,7 +102,7 @@ const MyProfile = () => {
               as="select"
               disabled={!watch("country_id") || !regions.length}
               options={regions.map((r: any) => ({
-                value: r.id,
+                value: r.id.toString(),
                 label: r.name,
               }))}
               value={field.value}
