@@ -6,6 +6,7 @@ import {
   VacancyFormValue,
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useRegions } from "@/hooks/useCountries";
 import { useMe } from "@/hooks/useMe";
 import { useCreateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
@@ -27,10 +28,11 @@ const Vacancy = () => {
 
   const { data: user } = useMe();
   const createVacancyMutation = useCreateVacancy();
+  const { data: regions = [] } = useRegions(user?.location?.country.id ?? 0);
   const { countryId, setLocation } = useLocationStore();
 
   useEffect(() => {
-    if (user?.location) {
+    if (user?.location && regions.length > 0) {
       reset({
         region_id: user.location.region.id.toString(),
       });
@@ -39,7 +41,7 @@ const Vacancy = () => {
         user.location.region.id ?? null
       );
     }
-  }, [user, reset, setLocation]);
+  }, [user, regions, reset, setLocation]);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
