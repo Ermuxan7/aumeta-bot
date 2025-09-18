@@ -17,7 +17,10 @@ import { Controller, useForm } from "react-hook-form";
 const Vacancy = () => {
   const { data: me } = useMe();
   const createVacancyMutation = useCreateVacancy();
-  const { countryId, setLocation } = useLocationStore();
+  const { setLocation } = useLocationStore();
+
+  const userCountryId = me?.location?.country?.id ?? null;
+  const userRegionId = me?.location?.region?.id ?? null;
 
   const {
     register,
@@ -42,14 +45,10 @@ const Vacancy = () => {
     },
   });
 
-  const userCountryId = me?.location?.country?.id ?? null;
-  const userRegionId = me?.location?.region?.id ?? null;
-  const selectedCountryId = userCountryId && Number(userCountryId);
-  const { data: regions = [] } = useRegions(selectedCountryId) ?? undefined;
+  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
 
   useEffect(() => {
     if (!me) return;
-
     reset({
       region_id: userRegionId?.toString() ?? "",
       lawazim: "",
@@ -62,7 +61,7 @@ const Vacancy = () => {
       baylanis: "",
       qosimsha: "",
     });
-  }, [me, reset]);
+  }, [me, reset, userRegionId]);
 
   useEffect(() => {
     if (regions.length && userRegionId) {
@@ -97,6 +96,7 @@ const Vacancy = () => {
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
           name="region_id"
@@ -104,7 +104,7 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={Number(userCountryId)}
+              countryId={userCountryId} // userning country_id
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));
@@ -112,6 +112,7 @@ const Vacancy = () => {
             />
           )}
         />
+
         <FormInput
           legend="Lawazım"
           type="text"
@@ -122,14 +123,14 @@ const Vacancy = () => {
         <FormInput
           legend="Mekeme"
           type="text"
-          placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
+          placeholder="Bizler Group, ООО Ромашка h.t.b"
           registration={register("mekeme")}
           error={errors.mekeme?.message}
         />
         <FormInput
           legend="Mánzil"
           type="text"
-          placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
+          placeholder="Москва, Tashkent h.t.b"
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
@@ -143,7 +144,7 @@ const Vacancy = () => {
         <FormInput
           legend="Májburiyatlar"
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
+          placeholder="Klientlermen islew, esabatlar h.t.b"
           registration={register("májburiyatlar")}
           error={errors.májburiyatlar?.message}
         />
@@ -171,32 +172,20 @@ const Vacancy = () => {
         <FormInput
           legend="Qosımsha"
           as="textarea"
-          placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
+          placeholder="Bonuslar, shárayatlar h.t.b"
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />
+
         {createVacancyMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(createVacancyMutation.error)}</p>
-            <pre className="text-xs whitespace-pre-wrap">
-              {JSON.stringify(
-                (createVacancyMutation.error as any)?.response?.data,
-                null,
-                2
-              )}
-            </pre>
-            <pre className="text-xs whitespace-pre-wrap">
-              {JSON.stringify(
-                (createVacancyMutation.error as any)?.config,
-                null,
-                2
-              )}
-            </pre>
+            Qatelik: {String(createVacancyMutation.error)}
           </div>
         )}
         {createVacancyMutation.isSuccess && (
           <p className="text-green-500">Vakansiya jiberildi ✅</p>
         )}
+
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
