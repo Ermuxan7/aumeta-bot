@@ -38,7 +38,7 @@ const MyProfile = () => {
     });
 
   const countryIdValue = watch("country_id");
-  const selectedCountryId = countryIdValue ? Number(countryIdValue) : 0;
+  const selectedCountryId = countryIdValue ? Number(countryIdValue) : null;
 
   const { data: regions = [] } = useRegions(selectedCountryId);
 
@@ -106,10 +106,10 @@ const MyProfile = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={Number(watch("country_id"))}
+              countryId={selectedCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
-                setLocation(Number(watch("country_id")), Number(val));
+                setLocation(selectedCountryId, Number(val));
               }}
             />
           )}

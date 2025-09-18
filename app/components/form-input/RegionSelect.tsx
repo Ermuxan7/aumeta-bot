@@ -2,7 +2,6 @@
 import { ControllerRenderProps } from "react-hook-form";
 import { useRegions } from "@/hooks/useCountries";
 import FormInput from "@/app/components/form-input/FormInput";
-import { ChangeEvent } from "react";
 
 type Props = {
   field: ControllerRenderProps<any, "region_id">;
@@ -15,7 +14,7 @@ export default function RegionSelect({
   countryId,
   onRegionChange,
 }: Props) {
-  const { data: regions = [] } = useRegions(countryId ?? undefined);
+  const { data: regions = [] } = useRegions(countryId ?? null);
 
   return (
     <FormInput
