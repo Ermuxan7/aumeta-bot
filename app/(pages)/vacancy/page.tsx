@@ -42,17 +42,13 @@ const Vacancy = () => {
   });
 
   const selectedCountryId = user?.location?.country?.id ?? undefined;
-  const selectedRegionId = user?.location?.region?.id ?? undefined;
-  const { data: regions = [] } = useRegions(selectedCountryId);
+  const { data } = useRegions(selectedCountryId);
 
   useEffect(() => {
-    if (!user) return;
-    setLocation(
-      user.country_id ? Number(user.country_id) : null,
-      user.region_id ? Number(user.region_id) : null
-    );
+    if (!user?.location) return;
+
     reset({
-      region_id: selectedRegionId != null ? selectedRegionId.toString() : "",
+      region_id: user.location.region.id.toString(),
       lawazim: "",
       mekeme: "",
       manzil: "",
@@ -63,7 +59,7 @@ const Vacancy = () => {
       baylanis: "",
       qosimsha: "",
     });
-  }, [user, reset, setLocation, selectedCountryId, selectedRegionId]);
+  }, [user, reset]);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
@@ -80,6 +76,10 @@ const Vacancy = () => {
       additional_info: data.qosimsha,
     };
 
+    setLocation(
+      Number(user.location.country.id),
+      Number(user.location.region.id)
+    );
     createVacancyMutation.mutate(payload);
   };
 
