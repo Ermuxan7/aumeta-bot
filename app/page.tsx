@@ -78,7 +78,7 @@ export default function Home() {
             </p>
           </div>
         )}
-        <div className="text-sm sm:text-md text-muted-foreground text-center font-normal mt-3 sm:my-8">
+        <div className="text-sm sm:text-md text-muted-foreground text-center font-normal mt-6 sm:my-8">
           <p>
             ❕ Daǵazalaw biypul. Aldawshılardan abaylań. <br />
           </p>

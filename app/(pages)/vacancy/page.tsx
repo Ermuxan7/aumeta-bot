@@ -41,18 +41,15 @@ const Vacancy = () => {
     },
   });
 
-  const selectedCountryId =
-    countryId ?? user?.location?.country?.id ?? undefined;
+  const selectedCountryId = user?.location?.country?.id ?? undefined;
+  const selectedRegionId = user?.location?.region?.id ?? undefined;
   const { data: regions = [] } = useRegions(selectedCountryId);
 
   useEffect(() => {
     if (!user) return;
-    setLocation(
-      Number(user.location.country.id),
-      Number(user.location.region.id)
-    );
+    setLocation(selectedCountryId ?? null, selectedRegionId ?? null);
     reset({
-      region_id: user.location.region.id.toString(),
+      region_id: selectedRegionId.toString() ?? "",
       lawazim: "",
       mekeme: "",
       manzil: "",
@@ -63,11 +60,11 @@ const Vacancy = () => {
       baylanis: "",
       qosimsha: "",
     });
-  }, [user, reset, setLocation]);
+  }, [user, reset, setLocation, selectedCountryId, selectedRegionId]);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
-      country_id: selectedCountryId,
+      country_id: selectedCountryId ?? null,
       region_id: Number(data.region_id),
       position_title: data.lawazim,
       organization_name: data.mekeme,
@@ -88,20 +85,13 @@ const Vacancy = () => {
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        {/* <FormInput
-          legend="Aymaq"
-          type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-          error={errors.aymaq?.message}
-        /> */}
         <Controller
           name="region_id"
           control={control}
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={selectedCountryId}
+              countryId={selectedCountryId ?? null}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(countryId ?? null, Number(val));
