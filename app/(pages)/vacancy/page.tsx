@@ -102,10 +102,10 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId}
+              countryId={userCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
-                setLocation(countryId ?? null, Number(val));
+                setLocation(userCountryId ?? null, Number(val));
               }}
             />
           )}
