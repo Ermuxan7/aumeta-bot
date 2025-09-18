@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import TelegramAuth from "@/components/features/auth/TelegramAuth";
-// import { useEffect, useState } from "react";
-// import { useGetLanguages } from "@/hooks/useLanguages";
+import { useMe } from "@/hooks/useMe";
+import { useLocationStore } from "@/store/locationStore";
+import { useEffect } from "react";
 
 const Cards = [
   {
@@ -28,29 +29,23 @@ const Cards = [
 ];
 
 export default function Home() {
-  // const [initData, setInitData] = useState<string | null>(null);
-  // const [name, setName] = useState<string | null>(null);
+  const { data: me } = useMe();
+  const { countryId, regionId, setLocation } = useLocationStore();
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const tg = (window as any).Telegram?.WebApp;
-  //     if (tg) {
-  //       tg.ready();
-  //       setInitData(tg.initData);
-  //       setName(tg.initDataUnsafe?.user?.first_name || null);
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (me?.data && (countryId === null || regionId === null)) {
+      const apiCountry = me.data.location?.country?.id ?? null;
+      const apiRegion = me.data.location?.region?.id ?? null;
+
+      if (apiCountry !== null && apiRegion !== null) {
+        setLocation(apiCountry, apiRegion);
+      }
+    }
+  }, [me, countryId, regionId, setLocation]);
 
   return (
     <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
       <div className="w-full max-w-7xl flex flex-col justify-center items-center">
-        {/* {initData && (
-          <div className="w-full mb-4 p-3 bg-green-100 text-green-800 rounded-md text-sm text-center">
-            <p>Telegramdan kirildi!</p>
-            <p>{name}</p>
-            </div>
-            )} */}
         <TelegramAuth />
         <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
           Aumeta Jobs kanallarına daǵaza jaylastırıw ushın tómendegi túymege
@@ -70,17 +65,19 @@ export default function Home() {
             </Link>
           ))}
         </div>
-        <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
-          <img
-            src="/attention.png"
-            alt="attention"
-            className="size-6 md:size-8 "
-          />
-          <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
-            Daǵazalaw ushın mámleket saylanbaǵan. Profilge ótiń → mámleket
-            saylań.
-          </p>
-        </div>
+        {countryId === null && (
+          <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
+            <img
+              src="/attention.png"
+              alt="attention"
+              className="size-6 md:size-8 "
+            />
+            <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
+              Daǵazalaw ushın mámleket saylanbaǵan. Profilge ótiń → mámleket
+              saylań.
+            </p>
+          </div>
+        )}
         <div className="text-sm sm:text-md text-muted-foreground text-center font-normal sm:my-8">
           <p>
             ❕ Daǵazalaw biypul. Aldawshılardan abaylań. <br />
