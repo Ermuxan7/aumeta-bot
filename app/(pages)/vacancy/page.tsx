@@ -47,7 +47,10 @@ const Vacancy = () => {
 
   useEffect(() => {
     if (!user) return;
-    setLocation(selectedCountryId ?? null, selectedRegionId ?? null);
+    setLocation(
+      user.country_id ? Number(user.country_id) : null,
+      user.region_id ? Number(user.region_id) : null
+    );
     reset({
       region_id: selectedRegionId != null ? selectedRegionId.toString() : "",
       lawazim: "",
