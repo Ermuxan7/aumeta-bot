@@ -11,7 +11,7 @@ export const useCountries = () => {
   });
 };
 
-export const useRegions = (countryId: number | null) => {
+export const useRegions = (countryId: number | undefined) => {
   return useQuery({
     queryKey: ["regions", countryId],
     queryFn: async () => {

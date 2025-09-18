@@ -28,7 +28,9 @@ const Vacancy = () => {
 
   const { data: user } = useMe();
   const createVacancyMutation = useCreateVacancy();
-  const { data: regions = [] } = useRegions(user?.location?.country.id ?? 0);
+  const { data: regions = [] } = useRegions(
+    user?.location?.country.id ?? undefined
+  );
   const { countryId, setLocation } = useLocationStore();
 
   useEffect(() => {
@@ -37,8 +39,8 @@ const Vacancy = () => {
         region_id: user.location.region.id.toString(),
       });
       setLocation(
-        user.location.country.id ?? null,
-        user.location.region.id ?? null
+        Number(user.location.country.id),
+        Number(user.location.region.id)
       );
     }
   }, [user, regions, reset, setLocation]);

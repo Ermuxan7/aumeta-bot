@@ -15,7 +15,7 @@ export default function RegionSelect({
   countryId,
   onRegionChange,
 }: Props) {
-  const { data: regions = [] } = useRegions(countryId ?? 0);
+  const { data: regions = [] } = useRegions(countryId ?? undefined);
 
   return (
     <FormInput
@@ -26,7 +26,7 @@ export default function RegionSelect({
         value: r.id.toString(),
         label: r.name,
       }))}
-      value={field.value}
+      value={field.value ?? ""}
       onChange={(value) => {
         field.onChange(value);
         onRegionChange(value);
