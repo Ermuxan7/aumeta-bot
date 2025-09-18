@@ -47,6 +47,11 @@ const Vacancy = () => {
   useEffect(() => {
     if (!user?.location) return;
 
+    setLocation(
+      Number(user.location.country.id),
+      Number(user.location.region.id)
+    );
+
     reset({
       region_id: user.location.region.id.toString(),
       lawazim: "",
@@ -59,12 +64,7 @@ const Vacancy = () => {
       baylanis: "",
       qosimsha: "",
     });
-
-    setLocation(
-      Number(user.location.country.id),
-      Number(user.location.region.id)
-    );
-  }, [user, reset]);
+  }, [user, reset, setLocation]);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
@@ -95,7 +95,7 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={selectedCountryId ?? null}
+              countryId={countryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(countryId ?? null, Number(val));
