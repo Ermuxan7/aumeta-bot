@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const Vacancy = () => {
-  const { data: user } = useMe();
+  const { data: me } = useMe();
   const createVacancyMutation = useCreateVacancy();
   const { countryId, setLocation } = useLocationStore();
 
@@ -42,28 +42,27 @@ const Vacancy = () => {
     },
   });
 
-  const userCountryId = user?.location?.country?.id ?? null;
-  const userRegionId = user?.location?.region?.id ?? null;
-  const { data: regions = [] } = useRegions(userCountryId);
+  const userCountryId = me?.location?.country?.id ?? null;
+  const userRegionId = me?.location?.region?.id ?? null;
+  const selectedCountryId = userCountryId && Number(userCountryId);
+  const { data: regions = [] } = useRegions(selectedCountryId) ?? undefined;
 
   useEffect(() => {
-    if (!user?.location) return;
+    if (!me) return;
 
-    if (regions.length) {
-      reset({
-        region_id: userRegionId.toString(),
-        lawazim: "",
-        mekeme: "",
-        manzil: "",
-        talaplar: "",
-        májburiyatlar: "",
-        jumisWaqiti: "",
-        ayliq: "",
-        baylanis: "",
-        qosimsha: "",
-      });
-    }
-  }, [user, reset]);
+    reset({
+      region_id: userRegionId?.toString() ?? "",
+      lawazim: "",
+      mekeme: "",
+      manzil: "",
+      talaplar: "",
+      májburiyatlar: "",
+      jumisWaqiti: "",
+      ayliq: "",
+      baylanis: "",
+      qosimsha: "",
+    });
+  }, [me, reset]);
 
   useEffect(() => {
     if (regions.length && userRegionId) {
@@ -72,7 +71,10 @@ const Vacancy = () => {
   }, [regions, userRegionId, setValue]);
 
   const onSubmit = (data: VacancyFormValue) => {
-    setLocation(userCountryId, data.region_id ? Number(data.region_id) : null);
+    setLocation(
+      userCountryId ? Number(userCountryId) : null,
+      data.region_id ? Number(data.region_id) : null
+    );
 
     const payload = {
       country_id: userCountryId,
@@ -102,7 +104,7 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={userCountryId}
+              countryId={Number(userCountryId)}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));
