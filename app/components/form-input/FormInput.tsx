@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 type Option = { label: string; value: string | number };
 
 type BaseProps = {
@@ -19,26 +18,28 @@ type BaseProps = {
   disabled?: boolean;
 };
 
-type InputProps = BaseProps & {
-  as?: "input";
-  registration?: UseFormRegisterReturn;
-} & ComponentPropsWithoutRef<"input">;
+type InputProps = BaseProps &
+  ComponentPropsWithoutRef<"input"> & {
+    as?: "input";
+    registration?: UseFormRegisterReturn;
+  };
 
-type TextareaProps = BaseProps & {
-  as: "textarea";
-  rows?: number;
-  registration?: UseFormRegisterReturn;
-} & ComponentPropsWithoutRef<"textarea">;
+type TextareaProps = BaseProps &
+  ComponentPropsWithoutRef<"textarea"> & {
+    as: "textarea";
+    rows?: number;
+    registration?: UseFormRegisterReturn;
+  };
 
-type SelectProps = BaseProps & {
-  as: "select";
-  options: string[] | Option[];
-  onChange?: (value: string | number) => void;
-  registration?: UseFormRegisterReturn;
-} & ComponentPropsWithoutRef<"select">;
+type SelectProps = BaseProps &
+  Omit<ComponentPropsWithoutRef<"select">, "onChange" | "value"> & {
+    as: "select";
+    options: string[] | Option[];
+    onChange?: (value: string | number) => void;
+    registration?: UseFormRegisterReturn;
+  };
 
 type FormFieldProps = InputProps | TextareaProps | SelectProps;
-
 const FormInput = (props: FormFieldProps) => {
   const {
     legend,

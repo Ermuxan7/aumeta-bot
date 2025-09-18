@@ -2,11 +2,12 @@
 import { ControllerRenderProps } from "react-hook-form";
 import { useRegions } from "@/hooks/useCountries";
 import FormInput from "@/app/components/form-input/FormInput";
+import { ChangeEvent } from "react";
 
 type Props = {
   field: ControllerRenderProps<any, "region_id">;
   countryId: number | null;
-  onRegionChange: (val: string) => void;
+  onRegionChange: (value: string | number) => void;
 };
 
 export default function RegionSelect({
@@ -26,11 +27,9 @@ export default function RegionSelect({
         label: r.name,
       }))}
       value={field.value}
-      onChange={(e) => {
-        field.onChange(e);
-        onRegionChange(
-          (e as React.ChangeEvent<HTMLSelectElement>).target.value
-        );
+      onChange={(value) => {
+        field.onChange(value);
+        onRegionChange(value);
       }}
     />
   );
