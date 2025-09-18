@@ -26,7 +26,7 @@ export default function RegionSelect({
         value: r.id.toString(),
         label: r.name,
       }))}
-      value={field.value ?? ""}
+      value={field.value || ""}
       onChange={(value) => {
         field.onChange(value);
         onRegionChange(value);

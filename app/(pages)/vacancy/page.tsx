@@ -42,29 +42,31 @@ const Vacancy = () => {
   });
 
   const selectedCountryId = user?.location?.country?.id ?? undefined;
-  const { data } = useRegions(selectedCountryId);
+  const { data: regions = [] } = useRegions(selectedCountryId ?? undefined);
 
   useEffect(() => {
     if (!user?.location) return;
 
-    setLocation(
-      Number(user.location.country.id),
-      Number(user.location.region.id)
-    );
+    const country_id = Number(user.location.country.id);
+    const region_id = Number(user.location.region.id);
 
-    reset({
-      region_id: user.location.region.id.toString(),
-      lawazim: "",
-      mekeme: "",
-      manzil: "",
-      talaplar: "",
-      májburiyatlar: "",
-      jumisWaqiti: "",
-      ayliq: "",
-      baylanis: "",
-      qosimsha: "",
-    });
-  }, [user, reset, setLocation]);
+    setLocation(country_id, region_id);
+
+    if (regions.length) {
+      reset({
+        region_id: region_id.toString(),
+        lawazim: "",
+        mekeme: "",
+        manzil: "",
+        talaplar: "",
+        májburiyatlar: "",
+        jumisWaqiti: "",
+        ayliq: "",
+        baylanis: "",
+        qosimsha: "",
+      });
+    }
+  }, [user, regions, reset, setLocation]);
 
   const onSubmit = (data: VacancyFormValue) => {
     const payload = {
