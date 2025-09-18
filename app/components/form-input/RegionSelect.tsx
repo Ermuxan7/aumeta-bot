@@ -21,7 +21,7 @@ export default function RegionSelect({
     <FormInput
       legend="Region"
       as="select"
-      disabled={countryId === null}
+      disabled={countryId === null || regions.length === 0}
       options={regions.map((r: any) => ({
         value: r.id.toString(),
         label: r.name,
