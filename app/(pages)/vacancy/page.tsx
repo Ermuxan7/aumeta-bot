@@ -22,6 +22,7 @@ const Vacancy = () => {
   const {
     register,
     reset,
+    setValue,
     handleSubmit,
     control,
     formState: { errors },
@@ -41,20 +42,16 @@ const Vacancy = () => {
     },
   });
 
-  const selectedCountryId = user?.location?.country?.id ?? undefined;
-  const { data: regions = [] } = useRegions(selectedCountryId ?? undefined);
+  const userCountryId = user?.location?.country?.id ?? null;
+  const userRegionId = user?.location?.region?.id ?? null;
+  const { data: regions = [] } = useRegions(userCountryId);
 
   useEffect(() => {
     if (!user?.location) return;
 
-    const country_id = Number(user.location.country.id);
-    const region_id = Number(user.location.region.id);
-
-    setLocation(country_id, region_id);
-
     if (regions.length) {
       reset({
-        region_id: region_id.toString(),
+        region_id: userRegionId.toString(),
         lawazim: "",
         mekeme: "",
         manzil: "",
@@ -66,12 +63,20 @@ const Vacancy = () => {
         qosimsha: "",
       });
     }
-  }, [user, regions, reset, setLocation]);
+  }, [user, reset]);
+
+  useEffect(() => {
+    if (regions.length && userRegionId) {
+      setValue("region_id", userRegionId.toString());
+    }
+  }, [regions, userRegionId, setValue]);
 
   const onSubmit = (data: VacancyFormValue) => {
+    setLocation(userCountryId, data.region_id ? Number(data.region_id) : null);
+
     const payload = {
-      country_id: selectedCountryId ?? null,
-      region_id: Number(data.region_id),
+      country_id: userCountryId,
+      region_id: data.region_id ? Number(data.region_id) : null,
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,
