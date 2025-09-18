@@ -94,7 +94,7 @@ const MyProfile = () => {
               value={field.value}
               onChange={(val) => {
                 field.onChange(val);
-                setLocation(Number(val), 0);
+                setLocation(Number(val), null);
                 setValue("region_id", "");
               }}
             />

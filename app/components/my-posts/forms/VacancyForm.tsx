@@ -96,7 +96,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
               countryId={countryId}
               onRegionChange={(val) => {
                 field.onChange(val);
-                setLocation(countryId ?? 0, Number(val));
+                setLocation(countryId ?? null, Number(val));
               }}
             />
           )}
