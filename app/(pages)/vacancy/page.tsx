@@ -49,7 +49,7 @@ const Vacancy = () => {
     if (!user) return;
     setLocation(selectedCountryId ?? null, selectedRegionId ?? null);
     reset({
-      region_id: selectedRegionId.toString() ?? "",
+      region_id: selectedRegionId != null ? selectedRegionId.toString() : "",
       lawazim: "",
       mekeme: "",
       manzil: "",
