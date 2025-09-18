@@ -59,6 +59,11 @@ const Vacancy = () => {
       baylanis: "",
       qosimsha: "",
     });
+
+    setLocation(
+      Number(user.location.country.id),
+      Number(user.location.region.id)
+    );
   }, [user, reset]);
 
   const onSubmit = (data: VacancyFormValue) => {
@@ -76,10 +81,6 @@ const Vacancy = () => {
       additional_info: data.qosimsha,
     };
 
-    setLocation(
-      Number(user.location.country.id),
-      Number(user.location.region.id)
-    );
     createVacancyMutation.mutate(payload);
   };
 
