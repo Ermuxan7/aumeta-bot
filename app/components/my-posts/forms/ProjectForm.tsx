@@ -23,7 +23,6 @@ const ProjectEditForm = ({ data }: ProjectType) => {
     formState: { errors },
   } = useForm<ProjectFormValue>({
     defaultValues: {
-      aymaq: "",
       lawazim: "",
       talaplar: "",
       tólem: "",
@@ -38,7 +37,6 @@ const ProjectEditForm = ({ data }: ProjectType) => {
   useEffect(() => {
     if (data) {
       reset({
-        aymaq: data.location?.region ?? "",
         lawazim: data.who_needed ?? "",
         manzil: data.address ?? "",
         talaplar: data.task_description ?? "",
@@ -51,8 +49,7 @@ const ProjectEditForm = ({ data }: ProjectType) => {
   }, [data, reset]);
 
   const updateProjectMutation = useIdProject(data.id);
-    const { countryId, regionId } = useLocationStore();
-  
+  const { countryId, regionId } = useLocationStore();
 
   const onSubmit = (data: ProjectFormValue) => {
     const payload = {
@@ -77,13 +74,6 @@ const ProjectEditForm = ({ data }: ProjectType) => {
         Bir mártelik wazıypa/joybar
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <FormInput
-          legend="Aymaq"
-          type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-          error={errors.aymaq?.message}
-        />
         <FormInput
           legend="Sizge kim kerek?"
           type="text"
