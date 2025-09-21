@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const InternshipSchema = z.object({
-  aymaq: z.string().min(2, "Aymaq kiritiliwi sha'rt!"),
+  region_id: z.string().min(1, "Region tanlaniwi sha'rt!"),
   lawazim: z.string().min(2, "Lawazım kiritiliwi sha'rt!"),
   mekeme: z.string().optional(),
   talaplar: z.string().min(2, "Talaplar kiritiliwi sha'rt!"),

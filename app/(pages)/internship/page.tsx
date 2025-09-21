@@ -1,32 +1,82 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
+import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   InternshipFormValue,
   InternshipSchema,
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useRegions } from "@/hooks/useCountries";
 import { useCreateInternship } from "@/hooks/useInternship";
+import { useMe } from "@/hooks/useMe";
 import { useLocationStore } from "@/store/locationStore";
 import { InternshipType } from "@/types/internshipType";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 const Internship = () => {
+  const { data: me } = useMe();
+  const createInternshipMutation = useCreateInternship();
+  const { setLocation, countryId, regionId } = useLocationStore();
+
+  const userCountryId = me?.location?.country?.id ?? null;
+  const userRegionId = me?.location?.region?.id ?? null;
   const {
     register,
+    reset,
+    control,
+    setValue,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<InternshipFormValue>({
+    defaultValues: {
+      region_id: "",
+    },
     resolver: zodResolver(InternshipSchema),
   });
 
-  const createInternshipMutation = useCreateInternship();
-  const { countryId, regionId } = useLocationStore();
+  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
+
+  useEffect(() => {
+    if (!me) return;
+    reset({
+      ...getValues(),
+      region_id: userRegionId?.toString() ?? "",
+    });
+  }, [me, reset, userRegionId, getValues]);
+
+  useEffect(() => {
+    if (!me) return;
+    reset({
+      region_id: userRegionId?.toString() ?? "",
+      lawazim: "",
+      mekeme: "",
+      manzil: "",
+      talaplar: "",
+      májburiyatlar: "",
+      sharayatlar: "",
+      tolem: "",
+      baylanis: "",
+      qosimsha: "",
+    });
+  }, [me, reset, userRegionId]);
+
+  useEffect(() => {
+    if (regions.length && userRegionId) {
+      setValue("region_id", userRegionId.toString());
+    }
+  }, [regions, userRegionId, setValue]);
 
   const onSubmit = (data: InternshipFormValue) => {
+    setLocation(
+      userCountryId ? Number(userCountryId) : null,
+      data.region_id ? Number(data.region_id) : null
+    );
     const payload = {
-      country_id: countryId,
-      region_id: regionId,
+      country_id: userCountryId,
+      region_id: data.region_id ? Number(data.region_id) : null,
       position_title: data.lawazim,
       organization_name: data.mekeme,
       address: data.manzil,
@@ -46,13 +96,20 @@ const Internship = () => {
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">Ámeliyat</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <FormInput
-          legend="Aymaq"
-          type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => (
+            <RegionSelect
+              field={field}
+              countryId={countryId}
+              onRegionChange={(val) => {
+                field.onChange(val);
+                setLocation(userCountryId ?? null, Number(val));
+              }}
+            />
+          )}
         />
-        {errors.aymaq && <p className="text-red-500">{errors.aymaq.message}</p>}
         <FormInput
           legend="Lawazim ati"
           type="text"
