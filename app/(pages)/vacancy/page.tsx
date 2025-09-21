@@ -17,7 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 const Vacancy = () => {
   const { data: me } = useMe();
   const createVacancyMutation = useCreateVacancy();
-  const { setLocation } = useLocationStore();
+  const { setLocation, countryId } = useLocationStore();
 
   const userCountryId = me?.location?.country?.id ?? null;
   const userRegionId = me?.location?.region?.id ?? null;
@@ -104,7 +104,7 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={userCountryId}
+              countryId={countryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));
