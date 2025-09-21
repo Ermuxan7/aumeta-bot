@@ -1,31 +1,71 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
+import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   ProjectSchema,
   ProjectFormValue,
 } from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useRegions } from "@/hooks/useCountries";
+import { useMe } from "@/hooks/useMe";
 import { useCreateProject } from "@/hooks/useProject";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
 
 const Project = () => {
+  const { data: me } = useMe();
+  const { countryId, regionId, setLocation } = useLocationStore();
+  const createProjectMutation = useCreateProject();
+
+  const userCountryId = me?.location?.country?.id ?? null;
+  const userRegionId = me?.location?.region?.id ?? null;
+
   const {
     register,
+    reset,
     handleSubmit,
+    control,
+    setValue,
     formState: { errors },
   } = useForm<ProjectFormValue>({
+    defaultValues: {
+      region_id: regionId?.toString() ?? "",
+    },
     resolver: zodResolver(ProjectSchema),
   });
 
-  const createProjectMutation = useCreateProject();
-  const { countryId, regionId } = useLocationStore();
+  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
+
+  useEffect(() => {
+    if (!me) return;
+    reset({
+      region_id: userRegionId?.toString() ?? "",
+      lawazim: "",
+      talaplar: "",
+      tólem: "",
+      deadline: "",
+      baylanis: "",
+      manzil: "",
+      qosimsha: "",
+    });
+  }, [me, reset, userRegionId]);
+
+  useEffect(() => {
+    if (regions.length && regionId) {
+      setValue("region_id", regionId.toString());
+    }
+  }, [regions, regionId, setValue]);
 
   const onSubmit = (data: ProjectFormValue) => {
+    setLocation(
+      countryId ?? null,
+      data.region_id ? Number(data.region_id) : null
+    );
     const payload = {
       country_id: countryId,
-      region_id: regionId,
+      region_id: data.region_id ? Number(data.region_id) : null,
       who_needed: data.lawazim,
       task_description: data.talaplar,
       deadline: data.deadline,
@@ -45,12 +85,19 @@ const Project = () => {
         Bir mártelik wazıypa/joybar
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <FormInput
-          legend="Aymaq"
-          type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-          error={errors.aymaq?.message}
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => (
+            <RegionSelect
+              field={field}
+              countryId={countryId}
+              onRegionChange={(val) => {
+                field.onChange(val);
+                setLocation(countryId ?? null, Number(val));
+              }}
+            />
+          )}
         />
         <FormInput
           legend="Sizge kim kerek?"
