@@ -20,7 +20,7 @@ export default function RegionSelect({
     <FormInput
       legend="Region"
       as="select"
-      disabled={!countryId || isLoading || regions.length === 0}
+      disabled={!countryId || isLoading}
       options={regions.map((r: any) => ({
         value: r.id.toString(),
         label: r.name,
