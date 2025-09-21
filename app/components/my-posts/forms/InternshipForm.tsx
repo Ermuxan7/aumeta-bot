@@ -24,7 +24,6 @@ const InternshipEditForm = ({ data }: InternshipType) => {
     formState: { errors },
   } = useForm<InternshipFormValue>({
     defaultValues: {
-      aymaq: "",
       lawazim: "",
       mekeme: "",
       talaplar: "",
@@ -41,7 +40,6 @@ const InternshipEditForm = ({ data }: InternshipType) => {
   useEffect(() => {
     if (data) {
       reset({
-        aymaq: data.location?.region ?? "",
         lawazim: data.position_title ?? "",
         mekeme: data.organization_name ?? "",
         manzil: data.address ?? "",
@@ -56,8 +54,7 @@ const InternshipEditForm = ({ data }: InternshipType) => {
   }, [data, reset]);
 
   const updateInternshipMutation = useIdInternship(data.id);
-    const { countryId, regionId } = useLocationStore();
-  
+  const { countryId, regionId } = useLocationStore();
 
   const onSubmit = (data: InternshipFormValue) => {
     const payload = {
@@ -82,13 +79,6 @@ const InternshipEditForm = ({ data }: InternshipType) => {
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">Ámeliyat</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
-        <FormInput
-          legend="Aymaq"
-          type="text"
-          placeholder="Qaraqalpaqstan, Tashkent, Samarqand, Nawayı, Xarezm h.t.b"
-          registration={register("aymaq")}
-        />
-        {errors.aymaq && <p className="text-red-500">{errors.aymaq.message}</p>}
         <FormInput
           legend="Lawazim ati"
           type="text"
