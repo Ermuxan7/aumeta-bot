@@ -14,13 +14,13 @@ export default function RegionSelect({
   countryId,
   onRegionChange,
 }: Props) {
-  const { data: regions = [] } = useRegions(countryId ?? null);
+  const { data: regions = [], isLoading } = useRegions(countryId ?? null);
 
   return (
     <FormInput
       legend="Region"
       as="select"
-      disabled={countryId === null || regions.length === 0}
+      disabled={!countryId || isLoading || regions.length === 0}
       options={regions.map((r: any) => ({
         value: r.id.toString(),
         label: r.name,
