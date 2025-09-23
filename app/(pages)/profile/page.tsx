@@ -51,6 +51,12 @@ const MyProfile = () => {
       return;
     }
 
+    // If user has a region, wait for regions to load before initializing
+    const userHasRegion = me.data?.location?.region?.id;
+    if (userHasRegion && isLoadingRegions) {
+      return;
+    }
+
     if (!isInitialized) {
       const userCountryId = me.data?.location?.country?.id?.toString() ?? "";
       const userRegionId = me.data?.location?.region?.id?.toString() ?? "";
@@ -66,7 +72,15 @@ const MyProfile = () => {
 
       setIsInitialized(true);
     }
-  }, [me, countries, reset, isInitialized, isLoadingMe, isLoadingCountries]);
+  }, [
+    me,
+    countries,
+    reset,
+    isInitialized,
+    isLoadingMe,
+    isLoadingCountries,
+    isLoadingRegions
+  ]);
 
   // Handle country change
   const handleCountryChange = useCallback(
@@ -103,7 +117,15 @@ const MyProfile = () => {
   };
 
   // Show loading state
-  if (isLoadingMe || isLoadingCountries || !isInitialized) {
+  const userHasRegion = me?.data?.location?.region?.id;
+  const shouldWaitForRegions = userHasRegion && isLoadingRegions;
+
+  if (
+    isLoadingMe ||
+    isLoadingCountries ||
+    !isInitialized ||
+    shouldWaitForRegions
+  ) {
     return (
       <div className="max-w-2xl mx-auto mt-2 px-4">
         <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
