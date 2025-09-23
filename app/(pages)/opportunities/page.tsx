@@ -3,8 +3,8 @@ import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import FileUpload from "@/app/components/upload/FileUpload";
 import {
-  OpportunitiesSchema,
   OpportunitiesFormValue,
+  OpportunitiesSchema
 } from "@/app/schema/Opportunities";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
@@ -12,17 +12,18 @@ import { useMe } from "@/hooks/useMe";
 import { useOpportunities } from "@/hooks/useOpportunities";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { file } from "zod";
 
 const Opportunities = () => {
-  const { data: me } = useMe();
+  const { data: me, isLoading: isLoadingMe } = useMe();
   const createOpportunityMutation = useOpportunities();
-  const { setLocation, countryId, regionId } = useLocationStore();
+  const { setLocation } = useLocationStore();
 
-  const userCountryId = me?.location?.country?.id ?? null;
-  const userRegionId = me?.location?.region?.id ?? null;
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const userCountryId = me?.data?.location?.country?.id ?? null;
+  const userRegionId = me?.data?.location?.region?.id ?? null;
 
   const {
     register,
@@ -30,35 +31,46 @@ const Opportunities = () => {
     control,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm<OpportunitiesFormValue>({
     defaultValues: {
       region_id: "",
+      daǵaza: "",
+      baylanis: ""
     },
-    resolver: zodResolver(OpportunitiesSchema),
+    resolver: zodResolver(OpportunitiesSchema)
   });
 
-  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    userCountryId ?? undefined
+  );
   const fileRef = useRef<File | null>(null);
 
   const oneFileSelect = (file: File | null) => {
     fileRef.current = file;
   };
 
+  // Initialize form with user data - only once to avoid race conditions
   useEffect(() => {
-    if (!me) return;
-    reset({
-      region_id: userRegionId?.toString() ?? "",
-      daǵaza: "",
-      baylanis: "",
-    });
-  }, [me, reset, userRegionId]);
-
-  useEffect(() => {
-    if (regions.length && userRegionId) {
-      setValue("region_id", userRegionId.toString());
+    if (!me || isLoadingMe) {
+      return;
     }
-  }, [regions, userRegionId, setValue]);
+
+    // If user has a region, wait for regions to load before initializing
+    const userHasRegion = me.data?.location?.region?.id;
+    if (userHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      reset({
+        region_id: userRegionId?.toString() ?? "",
+        daǵaza: "",
+        baylanis: ""
+      });
+      setIsInitialized(true);
+    }
+  }, [me, isLoadingMe, isLoadingRegions, userRegionId, reset, isInitialized]);
 
   const onSubmit = (data: OpportunitiesFormValue) => {
     setLocation(
@@ -68,7 +80,7 @@ const Opportunities = () => {
 
     const formData = new FormData();
     formData.append("country_id", String(userCountryId ?? ""));
-    formData.append("region_id", String(userRegionId ?? ""));
+    formData.append("region_id", String(data.region_id ?? ""));
     formData.append("content", data.daǵaza);
     formData.append("contact", data.baylanis);
 
@@ -78,6 +90,24 @@ const Opportunities = () => {
 
     createOpportunityMutation.mutate(formData);
   };
+
+  // Show loading state
+  const userHasRegion = me?.data?.location?.region?.id;
+  const shouldWaitForRegions = userHasRegion && isLoadingRegions;
+
+  if (isLoadingMe || !isInitialized || shouldWaitForRegions) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          Imkaniyatlar & grantlar
+        </h2>
+        <div className="space-y-4">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -92,7 +122,7 @@ const Opportunities = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId}
+              countryId={userCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));

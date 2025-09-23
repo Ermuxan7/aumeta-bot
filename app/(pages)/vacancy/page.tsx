@@ -2,8 +2,8 @@
 import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
-  VacancySchema,
   VacancyFormValue,
+  VacancySchema
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
@@ -11,16 +11,18 @@ import { useMe } from "@/hooks/useMe";
 import { useCreateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const Vacancy = () => {
-  const { data: me } = useMe();
+  const { data: me, isLoading: isLoadingMe } = useMe();
   const createVacancyMutation = useCreateVacancy();
-  const { setLocation, countryId } = useLocationStore();
+  const { setLocation } = useLocationStore();
 
-  const userCountryId = me?.location?.country?.id ?? null;
-  const userRegionId = me?.location?.region?.id ?? null;
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const userCountryId = me?.data?.location?.country?.id ?? null;
+  const userRegionId = me?.data?.location?.region?.id ?? null;
 
   const {
     register,
@@ -28,7 +30,7 @@ const Vacancy = () => {
     setValue,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors }
   } = useForm<VacancyFormValue>({
     resolver: zodResolver(VacancySchema),
     defaultValues: {
@@ -41,33 +43,42 @@ const Vacancy = () => {
       jumisWaqiti: "",
       ayliq: "",
       baylanis: "",
-      qosimsha: "",
-    },
+      qosimsha: ""
+    }
   });
 
-  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    userCountryId ?? undefined
+  );
 
+  // Initialize form with user data - only once to avoid race conditions
   useEffect(() => {
-    if (!me) return;
-    reset({
-      region_id: userRegionId?.toString() ?? "",
-      lawazim: "",
-      mekeme: "",
-      manzil: "",
-      talaplar: "",
-      májburiyatlar: "",
-      jumisWaqiti: "",
-      ayliq: "",
-      baylanis: "",
-      qosimsha: "",
-    });
-  }, [me, reset, userRegionId]);
-
-  useEffect(() => {
-    if (regions.length && userRegionId) {
-      setValue("region_id", userRegionId.toString());
+    if (!me || isLoadingMe) {
+      return;
     }
-  }, [regions, userRegionId, setValue]);
+
+    // If user has a region, wait for regions to load before initializing
+    const userHasRegion = me.data?.location?.region?.id;
+    if (userHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      reset({
+        region_id: userRegionId?.toString() ?? "",
+        lawazim: "",
+        mekeme: "",
+        manzil: "",
+        talaplar: "",
+        májburiyatlar: "",
+        jumisWaqiti: "",
+        ayliq: "",
+        baylanis: "",
+        qosimsha: ""
+      });
+      setIsInitialized(true);
+    }
+  }, [me, isLoadingMe, isLoadingRegions, userRegionId, reset, isInitialized]);
 
   const onSubmit = (data: VacancyFormValue) => {
     setLocation(
@@ -86,11 +97,29 @@ const Vacancy = () => {
       work_schedule: data.jumisWaqiti,
       salary: data.ayliq,
       contact: data.baylanis,
-      additional_info: data.qosimsha,
+      additional_info: data.qosimsha
     };
 
     createVacancyMutation.mutate(payload);
   };
+
+  // Show loading state
+  const userHasRegion = me?.data?.location?.region?.id;
+  const shouldWaitForRegions = userHasRegion && isLoadingRegions;
+
+  if (isLoadingMe || !isInitialized || shouldWaitForRegions) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          Jumisshi izlew
+        </h2>
+        <div className="space-y-4">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -104,7 +133,7 @@ const Vacancy = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId}
+              countryId={userCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));

@@ -2,8 +2,8 @@
 import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
-  ProjectSchema,
   ProjectFormValue,
+  ProjectSchema
 } from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
@@ -11,16 +11,18 @@ import { useMe } from "@/hooks/useMe";
 import { useCreateProject } from "@/hooks/useProject";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const Project = () => {
-  const { data: me } = useMe();
-  const { countryId, regionId, setLocation } = useLocationStore();
+  const { data: me, isLoading: isLoadingMe } = useMe();
+  const { setLocation } = useLocationStore();
   const createProjectMutation = useCreateProject();
 
-  const userCountryId = me?.location?.country?.id ?? null;
-  const userRegionId = me?.location?.region?.id ?? null;
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const userCountryId = me?.data?.location?.country?.id ?? null;
+  const userRegionId = me?.data?.location?.region?.id ?? null;
 
   const {
     register,
@@ -28,43 +30,59 @@ const Project = () => {
     handleSubmit,
     control,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ProjectFormValue>({
     defaultValues: {
-      region_id: regionId?.toString() ?? "",
-    },
-    resolver: zodResolver(ProjectSchema),
-  });
-
-  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
-
-  useEffect(() => {
-    if (!me) return;
-    reset({
-      region_id: userRegionId?.toString() ?? "",
+      region_id: "",
       lawazim: "",
       talaplar: "",
       tólem: "",
       deadline: "",
       baylanis: "",
       manzil: "",
-      qosimsha: "",
-    });
-  }, [me, reset, userRegionId]);
+      qosimsha: ""
+    },
+    resolver: zodResolver(ProjectSchema)
+  });
 
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    userCountryId ?? undefined
+  );
+
+  // Initialize form with user data - only once to avoid race conditions
   useEffect(() => {
-    if (regions.length && regionId) {
-      setValue("region_id", regionId.toString());
+    if (!me || isLoadingMe) {
+      return;
     }
-  }, [regions, regionId, setValue]);
+
+    // If user has a region, wait for regions to load before initializing
+    const userHasRegion = me.data?.location?.region?.id;
+    if (userHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      reset({
+        region_id: userRegionId?.toString() ?? "",
+        lawazim: "",
+        talaplar: "",
+        tólem: "",
+        deadline: "",
+        baylanis: "",
+        manzil: "",
+        qosimsha: ""
+      });
+      setIsInitialized(true);
+    }
+  }, [me, isLoadingMe, isLoadingRegions, userRegionId, reset, isInitialized]);
 
   const onSubmit = (data: ProjectFormValue) => {
     setLocation(
-      countryId ?? null,
+      userCountryId ?? null,
       data.region_id ? Number(data.region_id) : null
     );
     const payload = {
-      country_id: countryId,
+      country_id: userCountryId,
       region_id: data.region_id ? Number(data.region_id) : null,
       who_needed: data.lawazim,
       task_description: data.talaplar,
@@ -72,11 +90,29 @@ const Project = () => {
       salary: data.tólem,
       contact: data.baylanis,
       address: data.manzil,
-      additional_info: data.qosimsha,
+      additional_info: data.qosimsha
     };
 
     createProjectMutation.mutate(payload);
   };
+
+  // Show loading state
+  const userHasRegion = me?.data?.location?.region?.id;
+  const shouldWaitForRegions = userHasRegion && isLoadingRegions;
+
+  if (isLoadingMe || !isInitialized || shouldWaitForRegions) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          Bir mártelik wazıypa/joybar
+        </h2>
+        <div className="space-y-4">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -91,10 +127,10 @@ const Project = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId}
+              countryId={userCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
-                setLocation(countryId ?? null, Number(val));
+                setLocation(userCountryId ?? null, Number(val));
               }}
             />
           )}

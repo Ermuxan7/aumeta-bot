@@ -3,25 +3,27 @@ import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   InternshipFormValue,
-  InternshipSchema,
+  InternshipSchema
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
 import { useCreateInternship } from "@/hooks/useInternship";
 import { useMe } from "@/hooks/useMe";
 import { useLocationStore } from "@/store/locationStore";
-import { InternshipType } from "@/types/internshipType";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const Internship = () => {
-  const { data: me } = useMe();
+  const { data: me, isLoading: isLoadingMe } = useMe();
   const createInternshipMutation = useCreateInternship();
-  const { setLocation, countryId, regionId } = useLocationStore();
+  const { setLocation } = useLocationStore();
 
-  const userCountryId = me?.location?.country?.id ?? null;
-  const userRegionId = me?.location?.region?.id ?? null;
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const userCountryId = me?.data?.location?.country?.id ?? null;
+  const userRegionId = me?.data?.location?.region?.id ?? null;
+
   const {
     register,
     reset,
@@ -29,28 +31,10 @@ const Internship = () => {
     setValue,
     getValues,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<InternshipFormValue>({
     defaultValues: {
       region_id: "",
-    },
-    resolver: zodResolver(InternshipSchema),
-  });
-
-  const { data: regions = [] } = useRegions(userCountryId ?? undefined);
-
-  useEffect(() => {
-    if (!me) return;
-    reset({
-      ...getValues(),
-      region_id: userRegionId?.toString() ?? "",
-    });
-  }, [me, reset, userRegionId, getValues]);
-
-  useEffect(() => {
-    if (!me) return;
-    reset({
-      region_id: userRegionId?.toString() ?? "",
       lawazim: "",
       mekeme: "",
       manzil: "",
@@ -59,15 +43,43 @@ const Internship = () => {
       sharayatlar: "",
       tolem: "",
       baylanis: "",
-      qosimsha: "",
-    });
-  }, [me, reset, userRegionId]);
+      qosimsha: ""
+    },
+    resolver: zodResolver(InternshipSchema)
+  });
 
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    userCountryId ?? undefined
+  );
+
+  // Initialize form with user data - only once to avoid race conditions
   useEffect(() => {
-    if (regions.length && userRegionId) {
-      setValue("region_id", userRegionId.toString());
+    if (!me || isLoadingMe) {
+      return;
     }
-  }, [regions, userRegionId, setValue]);
+
+    // If user has a region, wait for regions to load before initializing
+    const userHasRegion = me.data?.location?.region?.id;
+    if (userHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      reset({
+        region_id: userRegionId?.toString() ?? "",
+        lawazim: "",
+        mekeme: "",
+        manzil: "",
+        talaplar: "",
+        májburiyatlar: "",
+        sharayatlar: "",
+        tolem: "",
+        baylanis: "",
+        qosimsha: ""
+      });
+      setIsInitialized(true);
+    }
+  }, [me, isLoadingMe, isLoadingRegions, userRegionId, reset, isInitialized]);
 
   const onSubmit = (data: InternshipFormValue) => {
     setLocation(
@@ -85,11 +97,27 @@ const Internship = () => {
       duties: data.májburiyatlar,
       salary: data.tolem,
       contact: data.baylanis,
-      additional_info: data.qosimsha,
+      additional_info: data.qosimsha
     };
 
     createInternshipMutation.mutate(payload);
   };
+
+  // Show loading state
+  const userHasRegion = me?.data?.location?.region?.id;
+  const shouldWaitForRegions = userHasRegion && isLoadingRegions;
+
+  if (isLoadingMe || !isInitialized || shouldWaitForRegions) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">Ámeliyat</h2>
+        <div className="space-y-4">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -102,7 +130,7 @@ const Internship = () => {
           render={({ field }) => (
             <RegionSelect
               field={field}
-              countryId={countryId}
+              countryId={userCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));
