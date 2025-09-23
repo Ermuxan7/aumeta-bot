@@ -8,6 +8,8 @@ export const useCountries = () => {
       const res = await apiClient.get("/countries/");
       return res.data.data ?? [];
     },
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000 // 10 minutes
   });
 };
 
@@ -20,5 +22,9 @@ export const useRegions = (countryId: number | null) => {
       return res.data.data?.regions ?? [];
     },
     enabled: !!countryId,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    retry: 3,
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000)
   });
 };

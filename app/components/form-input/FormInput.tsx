@@ -1,13 +1,13 @@
-import { ComponentPropsWithoutRef } from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
-import clsx from "clsx";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@/components/ui/select";
+import clsx from "clsx";
+import { ComponentPropsWithoutRef } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 type Option = { label: string; value: string | number };
 
 type BaseProps = {
@@ -49,7 +49,7 @@ const FormInput = (props: FormFieldProps) => {
     value,
     className,
     error,
-    disabled,
+    disabled
   } = props;
   const inputId = id || legend.toLowerCase().replace(/\s+/g, "-");
 
@@ -111,7 +111,9 @@ const FormInput = (props: FormFieldProps) => {
         {as === "select" && (
           <Select
             value={
-              value !== undefined && value !== null ? String(value) : undefined
+              value !== undefined && value !== null && value !== ""
+                ? String(value)
+                : undefined
             }
             onValueChange={(val) => {
               const num = Number(val);
@@ -120,7 +122,7 @@ const FormInput = (props: FormFieldProps) => {
             disabled={disabled || !(props as SelectProps).options?.length}
           >
             <SelectTrigger className="w-full border-none" aria-label={legend}>
-              <SelectValue placeholder={legend} />
+              <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent className="bg-background">
               {(props as SelectProps).options?.length ? (

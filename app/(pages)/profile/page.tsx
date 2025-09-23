@@ -1,13 +1,12 @@
 "use client";
-import { useEffect } from "react";
 import FormInput from "@/app/components/form-input/FormInput";
+import { useCallback, useEffect, useState } from "react";
 
-import { useMe, useUpdateProfile } from "@/hooks/useMe";
-import { useCountries, useRegions } from "@/hooks/useCountries";
-import { Controller, useForm } from "react-hook-form";
-import { useGetLanguages } from "@/hooks/useLanguages";
-import { useLocationStore } from "@/store/locationStore";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
+import { useCountries, useRegions } from "@/hooks/useCountries";
+import { useMe, useUpdateProfile } from "@/hooks/useMe";
+import { useLocationStore } from "@/store/locationStore";
+import { Controller, useForm } from "react-hook-form";
 
 type ProfileForm = {
   full_name: string;
@@ -19,13 +18,16 @@ type ProfileForm = {
 };
 
 const MyProfile = () => {
-  const { data: me } = useMe();
-  const { data: countries = [] } = useCountries();
+  const { data: me, isLoading: isLoadingMe } = useMe();
+  const { data: countries = [], isLoading: isLoadingCountries } =
+    useCountries();
   // const { data: languages = [] } = useGetLanguages();
   const updateProfileMutation = useUpdateProfile();
   const { setLocation } = useLocationStore();
 
-  const { register, handleSubmit, reset, control, watch, setValue } =
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const { register, handleSubmit, reset, control, watch, setValue, getValues } =
     useForm<ProfileForm>({
       defaultValues: {
         full_name: "",
@@ -33,32 +35,60 @@ const MyProfile = () => {
         company_name: "",
         country_id: "",
         region_id: "",
-        language_code: "kaa",
-      },
+        language_code: "kaa"
+      }
     });
 
   const countryIdValue = watch("country_id");
   const selectedCountryId = countryIdValue ? Number(countryIdValue) : null;
 
-  const { data: regions = [] } = useRegions(selectedCountryId);
+  const { data: regions = [], isLoading: isLoadingRegions } =
+    useRegions(selectedCountryId);
 
+  // Initialize form with user data - only once to avoid race conditions
   useEffect(() => {
-    if (!me || !countries.length) return;
-    reset({
-      full_name: me.data?.full_name ?? "",
-      contact: me.data?.contact ?? "",
-      company_name: me.data?.company_name ?? "",
-      country_id: me.data?.location?.country?.id?.toString() ?? "",
-      region_id: "",
-      language_code: me.data?.language ?? "kaa",
-    });
-  }, [me, countries, reset]);
-
-  useEffect(() => {
-    if (regions.length && me?.data?.location?.region?.id) {
-      setValue("region_id", me.data.location.region.id.toString());
+    if (!me || !countries.length || isLoadingMe || isLoadingCountries) {
+      return;
     }
-  }, [regions, me, setValue]);
+
+    if (!isInitialized) {
+      const userCountryId = me.data?.location?.country?.id?.toString() ?? "";
+      const userRegionId = me.data?.location?.region?.id?.toString() ?? "";
+
+      reset({
+        full_name: me.data?.full_name ?? "",
+        contact: me.data?.contact ?? "",
+        company_name: me.data?.company_name ?? "",
+        country_id: userCountryId,
+        region_id: userRegionId,
+        language_code: me.data?.language ?? "kaa"
+      });
+
+      setIsInitialized(true);
+    }
+  }, [me, countries, reset, isInitialized, isLoadingMe, isLoadingCountries]);
+
+  // Handle country change
+  const handleCountryChange = useCallback(
+    (countryId: string | number) => {
+      // Reset region when country changes
+      setValue("region_id", "");
+      const newCountryId = countryId ? Number(countryId) : null;
+      setLocation(newCountryId, null);
+      return countryId;
+    },
+    [setValue, setLocation]
+  );
+
+  // Handle region change
+  const handleRegionChange = useCallback(
+    (regionId: string | number) => {
+      const regionIdNumber = regionId ? Number(regionId) : null;
+      setLocation(selectedCountryId, regionIdNumber);
+      return regionId;
+    },
+    [setLocation, selectedCountryId]
+  );
 
   const onSubmit = (data: ProfileForm) => {
     setLocation(
@@ -68,9 +98,26 @@ const MyProfile = () => {
     updateProfileMutation.mutate({
       ...data,
       country_id: data.country_id ? Number(data.country_id) : null,
-      region_id: data.region_id ? Number(data.region_id) : null,
+      region_id: data.region_id ? Number(data.region_id) : null
     });
   };
+
+  // Show loading state
+  if (isLoadingMe || isLoadingCountries || !isInitialized) {
+    return (
+      <div className="max-w-2xl mx-auto mt-2 px-4">
+        <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
+        <div className="bg-background px-3 space-y-5">
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const countryOptions = countries.map((c: any) => ({
+    value: c.id.toString(),
+    label: c.name
+  }));
 
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
@@ -87,15 +134,11 @@ const MyProfile = () => {
             <FormInput
               legend="Jaylasqan mámleket"
               as="select"
-              options={countries.map((c: any) => ({
-                value: c.id.toString(),
-                label: c.name,
-              }))}
+              options={countryOptions}
               value={field.value}
               onChange={(val) => {
-                field.onChange(val);
-                setLocation(Number(val), null);
-                setValue("region_id", "");
+                const newVal = handleCountryChange(val);
+                field.onChange(newVal);
               }}
             />
           )}
@@ -109,7 +152,7 @@ const MyProfile = () => {
               countryId={selectedCountryId}
               onRegionChange={(val) => {
                 field.onChange(val);
-                setLocation(selectedCountryId, Number(val));
+                handleRegionChange(val);
               }}
             />
           )}
