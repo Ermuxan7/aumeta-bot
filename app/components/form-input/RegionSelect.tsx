@@ -1,6 +1,7 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
 import { useRegions } from "@/hooks/useCountries";
+import { useT } from "@/hooks/useT";
 import { useEffect } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
@@ -16,6 +17,10 @@ export default function RegionSelect({
   onRegionChange
 }: Props) {
   const { data: regions = [], isLoading, isError } = useRegions(countryId);
+  const t = useT();
+
+  // Set legend text based on translation
+  const legendText = t("region") || "Region";
 
   // Reset region when country changes or no country is selected
   useEffect(() => {
@@ -31,7 +36,7 @@ export default function RegionSelect({
   if (!countryId) {
     return (
       <FormInput
-        legend="Region"
+        legend={legendText}
         as="select"
         disabled={true}
         options={[{ value: "no-country", label: "Select a country first" }]}
@@ -45,7 +50,7 @@ export default function RegionSelect({
   if (isLoading) {
     return (
       <FormInput
-        legend="Region"
+        legend={legendText}
         as="select"
         disabled={true}
         options={[{ value: "loading", label: "Loading regions..." }]}
@@ -58,7 +63,7 @@ export default function RegionSelect({
   if (isError || !regions.length) {
     return (
       <FormInput
-        legend="Region"
+        legend={legendText}
         as="select"
         disabled={true}
         options={[{ value: "no-regions", label: "No regions available" }]}
@@ -75,7 +80,7 @@ export default function RegionSelect({
 
   return (
     <FormInput
-      legend="Region"
+      legend={legendText}
       as="select"
       disabled={false}
       options={regionOptions}

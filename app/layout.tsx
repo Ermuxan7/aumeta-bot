@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
-import "./globals.css";
-import TabBar from "./components/tab-bar/TabBar";
-import ThemeProvider from "../providers/ThemeProvider";
+import { LocaleProvider } from "../providers/LocaleProvider";
 import QueryProvider from "../providers/QueryProvider";
+import ThemeProvider from "../providers/ThemeProvider";
+import TabBar from "./components/tab-bar/TabBar";
+import "./globals.css";
 
 import Script from "next/script";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
-  subsets: ["latin"],
+  subsets: ["latin"]
 });
 
 export const metadata: Metadata = {
   title: "Aumeta",
-  description: "Aumeta web app",
+  description: "Aumeta web app"
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -37,11 +38,13 @@ export default function RootLayout({
       </head>
       <body className={`${robotoSans.variable} ${robotoMono.variable} `}>
         <QueryProvider>
-          <ThemeProvider />
-          <TabBar />
-          {/* <TelegramAuth /> */}
+          <LocaleProvider>
+            <ThemeProvider />
+            <TabBar />
+            {/* <TelegramAuth /> */}
 
-          <div className="mt-5 sm:mt-8">{children}</div>
+            <div className="mt-5 sm:mt-8">{children}</div>
+          </LocaleProvider>
         </QueryProvider>
       </body>
     </html>

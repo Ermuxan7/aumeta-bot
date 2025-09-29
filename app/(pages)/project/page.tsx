@@ -3,12 +3,13 @@ import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   ProjectFormValue,
-  ProjectSchema
+  createProjectSchema
 } from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
 import { useMe } from "@/hooks/useMe";
 import { useCreateProject } from "@/hooks/useProject";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -23,6 +24,8 @@ const Project = () => {
 
   const userCountryId = me?.data?.location?.country?.id ?? null;
   const userRegionId = me?.data?.location?.region?.id ?? null;
+
+  const t = useT();
 
   const {
     register,
@@ -42,7 +45,7 @@ const Project = () => {
       manzil: "",
       qosimsha: ""
     },
-    resolver: zodResolver(ProjectSchema)
+    resolver: zodResolver(createProjectSchema(t))
   });
 
   const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
@@ -105,7 +108,7 @@ const Project = () => {
       <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
         <BackButton />
         <h2 className="text-xl md:text-3xl font-semibold mb-4">
-          Bir mártelik wazıypa/joybar
+          {t("one_time_job")}
         </h2>
         <div className="space-y-4">
           <p>Loading...</p>
@@ -118,7 +121,7 @@ const Project = () => {
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">
-        Bir mártelik wazıypa/joybar
+        {t("one_time_job")}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
@@ -136,55 +139,57 @@ const Project = () => {
           )}
         />
         <FormInput
-          legend="Sizge kim kerek?"
+          legend={t("who_you_need")}
           type="text"
           placeholder="Santexnik, Dilmash, Mobilograf, Muzikant"
           registration={register("lawazim")}
           error={errors.lawazim?.message}
         />
         <FormInput
-          legend="Ne islew kerek?"
+          legend={t("what_to_do")}
           as="textarea"
           placeholder="Júk tasıw kerek, ońlaw kerek, logotip yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń."
           registration={register("talaplar")}
           error={errors.talaplar?.message}
         />
         <FormInput
-          legend="Is haqı, tólem"
+          legend={t("salary_income")}
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("tólem")}
           error={errors.tólem?.message}
         />
         <FormInput
-          legend="Orınlaw múddeti"
+          legend={t("deadline")}
           placeholder="Búginge, 18:00 ge yáki 27 avgustqa shekem"
           registration={register("deadline")}
           error={errors.deadline?.message}
         />
         <FormInput
-          legend="Baylanıs"
+          legend={t("contact")}
           type="text"
           placeholder="+998901234567, ab@email.com, @user"
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
         <FormInput
-          legend="Mánzil, lokaciya"
+          legend={t("address_location")}
           type="text"
           placeholder="Nókis, A.Dosnazarov 16, online"
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
-          legend="Qosımsha"
+          legend={t("additional_info")}
           as="textarea"
           placeholder="Qosımsha zat bolsa jazıń"
           error={errors.qosimsha?.message}
         />
         {createProjectMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(createProjectMutation.error)}</p>
+            <p>
+              {t("error")}: {String(createProjectMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (createProjectMutation.error as any)?.response?.data,
@@ -202,13 +207,13 @@ const Project = () => {
           </div>
         )}
         {createProjectMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          {createProjectMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {createProjectMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

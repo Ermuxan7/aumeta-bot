@@ -10,6 +10,7 @@ export interface UpdateUserPayload {
 
 export async function getMe() {
   const res = await apiClient.get("/users/me");
+  // confirm(JSON.stringify(res.data));
   return res.data;
 }
 

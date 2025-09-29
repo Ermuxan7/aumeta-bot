@@ -6,6 +6,7 @@ import VacancyEditForm from "@/app/components/my-posts/forms/VacancyForm";
 import { useMyInternships } from "@/hooks/useInternship";
 import { useMyOpportunities } from "@/hooks/useOpportunities";
 import { useMyProjects } from "@/hooks/useProject";
+import { useT } from "@/hooks/useT";
 import { useMyVacancies } from "@/hooks/useVacancy";
 import { useParams } from "next/navigation";
 
@@ -15,6 +16,8 @@ export default function MyPostDetail() {
   const { data: internships } = useMyInternships();
   const { data: projects } = useMyProjects();
   const { data: opportunities } = useMyOpportunities();
+
+  const t = useT();
 
   let post: any;
   if (form === "vacancy") {
@@ -26,7 +29,7 @@ export default function MyPostDetail() {
   } else if (form === "opportunities") {
     post = opportunities?.data.find((o: any) => String(o.id) === id);
   }
-  if (!post) return <p className="text-lg text-foreground">Not Found!</p>;
+  if (!post) return <p className="text-lg text-foreground">{t("not_found")}</p>;
 
   switch (form) {
     case "vacancy":
@@ -39,5 +42,5 @@ export default function MyPostDetail() {
       return <OpportunitiesEditForm data={post} />;
   }
 
-  return <p>Bunday turdegi form ele tayyar emes</p>;
+  return <p>{t("no_such_form")}</p>;
 }

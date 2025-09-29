@@ -1,36 +1,41 @@
 "use client";
-import Link from "next/link";
 import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import { useMe } from "@/hooks/useMe";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
+import Link from "next/link";
 import { useEffect } from "react";
 
-const Cards = [
-  {
-    title: "Jumısshı kerek(Vakansiya)",
-    img: <img src="/vacancy.svg" className="size-14 md:size-22" />,
-    href: "/vacancy",
-  },
-  {
-    title: "Ámeliyat",
-    img: <img src="/internship.svg" className="size-14 md:size-22" />,
-    href: "/internship",
-  },
-  {
-    title: "Bir mártelik wazıypa/joybar",
-    img: <img src="/project.svg" className="size-14 md:size-22" />,
-    href: "/project",
-  },
-  {
-    title: "Imkaniyatlar & grantlar",
-    img: <img src="/opportunities.svg" className="size-14 md:size-22" />,
-    href: "/opportunities",
-  },
-];
+const getCards = (t: any) => {
+  const cards = t.raw("cards") || [];
+  return [
+    {
+      title: cards[0] || "Vacancy",
+      img: <img src="/vacancy.svg" className="size-14 md:size-22" />,
+      href: "/vacancy"
+    },
+    {
+      title: cards[1] || "Internship",
+      img: <img src="/internship.svg" className="size-14 md:size-22" />,
+      href: "/internship"
+    },
+    {
+      title: cards[2] || "Project",
+      img: <img src="/project.svg" className="size-14 md:size-22" />,
+      href: "/project"
+    },
+    {
+      title: cards[3] || "Opportunities",
+      img: <img src="/opportunities.svg" className="size-14 md:size-22" />,
+      href: "/opportunities"
+    }
+  ];
+};
 
 export default function Home() {
   const { data: me } = useMe();
   const { countryId, regionId, setLocation } = useLocationStore();
+  const t = useT();
 
   useEffect(() => {
     if (me?.data && (countryId === null || regionId === null)) {
@@ -48,11 +53,10 @@ export default function Home() {
       <div className="w-full max-w-7xl flex flex-col justify-center items-center">
         <TelegramAuth />
         <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
-          Aumeta Jobs kanallarına daǵaza jaylastırıw ushın tómendegi túymege
-          basıń hám ondaǵı shablonlardı toltırıp kanalǵa jiberiń
+          {t("posting_instruction")}
         </h1>
         <div className="grid grid-cols-2 gap-3 sm:gap-x-5 sm:gap-y-6 w-full">
-          {Cards.map((card, index) => (
+          {getCards(t).map((card, index) => (
             <Link
               key={index}
               href={card.href}
@@ -73,17 +77,16 @@ export default function Home() {
               className="size-6 md:size-8 "
             />
             <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
-              Daǵazalaw ushın mámleket saylanbaǵan. Profilge ótiń → mámleket
-              saylań.
+              {t("country_not_selected_error")}
             </p>
           </div>
         )}
         <div className="text-sm sm:text-md text-muted-foreground text-center font-normal mt-6 sm:my-8">
           <p>
-            ❕ Daǵazalaw biypul. Aldawshılardan abaylań. <br />
+            ❕ {t("ads_are_free")} <br />
           </p>
           <p>
-            📩 Soraw hám usınıslar:{" "}
+            📩 {t("question_contact")}{" "}
             <Link href="https://t.me/bizlergroup">@bizlergroup</Link>
           </p>
         </div>

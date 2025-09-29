@@ -1,11 +1,12 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
 import {
-  ProjectSchema,
-  ProjectFormValue,
+  createProjectSchema,
+  ProjectFormValue
 } from "@/app/schema/Project.FormSchema";
 import BackButton from "@/components/ui/back-button";
-import { useCreateProject, useIdProject } from "@/hooks/useProject";
+import { useIdProject } from "@/hooks/useProject";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -16,11 +17,13 @@ type ProjectType = {
 };
 
 const ProjectEditForm = ({ data }: ProjectType) => {
+  const t = useT();
+
   const {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ProjectFormValue>({
     defaultValues: {
       lawazim: "",
@@ -29,9 +32,9 @@ const ProjectEditForm = ({ data }: ProjectType) => {
       deadline: "",
       baylanis: "",
       manzil: "",
-      qosimsha: "",
+      qosimsha: ""
     },
-    resolver: zodResolver(ProjectSchema),
+    resolver: zodResolver(createProjectSchema(t))
   });
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const ProjectEditForm = ({ data }: ProjectType) => {
         tólem: data.salary ?? "",
         deadline: data.deadline ?? "",
         baylanis: data.contact ?? "",
-        qosimsha: data.additional_info ?? "",
+        qosimsha: data.additional_info ?? ""
       });
     }
   }, [data, reset]);
@@ -61,7 +64,7 @@ const ProjectEditForm = ({ data }: ProjectType) => {
       salary: data.tólem,
       contact: data.baylanis,
       address: data.manzil,
-      additional_info: data.qosimsha,
+      additional_info: data.qosimsha
     };
 
     updateProjectMutation.mutate(payload);

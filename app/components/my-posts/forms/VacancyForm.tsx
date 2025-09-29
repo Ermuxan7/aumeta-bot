@@ -1,10 +1,11 @@
 "use client";
 import FormInput from "@/app/components/form-input/FormInput";
 import {
-  VacancySchema,
-  VacancyFormValue,
+  createVacancySchema,
+  VacancyFormValue
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useT } from "@/hooks/useT";
 import { useIdUpdateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,12 +18,14 @@ type VacancyFormProps = {
 };
 
 const VacancyEditForm = ({ data }: VacancyFormProps) => {
+  const t = useT();
+
   const {
     register,
     reset,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<VacancyFormValue>({
     defaultValues: {
       region_id: "",
@@ -34,9 +37,9 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
       jumisWaqiti: "",
       ayliq: "",
       baylanis: "",
-      qosimsha: "",
+      qosimsha: ""
     },
-    resolver: zodResolver(VacancySchema),
+    resolver: zodResolver(createVacancySchema(t))
   });
 
   const { setLocation, countryId, regionId } = useLocationStore();
@@ -53,7 +56,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
         jumisWaqiti: data.work_schedule ?? "",
         ayliq: data.salary ?? "",
         baylanis: data.contact ?? "",
-        qosimsha: data.additional_info ?? "",
+        qosimsha: data.additional_info ?? ""
       });
       setLocation(
         data.location?.country?.id ?? null,
@@ -76,7 +79,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
       work_schedule: data.jumisWaqiti,
       salary: data.ayliq,
       contact: data.baylanis,
-      additional_info: data.qosimsha,
+      additional_info: data.qosimsha
     };
 
     updateVacancyMutation.mutate(payload);
@@ -102,73 +105,74 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           )}
         />
         <FormInput
-          legend="Lawazım"
+          legend={t("role_name")}
           type="text"
           placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
           error={errors.lawazim?.message}
         />
         <FormInput
-          legend="Mekeme"
+          legend={t("institution_name")}
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
           registration={register("mekeme")}
           error={errors.mekeme?.message}
         />
         <FormInput
-          legend="Mánzil"
+          legend={t("address")}
           type="text"
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
-          legend="Talaplar"
+          legend={t("requirements")}
           as="textarea"
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
           error={errors.talaplar?.message}
         />
         <FormInput
-          legend="Májburiyatlar"
+          legend={t("responsibilities")}
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
+          placeholder="Klientlermen islew, esabatlar h.t.b"
           registration={register("májburiyatlar")}
           error={errors.májburiyatlar?.message}
         />
         <FormInput
-          legend="Jumıs waqıtı "
+          legend={t("working_hours")}
           type="text"
           placeholder="9:00 - 18:00, erkin grafik, 5/2"
           registration={register("jumisWaqiti")}
           error={errors.jumisWaqiti?.message}
         />
         <FormInput
-          legend="Aylıq"
+          legend={t("monthly_salary")}
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("ayliq")}
           error={errors.ayliq?.message}
         />
-
         <FormInput
-          legend="Baylanıs"
+          legend={t("contact")}
           type="text"
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
-
         <FormInput
-          legend="Qosımsha"
+          legend={t("additional_info")}
           as="textarea"
-          placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
+          placeholder="Bonuslar, shárayatlar h.t.b"
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />
+
         {updateVacancyMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(updateVacancyMutation.error)}</p>
+            <p>
+              {t("error")}: {String(updateVacancyMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (updateVacancyMutation.error as any)?.response?.data,
@@ -187,13 +191,13 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
         )}
 
         {updateVacancyMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          {updateVacancyMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {updateVacancyMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

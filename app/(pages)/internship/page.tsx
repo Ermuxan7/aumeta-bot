@@ -3,12 +3,13 @@ import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   InternshipFormValue,
-  InternshipSchema
+  createInternshipSchema
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
 import { useCreateInternship } from "@/hooks/useInternship";
 import { useMe } from "@/hooks/useMe";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -23,6 +24,8 @@ const Internship = () => {
 
   const userCountryId = me?.data?.location?.country?.id ?? null;
   const userRegionId = me?.data?.location?.region?.id ?? null;
+
+  const t = useT();
 
   const {
     register,
@@ -45,7 +48,7 @@ const Internship = () => {
       baylanis: "",
       qosimsha: ""
     },
-    resolver: zodResolver(InternshipSchema)
+    resolver: zodResolver(createInternshipSchema(t))
   });
 
   const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
@@ -111,7 +114,9 @@ const Internship = () => {
     return (
       <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
         <BackButton />
-        <h2 className="text-xl md:text-3xl font-semibold mb-4">Ámeliyat</h2>
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          {t("internship")}
+        </h2>
         <div className="space-y-4">
           <p>Loading...</p>
         </div>
@@ -122,7 +127,9 @@ const Internship = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-xl md:text-3xl font-semibold mb-4">Ámeliyat</h2>
+      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        {t("internship")}
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
           name="region_id"
@@ -139,7 +146,7 @@ const Internship = () => {
           )}
         />
         <FormInput
-          legend="Lawazim ati"
+          legend={t("role_name")}
           type="text"
           placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
@@ -148,13 +155,13 @@ const Internship = () => {
           <p className="text-red-500">{errors.lawazim.message}</p>
         )}
         <FormInput
-          legend="Mekeme"
+          legend={t("institution_name")}
           type="text"
           placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
           registration={register("mekeme")}
         />
         <FormInput
-          legend="Talaplar"
+          legend={t("requirements")}
           as="textarea"
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
@@ -163,7 +170,7 @@ const Internship = () => {
           <p className="text-red-500">{errors.talaplar.message}</p>
         )}
         <FormInput
-          legend="Májburiyatlar"
+          legend={t("responsibilities")}
           as="textarea"
           placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
           registration={register("májburiyatlar")}
@@ -172,13 +179,13 @@ const Internship = () => {
           <p className="text-red-500">{errors.májburiyatlar.message}</p>
         )}
         <FormInput
-          legend="Sharayatlar"
+          legend={t("conditions")}
           as="textarea"
           placeholder="Ofis, kompyuter, internet, obet ozimizden) h.t.b"
           registration={register("sharayatlar")}
         />
         <FormInput
-          legend="Mánzil hám format"
+          legend={t("address&format")}
           type="text"
           placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
           registration={register("manzil")}
@@ -187,13 +194,13 @@ const Internship = () => {
           <p className="text-red-500">{errors.manzil.message}</p>
         )}
         <FormInput
-          legend="To'lem"
+          legend={t("salary")}
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("tolem")}
         />
         <FormInput
-          legend="Baylanıs"
+          legend={t("contact")}
           type="text"
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
@@ -202,17 +209,19 @@ const Internship = () => {
           <p className="text-red-500">{errors.baylanis.message}</p>
         )}
         <FormInput
-          legend="Qosımsha"
+          legend={t("additional_info")}
           as="textarea"
           placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
           registration={register("qosimsha")}
         />
         {createInternshipMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         {createInternshipMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(createInternshipMutation.error)}</p>
+            <p>
+              {t("error")}: {String(createInternshipMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (createInternshipMutation.error as any)?.response?.data,
@@ -233,7 +242,7 @@ const Internship = () => {
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          {createInternshipMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {createInternshipMutation.isPending ? <>{t("sending")}</> : t("send")}
         </button>
       </form>
     </div>

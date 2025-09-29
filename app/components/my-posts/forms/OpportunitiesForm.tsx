@@ -2,33 +2,32 @@
 import FormInput from "@/app/components/form-input/FormInput";
 import FileUpload from "@/app/components/upload/FileUpload";
 import {
-  OpportunitiesSchema,
-  OpportunitiesFormValue,
+  createOpportunitiesSchema,
+  OpportunitiesFormValue
 } from "@/app/schema/Opportunities";
 import BackButton from "@/components/ui/back-button";
-import {
-  useOpportunities,
-  useUpdateOpportunity,
-} from "@/hooks/useOpportunities";
+import { useUpdateOpportunity } from "@/hooks/useOpportunities";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { file } from "zod";
 
 type OpportunitiesEditFormProps = {
   data: any;
 };
 
 const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
+  const t = useT();
+
   const {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<OpportunitiesFormValue>({
     defaultValues: { daǵaza: "", baylanis: "" },
-    resolver: zodResolver(OpportunitiesSchema),
+    resolver: zodResolver(createOpportunitiesSchema(t))
   });
 
   const fileRef = useRef<File | null>(null);
@@ -37,7 +36,7 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
     if (data) {
       reset({
         daǵaza: data.content ?? "",
-        baylanis: data.contact ?? "",
+        baylanis: data.contact ?? ""
       });
     }
   }, [data, reset]);

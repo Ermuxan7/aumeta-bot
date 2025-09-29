@@ -4,12 +4,13 @@ import RegionSelect from "@/app/components/form-input/RegionSelect";
 import FileUpload from "@/app/components/upload/FileUpload";
 import {
   OpportunitiesFormValue,
-  OpportunitiesSchema
+  createOpportunitiesSchema
 } from "@/app/schema/Opportunities";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
 import { useMe } from "@/hooks/useMe";
 import { useOpportunities } from "@/hooks/useOpportunities";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
@@ -25,6 +26,8 @@ const Opportunities = () => {
   const userCountryId = me?.data?.location?.country?.id ?? null;
   const userRegionId = me?.data?.location?.region?.id ?? null;
 
+  const t = useT();
+
   const {
     register,
     reset,
@@ -38,7 +41,7 @@ const Opportunities = () => {
       daǵaza: "",
       baylanis: ""
     },
-    resolver: zodResolver(OpportunitiesSchema)
+    resolver: zodResolver(createOpportunitiesSchema(t))
   });
 
   const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
@@ -100,7 +103,7 @@ const Opportunities = () => {
       <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
         <BackButton />
         <h2 className="text-xl md:text-3xl font-semibold mb-4">
-          Imkaniyatlar & grantlar
+          {t("opportunities&grands")}
         </h2>
         <div className="space-y-4">
           <p>Loading...</p>
@@ -113,7 +116,7 @@ const Opportunities = () => {
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">
-        Imkaniyatlar & grantlar
+        {t("opportunities&grands")}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
@@ -131,7 +134,7 @@ const Opportunities = () => {
           )}
         />
         <FormInput
-          legend="Daǵaza teksti yáki mazmunı"
+          legend={t("ad_text_or_summary")}
           as="textarea"
           // rows={5}
           placeholder="Daǵaza mazmunı"
@@ -140,7 +143,7 @@ const Opportunities = () => {
         />
 
         <FormInput
-          legend="Baylanıs yáki silteme"
+          legend={t("contact_or_link")}
           type="text"
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
@@ -149,7 +152,9 @@ const Opportunities = () => {
         <FileUpload oneFileSelect={oneFileSelect} />
         {createOpportunityMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(createOpportunityMutation.error)}</p>
+            <p>
+              {t("error")}: {String(createOpportunityMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (createOpportunityMutation.error as any)?.response?.data,
@@ -167,13 +172,13 @@ const Opportunities = () => {
           </div>
         )}
         {createOpportunityMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          {createOpportunityMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {createOpportunityMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

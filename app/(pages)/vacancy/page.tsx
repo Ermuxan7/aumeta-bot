@@ -3,11 +3,12 @@ import FormInput from "@/app/components/form-input/FormInput";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import {
   VacancyFormValue,
-  VacancySchema
+  createVacancySchema
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
 import { useRegions } from "@/hooks/useCountries";
 import { useMe } from "@/hooks/useMe";
+import { useT } from "@/hooks/useT";
 import { useCreateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +25,8 @@ const Vacancy = () => {
   const userCountryId = me?.data?.location?.country?.id ?? null;
   const userRegionId = me?.data?.location?.region?.id ?? null;
 
+  const t = useT();
+
   const {
     register,
     reset,
@@ -32,7 +35,7 @@ const Vacancy = () => {
     control,
     formState: { errors }
   } = useForm<VacancyFormValue>({
-    resolver: zodResolver(VacancySchema),
+    resolver: zodResolver(createVacancySchema(t)),
     defaultValues: {
       region_id: "",
       lawazim: "",
@@ -112,7 +115,7 @@ const Vacancy = () => {
       <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
         <BackButton />
         <h2 className="text-xl md:text-3xl font-semibold mb-4">
-          Jumisshi izlew
+          {t("searching_worker")}
         </h2>
         <div className="space-y-4">
           <p>Loading...</p>
@@ -124,7 +127,9 @@ const Vacancy = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-xl md:text-3xl font-semibold mb-4">Jumisshi izlew</h2>
+      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        {t("searching_worker")}
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
@@ -143,63 +148,63 @@ const Vacancy = () => {
         />
 
         <FormInput
-          legend="Lawazım"
+          legend={t("role_name")}
           type="text"
           placeholder="Dizayner, menejer, esapshı h.t.b"
           registration={register("lawazim")}
           error={errors.lawazim?.message}
         />
         <FormInput
-          legend="Mekeme"
+          legend={t("institution_name")}
           type="text"
           placeholder="Bizler Group, ООО Ромашка h.t.b"
           registration={register("mekeme")}
           error={errors.mekeme?.message}
         />
         <FormInput
-          legend="Mánzil"
+          legend={t("address")}
           type="text"
           placeholder="Москва, Tashkent h.t.b"
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
-          legend="Talaplar"
+          legend={t("requirements")}
           as="textarea"
           placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
           registration={register("talaplar")}
           error={errors.talaplar?.message}
         />
         <FormInput
-          legend="Májburiyatlar"
+          legend={t("responsibilities")}
           as="textarea"
           placeholder="Klientlermen islew, esabatlar h.t.b"
           registration={register("májburiyatlar")}
           error={errors.májburiyatlar?.message}
         />
         <FormInput
-          legend="Jumıs waqıtı "
+          legend={t("working_hours")}
           type="text"
           placeholder="9:00 - 18:00, erkin grafik, 5/2"
           registration={register("jumisWaqiti")}
           error={errors.jumisWaqiti?.message}
         />
         <FormInput
-          legend="Aylıq"
+          legend={t("monthly_salary")}
           type="text"
           placeholder="Kelisimli, $800, 7 mln swm h.t.b"
           registration={register("ayliq")}
           error={errors.ayliq?.message}
         />
         <FormInput
-          legend="Baylanıs"
+          legend={t("contact")}
           type="text"
           placeholder="998901234567, ab@email.com, @hr"
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
         <FormInput
-          legend="Qosımsha"
+          legend={t("additional_info")}
           as="textarea"
           placeholder="Bonuslar, shárayatlar h.t.b"
           registration={register("qosimsha")}
@@ -208,18 +213,18 @@ const Vacancy = () => {
 
         {createVacancyMutation.isError && (
           <div className="text-red-500">
-            Qatelik: {String(createVacancyMutation.error)}
+            {t("error")}: {String(createVacancyMutation.error)}
           </div>
         )}
         {createVacancyMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
 
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          {createVacancyMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {createVacancyMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

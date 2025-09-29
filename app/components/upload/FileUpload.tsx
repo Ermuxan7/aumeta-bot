@@ -1,11 +1,12 @@
 "use client";
+import { useT } from "@/hooks/useT";
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const FileUpload = ({
   oneFileSelect,
-  initialImage,
+  initialImage
 }: {
   oneFileSelect?: (file: File | null) => void;
   initialImage?: string | null;
@@ -17,6 +18,7 @@ const FileUpload = ({
     initialImage ?? null
   );
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const t = useT();
 
   useEffect(() => {
     setServerImg(initialImage ?? null);
@@ -34,7 +36,7 @@ const FileUpload = ({
         setServerImg(null);
         oneFileSelect?.(selected);
       } else {
-        alert("Tek súwret júkley alasiz!");
+        alert(t("only_image_upload"));
       }
     }
   };
@@ -49,7 +51,7 @@ const FileUpload = ({
         setServerImg(null);
         oneFileSelect?.(dropped);
       } else {
-        alert("Tek súwret júkley alasiz!");
+        alert(t("only_image_upload"));
       }
     }
   };
@@ -67,7 +69,8 @@ const FileUpload = ({
   return (
     <div className="w-full flex flex-col gap-2">
       <p className="text-muted-foreground ml-4">
-        <span className="font-semibold">Súwret júklew</span> (shárt emes)
+        <span className="font-semibold">{t("uploading_image")}</span>{" "}
+        {t("not_required")}
       </p>
       <label
         htmlFor="fileUpload"
@@ -93,10 +96,10 @@ const FileUpload = ({
 
         <div className="flex flex-col items-start gap-1">
           <p className="text-foreground font-semibold text-xl md:text-2xl">
-            Fayldı júklew
+            {t("uploading_file")}
           </p>
           <p className="text-muted-foreground/70 text-xs md:text-md">
-            Kerek fayldı belgilep usı jerge júkleń
+            {t("file_uploading_instruction")}
           </p>
         </div>
         <input
@@ -110,7 +113,9 @@ const FileUpload = ({
 
       {serverImg && !file && (
         <div className="mt-4 space-y-2">
-          <p className="font-semibold text-foreground">📂 Saylanǵan fayl</p>
+          <p className="font-semibold text-foreground">
+            📂 {t("selected_file")}
+          </p>
           <div className="relative inline-block">
             <img
               src={serverImg}
@@ -127,7 +132,9 @@ const FileUpload = ({
 
       {file && (
         <div className="mt-4 space-y-2">
-          <p className="font-semibold text-foreground">📂 Saylanǵan fayl:</p>
+          <p className="font-semibold text-foreground">
+            📂 {t("selected_file")}:
+          </p>
           <div className="relative inline-block">
             <img
               src={URL.createObjectURL(file)}

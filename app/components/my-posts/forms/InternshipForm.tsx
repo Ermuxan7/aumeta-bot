@@ -2,10 +2,11 @@
 import FormInput from "@/app/components/form-input/FormInput";
 import {
   InternshipFormValue,
-  InternshipSchema,
+  createInternshipSchema
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
-import { useCreateInternship, useIdInternship } from "@/hooks/useInternship";
+import { useIdInternship } from "@/hooks/useInternship";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 // import { InternshipType } from "@/types/internshipType";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,11 +18,13 @@ type InternshipType = {
 };
 
 const InternshipEditForm = ({ data }: InternshipType) => {
+  const t = useT();
+
   const {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<InternshipFormValue>({
     defaultValues: {
       lawazim: "",
@@ -32,9 +35,9 @@ const InternshipEditForm = ({ data }: InternshipType) => {
       manzil: "",
       tolem: "",
       baylanis: "",
-      qosimsha: "",
+      qosimsha: ""
     },
-    resolver: zodResolver(InternshipSchema),
+    resolver: zodResolver(createInternshipSchema(t))
   });
 
   useEffect(() => {
@@ -48,7 +51,7 @@ const InternshipEditForm = ({ data }: InternshipType) => {
         sharayatlar: data.conditions ?? "",
         tolem: data.salary ?? "",
         baylanis: data.contact ?? "",
-        qosimsha: data.additional_info ?? "",
+        qosimsha: data.additional_info ?? ""
       });
     }
   }, [data, reset]);
@@ -68,7 +71,7 @@ const InternshipEditForm = ({ data }: InternshipType) => {
       duties: data.májburiyatlar,
       salary: data.tolem,
       contact: data.baylanis,
-      additional_info: data.qosimsha,
+      additional_info: data.qosimsha
     };
 
     updateInternshipMutation.mutate(payload);
