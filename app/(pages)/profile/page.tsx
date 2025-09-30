@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import { useCountries, useRegions } from "@/hooks/useCountries";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
+import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { Controller, useForm } from "react-hook-form";
 
@@ -24,6 +25,8 @@ const MyProfile = () => {
   // const { data: languages = [] } = useGetLanguages();
   const updateProfileMutation = useUpdateProfile();
   const { setLocation } = useLocationStore();
+
+  const t = useT();
 
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -128,7 +131,7 @@ const MyProfile = () => {
   ) {
     return (
       <div className="max-w-2xl mx-auto mt-2 px-4">
-        <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
+        <h2 className="text-xl font-semibold mb-5">{t("my_profile")}</h2>
         <div className="bg-background px-3 space-y-5">
           <p>Loading...</p>
         </div>
@@ -143,18 +146,22 @@ const MyProfile = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-2 px-4">
-      <h2 className="text-xl font-semibold mb-5">Meniń profilim</h2>
+      <h2 className="text-xl font-semibold mb-5">{t("my_profile")}</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-background px-3 space-y-5"
       >
-        <FormInput legend="FAÁ" type="text" {...register("full_name")} />
+        <FormInput
+          legend={t("fullname")}
+          type="text"
+          {...register("full_name")}
+        />
         <Controller
           name="country_id"
           control={control}
           render={({ field }) => (
             <FormInput
-              legend="Jaylasqan mámleket"
+              legend={t("located_country")}
               as="select"
               options={countryOptions}
               value={field.value}
@@ -184,7 +191,7 @@ const MyProfile = () => {
           control={control}
           render={({ field }) => (
             <FormInput
-              legend="Til"
+              legend={t("language")}
               as="select"
               options={languages.map((l: any) => ({
                 value: l.code,
@@ -196,12 +203,12 @@ const MyProfile = () => {
           )}
         /> */}
         <FormInput
-          legend="Mekeme atı"
+          legend={t("institution_name")}
           type="text"
           {...register("company_name")}
         />
         {/* <FormInput legend="Taraw" as="select" options={sectors} /> */}
-        <FormInput legend="Baylanıs" type="text" {...register("contact")} />
+        <FormInput legend={t("contact")} type="text" {...register("contact")} />
         {updateProfileMutation.isError && (
           <p className="text-red-500">
             {JSON.stringify(
@@ -210,14 +217,14 @@ const MyProfile = () => {
           </p>
         )}
         {updateProfileMutation.isSuccess && (
-          <p className="text-green-500">Profil awmetli janalandi ✅</p>
+          <p className="text-green-500">{t("profile_updated")} ✅</p>
         )}
 
         <button
           type="submit"
           className="px-4 py-2 mt-1 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          {updateProfileMutation.isPending ? "Saqlanbaqda..." : "Saqlaw"}
+          {updateProfileMutation.isPending ? t("saving") : t("save")}
         </button>
       </form>
     </div>

@@ -52,5 +52,12 @@
   "you_dont_have_posts": "eng: you_dont_have_posts",
   "my_posts": "eng: my_posts",
   "not_found": "Not Found!",
-  "no_such_form": "eng: no_such_form"
+  "no_such_form": "eng: no_such_form",
+  "my_profile": "eng: my_profile",
+  "located_country": "eng: located_country",
+  "language": "eng: language",
+  "profile_updated": "eng: profile_updated",
+  "saving": "eng: saving",
+  "save": "eng: save",
+  "fullname": "eng: fullname"
 }
