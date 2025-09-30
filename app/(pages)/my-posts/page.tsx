@@ -63,7 +63,7 @@ export default function MyPosts() {
                 </p>
               </div>
               <div className="text-xs text-end">
-                <p>{post.aymaq}</p>
+                <p>{post.aymaq.name}</p>
                 <p>{post.mekeme}</p>
               </div>
             </div>

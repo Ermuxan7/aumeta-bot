@@ -1,6 +1,9 @@
 export type MyPost = {
   id: number;
-  aymaq: string;
+  aymaq: {
+    id: number;
+    name: string;
+  };
   lawazim: string;
   mekeme: string;
   createdAt: string;
