@@ -20,6 +20,15 @@ export default function RegionSelect({
   const t = useT();
   const prevCountryId = useRef<number | null>(countryId);
 
+  console.log("RegionSelect debug:", {
+    countryId,
+    fieldValue: field.value,
+    regionsCount: regions.length,
+    isLoading,
+    isError,
+    regions: regions.slice(0, 3) // Show first 3 regions for debugging
+  });
+
   // Set legend text based on translation
   const legendText = t("region") || "Region";
 

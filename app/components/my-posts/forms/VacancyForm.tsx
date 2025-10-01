@@ -46,22 +46,28 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
 
   useEffect(() => {
     if (data) {
-      reset({
-        region_id: data.location?.region?.id?.toString() ?? "",
-        lawazim: data.position_title ?? "",
-        mekeme: data.organization_name ?? "",
-        manzil: data.address ?? "",
-        talaplar: data.requirements ?? "",
-        májburiyatlar: data.duties ?? "",
-        jumisWaqiti: data.work_schedule ?? "",
-        ayliq: data.salary ?? "",
-        baylanis: data.contact ?? "",
-        qosimsha: data.additional_info ?? ""
-      });
-      setLocation(
-        data.location?.country?.id ?? null,
-        data.location?.region?.id ?? null
-      );
+      const regionIdString = data.location?.region?.id?.toString() ?? "";
+      const countryIdNumber = data.location?.country?.id ?? null;
+      const regionIdNumber = data.location?.region?.id ?? null;
+
+      // First set the location in the store
+      setLocation(countryIdNumber, regionIdNumber);
+
+      // Use setTimeout to ensure the location store is updated before resetting the form
+      setTimeout(() => {
+        reset({
+          region_id: regionIdString,
+          lawazim: data.position_title ?? "",
+          mekeme: data.organization_name ?? "",
+          manzil: data.address ?? "",
+          talaplar: data.requirements ?? "",
+          májburiyatlar: data.duties ?? "",
+          jumisWaqiti: data.work_schedule ?? "",
+          ayliq: data.salary ?? "",
+          baylanis: data.contact ?? "",
+          qosimsha: data.additional_info ?? ""
+        });
+      }, 100);
     }
   }, [data, reset, setLocation]);
 
@@ -95,16 +101,18 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
         <Controller
           name="region_id"
           control={control}
-          render={({ field }) => (
-            <RegionSelect
-              field={field}
-              countryId={countryId}
-              onRegionChange={(val) => {
-                field.onChange(val);
-                setLocation(countryId ?? null, Number(val));
-              }}
-            />
-          )}
+          render={({ field }) => {
+            return (
+              <RegionSelect
+                field={field}
+                countryId={countryId}
+                onRegionChange={(val) => {
+                  field.onChange(val);
+                  setLocation(countryId ?? null, Number(val));
+                }}
+              />
+            );
+          }}
         />
         <FormInput
           legend={t("role_name")}
