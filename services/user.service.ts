@@ -15,6 +15,7 @@ export async function getMe() {
 }
 
 export const updateMe = async (payload: UpdateUserPayload) => {
+  // confirm(JSON.stringify(payload));
   const res = await apiClient.put("/users/me", payload);
   return res.data;
 };

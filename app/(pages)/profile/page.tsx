@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import RegionSelect from "@/app/components/form-input/RegionSelect";
 import { useCountries, useRegions } from "@/hooks/useCountries";
+import { useGetLanguages } from "@/hooks/useLanguages";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
 import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
@@ -22,7 +23,8 @@ const MyProfile = () => {
   const { data: me, isLoading: isLoadingMe } = useMe();
   const { data: countries = [], isLoading: isLoadingCountries } =
     useCountries();
-  // const { data: languages = [] } = useGetLanguages();
+  const { data: languages = [], isLoading: isLoadingLanguages } =
+    useGetLanguages();
   const updateProfileMutation = useUpdateProfile();
   const { setLocation } = useLocationStore();
 
@@ -50,7 +52,14 @@ const MyProfile = () => {
 
   // Initialize form with user data - only once to avoid race conditions
   useEffect(() => {
-    if (!me || !countries.length || isLoadingMe || isLoadingCountries) {
+    if (
+      !me ||
+      !countries.length ||
+      !languages.length ||
+      isLoadingMe ||
+      isLoadingCountries ||
+      isLoadingLanguages
+    ) {
       return;
     }
 
@@ -78,10 +87,12 @@ const MyProfile = () => {
   }, [
     me,
     countries,
+    languages,
     reset,
     isInitialized,
     isLoadingMe,
     isLoadingCountries,
+    isLoadingLanguages,
     isLoadingRegions
   ]);
 
@@ -107,6 +118,7 @@ const MyProfile = () => {
     [setLocation, selectedCountryId]
   );
 
+  // confirm(JSON.stringify(me, null, 2));
   const onSubmit = (data: ProfileForm) => {
     setLocation(
       data.country_id ? Number(data.country_id) : null,
@@ -117,6 +129,8 @@ const MyProfile = () => {
       country_id: data.country_id ? Number(data.country_id) : null,
       region_id: data.region_id ? Number(data.region_id) : null
     });
+
+    // confirm(JSON.stringify(data, null, 2));
   };
 
   // Show loading state
@@ -126,6 +140,7 @@ const MyProfile = () => {
   if (
     isLoadingMe ||
     isLoadingCountries ||
+    isLoadingLanguages ||
     !isInitialized ||
     shouldWaitForRegions
   ) {
@@ -142,6 +157,11 @@ const MyProfile = () => {
   const countryOptions = countries.map((c: any) => ({
     value: c.id.toString(),
     label: c.name
+  }));
+
+  const languageOptions = languages.map((l: any) => ({
+    value: l.code,
+    label: l.official_name
   }));
 
   return (
@@ -186,22 +206,19 @@ const MyProfile = () => {
             />
           )}
         />
-        {/* <Controller
+        <Controller
           name="language_code"
           control={control}
           render={({ field }) => (
             <FormInput
               legend={t("language")}
               as="select"
-              options={languages.map((l: any) => ({
-                value: l.code,
-                label: l.official_name,
-              }))}
+              options={languageOptions}
               value={field.value}
               onChange={field.onChange}
             />
           )}
-        /> */}
+        />
         <FormInput
           legend={t("institution_name")}
           type="text"
