@@ -2,7 +2,7 @@
 import FormInput from "@/app/components/form-input/FormInput";
 import { useRegions } from "@/hooks/useCountries";
 import { useT } from "@/hooks/useT";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 
 type Props = {
@@ -18,19 +18,26 @@ export default function RegionSelect({
 }: Props) {
   const { data: regions = [], isLoading, isError } = useRegions(countryId);
   const t = useT();
+  const prevCountryId = useRef<number | null>(countryId);
 
   // Set legend text based on translation
   const legendText = t("region") || "Region";
 
-  // Reset region when country changes or no country is selected
+  // Reset region when country changes (but not on first load)
   useEffect(() => {
-    if (!countryId || isError) {
-      if (field.value) {
-        field.onChange("");
+    // Only reset if the country actually changed (not null to a value, which happens on initialization)
+    if (
+      prevCountryId.current !== null &&
+      prevCountryId.current !== countryId &&
+      countryId !== null
+    ) {
+      if (field.value && field.value !== "0") {
+        field.onChange("0");
         onRegionChange("");
       }
     }
-  }, [countryId, isError, field, onRegionChange]);
+    prevCountryId.current = countryId;
+  }, [countryId, field, onRegionChange]);
 
   // If there's no country selected, show disabled state
   if (!countryId) {
@@ -73,21 +80,33 @@ export default function RegionSelect({
     );
   }
 
-  const regionOptions = regions.map((r: any) => ({
-    value: r.id.toString(),
-    label: r.name
-  }));
+  const hasValidRegions = regions.length > 0;
+  const regionOptions = hasValidRegions
+    ? [
+        { value: "0", label: `Select ${legendText.toLowerCase()}` },
+        ...regions.map((r: any) => ({
+          value: r.id.toString(),
+          label: r.name
+        }))
+      ]
+    : [{ value: "0", label: `No ${legendText.toLowerCase()}s available` }];
 
   return (
     <FormInput
       legend={legendText}
       as="select"
-      disabled={false}
+      disabled={!hasValidRegions}
       options={regionOptions}
-      value={field.value || ""}
+      value={field.value || "0"}
       onChange={(value) => {
-        field.onChange(value);
-        onRegionChange(value);
+        if (value === "0") {
+          field.onChange("");
+          onRegionChange("");
+        } else {
+          const stringValue = String(value);
+          field.onChange(stringValue);
+          onRegionChange(stringValue);
+        }
       }}
     />
   );
