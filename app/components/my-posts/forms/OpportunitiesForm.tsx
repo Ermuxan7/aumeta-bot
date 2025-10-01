@@ -6,12 +6,14 @@ import {
   OpportunitiesFormValue
 } from "@/app/schema/Opportunities";
 import BackButton from "@/components/ui/back-button";
+import { useRegions } from "@/hooks/useCountries";
 import { useUpdateOpportunity } from "@/hooks/useOpportunities";
 import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import RegionSelect from "../../form-input/RegionSelect";
 
 type OpportunitiesEditFormProps = {
   data: any;
@@ -19,49 +21,99 @@ type OpportunitiesEditFormProps = {
 
 const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
   const t = useT();
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const postCountryId = data?.location?.country?.id ?? null;
+  const postRegionId = data?.location?.region?.id ?? null;
 
   const {
     register,
     reset,
+    control,
     handleSubmit,
     formState: { errors }
   } = useForm<OpportunitiesFormValue>({
-    defaultValues: { daǵaza: "", baylanis: "" },
+    defaultValues: { region_id: "", daǵaza: "", baylanis: "" },
     resolver: zodResolver(createOpportunitiesSchema(t))
   });
 
   const fileRef = useRef<File | null>(null);
 
+  const { setLocation, countryId, regionId } = useLocationStore();
+
+  // Load regions for the post's country
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    postCountryId ?? undefined
+  );
+
+  // Initialize form with post data - only once to avoid race conditions
   useEffect(() => {
-    if (data) {
+    if (!data) {
+      return;
+    }
+
+    // If post has a region, wait for regions to load before initializing
+    const postHasRegion = data.location?.region?.id;
+    if (postHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      // Set the location in the store first
+      setLocation(postCountryId, postRegionId);
+
+      // Reset form with the post data
       reset({
+        region_id: postRegionId?.toString() ?? "",
         daǵaza: data.content ?? "",
         baylanis: data.contact ?? ""
       });
+
+      setIsInitialized(true);
     }
-  }, [data, reset]);
+  }, [
+    data,
+    reset,
+    setLocation,
+    postCountryId,
+    postRegionId,
+    isLoadingRegions,
+    isInitialized
+  ]);
 
   const updateOpportunityMutation = useUpdateOpportunity(data.id);
-  const { countryId, regionId } = useLocationStore();
 
   const oneFileSelect = (file: File | null) => {
     fileRef.current = file;
   };
 
-  const onSubmit = (data: OpportunitiesFormValue) => {
-    const formData = new FormData();
+  const onSubmit = (formData: OpportunitiesFormValue) => {
+    const form = new FormData();
 
-    formData.append("country_id", String(countryId));
-    formData.append("region_id", String(regionId));
-    formData.append("content", data.daǵaza);
-    formData.append("contact", data.baylanis);
+    form.append("country_id", String(countryId ?? postCountryId));
+    form.append("region_id", String(regionId ?? postRegionId));
+    form.append("content", formData.daǵaza);
+    form.append("contact", formData.baylanis);
 
     if (fileRef.current) {
-      formData.append("img", fileRef.current, fileRef.current.name);
+      form.append("img", fileRef.current, fileRef.current.name);
     }
 
-    updateOpportunityMutation.mutate(formData);
+    updateOpportunityMutation.mutate(form);
   };
+
+  // Show loading state while initializing
+  if (!isInitialized && data) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          {t("opportunities&grands")}
+        </h2>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -70,6 +122,20 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
         {t("opportunities&grands")}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => (
+            <RegionSelect
+              field={field}
+              countryId={postCountryId}
+              onRegionChange={(val) => {
+                field.onChange(val);
+                setLocation(postCountryId ?? null, Number(val));
+              }}
+            />
+          )}
+        />
         <FormInput
           legend={t("ad_text_or_summary")}
           as="textarea"

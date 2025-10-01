@@ -5,11 +5,12 @@ import {
   VacancyFormValue
 } from "@/app/schema/VacancyFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useRegions } from "@/hooks/useCountries";
 import { useT } from "@/hooks/useT";
 import { useIdUpdateVacancy } from "@/hooks/useVacancy";
 import { useLocationStore } from "@/store/locationStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import RegionSelect from "../../form-input/RegionSelect";
 
@@ -19,6 +20,10 @@ type VacancyFormProps = {
 
 const VacancyEditForm = ({ data }: VacancyFormProps) => {
   const t = useT();
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const postCountryId = data?.location?.country?.id ?? null;
+  const postRegionId = data?.location?.region?.id ?? null;
 
   const {
     register,
@@ -44,52 +49,85 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
 
   const { setLocation, countryId, regionId } = useLocationStore();
 
+  // Load regions for the post's country
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    postCountryId ?? undefined
+  );
+
+  // Initialize form with post data - only once to avoid race conditions
   useEffect(() => {
-    if (data) {
-      const regionIdString = data.location?.region?.id?.toString() ?? "";
-      const countryIdNumber = data.location?.country?.id ?? null;
-      const regionIdNumber = data.location?.region?.id ?? null;
-
-      // First set the location in the store
-      setLocation(countryIdNumber, regionIdNumber);
-
-      // Use setTimeout to ensure the location store is updated before resetting the form
-      setTimeout(() => {
-        reset({
-          region_id: regionIdString,
-          lawazim: data.position_title ?? "",
-          mekeme: data.organization_name ?? "",
-          manzil: data.address ?? "",
-          talaplar: data.requirements ?? "",
-          májburiyatlar: data.duties ?? "",
-          jumisWaqiti: data.work_schedule ?? "",
-          ayliq: data.salary ?? "",
-          baylanis: data.contact ?? "",
-          qosimsha: data.additional_info ?? ""
-        });
-      }, 100);
+    if (!data) {
+      return;
     }
-  }, [data, reset, setLocation]);
+
+    // If post has a region, wait for regions to load before initializing
+    const postHasRegion = data.location?.region?.id;
+    if (postHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      // Set the location in the store first
+      setLocation(postCountryId, postRegionId);
+
+      // Reset form with the post data
+      reset({
+        region_id: postRegionId?.toString() ?? "",
+        lawazim: data.position_title ?? "",
+        mekeme: data.organization_name ?? "",
+        manzil: data.address ?? "",
+        talaplar: data.requirements ?? "",
+        májburiyatlar: data.duties ?? "",
+        jumisWaqiti: data.work_schedule ?? "",
+        ayliq: data.salary ?? "",
+        baylanis: data.contact ?? "",
+        qosimsha: data.additional_info ?? ""
+      });
+
+      setIsInitialized(true);
+    }
+  }, [
+    data,
+    reset,
+    setLocation,
+    postCountryId,
+    postRegionId,
+    isLoadingRegions,
+    isInitialized
+  ]);
 
   const updateVacancyMutation = useIdUpdateVacancy(data.id);
 
-  const onSubmit = (data: VacancyFormValue) => {
+  const onSubmit = (formData: VacancyFormValue) => {
     const payload = {
-      country_id: countryId,
-      region_id: regionId,
-      position_title: data.lawazim,
-      organization_name: data.mekeme,
-      address: data.manzil,
-      requirements: data.talaplar,
-      duties: data.májburiyatlar,
-      work_schedule: data.jumisWaqiti,
-      salary: data.ayliq,
-      contact: data.baylanis,
-      additional_info: data.qosimsha
+      country_id: countryId ?? postCountryId,
+      region_id: regionId ?? postRegionId,
+      position_title: formData.lawazim,
+      organization_name: formData.mekeme,
+      address: formData.manzil,
+      requirements: formData.talaplar,
+      duties: formData.májburiyatlar,
+      work_schedule: formData.jumisWaqiti,
+      salary: formData.ayliq,
+      contact: formData.baylanis,
+      additional_info: formData.qosimsha
     };
 
     updateVacancyMutation.mutate(payload);
   };
+
+  // Show loading state while initializing
+  if (!isInitialized && data) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          {t("searching_worker")}
+        </h2>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -105,10 +143,10 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
             return (
               <RegionSelect
                 field={field}
-                countryId={countryId}
+                countryId={postCountryId}
                 onRegionChange={(val) => {
                   field.onChange(val);
-                  setLocation(countryId ?? null, Number(val));
+                  setLocation(postCountryId ?? null, Number(val));
                 }}
               />
             );

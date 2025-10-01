@@ -5,13 +5,15 @@ import {
   createInternshipSchema
 } from "@/app/schema/InternFormSchema";
 import BackButton from "@/components/ui/back-button";
+import { useRegions } from "@/hooks/useCountries";
 import { useIdInternship } from "@/hooks/useInternship";
 import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
 // import { InternshipType } from "@/types/internshipType";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import RegionSelect from "../../form-input/RegionSelect";
 
 type InternshipType = {
   data: any;
@@ -19,14 +21,20 @@ type InternshipType = {
 
 const InternshipEditForm = ({ data }: InternshipType) => {
   const t = useT();
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const postCountryId = data?.location?.country?.id ?? null;
+  const postRegionId = data?.location?.region?.id ?? null;
 
   const {
     register,
     reset,
+    control,
     handleSubmit,
     formState: { errors }
   } = useForm<InternshipFormValue>({
     defaultValues: {
+      region_id: "",
       lawazim: "",
       mekeme: "",
       talaplar: "",
@@ -40,9 +48,32 @@ const InternshipEditForm = ({ data }: InternshipType) => {
     resolver: zodResolver(createInternshipSchema(t))
   });
 
+  const { setLocation, countryId, regionId } = useLocationStore();
+
+  // Load regions for the post's country
+  const { data: regions = [], isLoading: isLoadingRegions } = useRegions(
+    postCountryId ?? undefined
+  );
+
+  // Initialize form with post data - only once to avoid race conditions
   useEffect(() => {
-    if (data) {
+    if (!data) {
+      return;
+    }
+
+    // If post has a region, wait for regions to load before initializing
+    const postHasRegion = data.location?.region?.id;
+    if (postHasRegion && isLoadingRegions) {
+      return;
+    }
+
+    if (!isInitialized) {
+      // Set the location in the store first
+      setLocation(postCountryId, postRegionId);
+
+      // Reset form with the post data
       reset({
+        region_id: postRegionId?.toString() ?? "",
         lawazim: data.position_title ?? "",
         mekeme: data.organization_name ?? "",
         manzil: data.address ?? "",
@@ -53,29 +84,51 @@ const InternshipEditForm = ({ data }: InternshipType) => {
         baylanis: data.contact ?? "",
         qosimsha: data.additional_info ?? ""
       });
+
+      setIsInitialized(true);
     }
-  }, [data, reset]);
+  }, [
+    data,
+    reset,
+    setLocation,
+    postCountryId,
+    postRegionId,
+    isLoadingRegions,
+    isInitialized
+  ]);
 
   const updateInternshipMutation = useIdInternship(data.id);
-  const { countryId, regionId } = useLocationStore();
 
-  const onSubmit = (data: InternshipFormValue) => {
+  const onSubmit = (formData: InternshipFormValue) => {
     const payload = {
-      country_id: countryId,
-      region_id: regionId,
-      position_title: data.lawazim,
-      organization_name: data.mekeme,
-      address: data.manzil,
-      requirements: data.talaplar,
-      conditions: data.sharayatlar,
-      duties: data.májburiyatlar,
-      salary: data.tolem,
-      contact: data.baylanis,
-      additional_info: data.qosimsha
+      country_id: countryId ?? postCountryId,
+      region_id: regionId ?? postRegionId,
+      position_title: formData.lawazim,
+      organization_name: formData.mekeme,
+      address: formData.manzil,
+      requirements: formData.talaplar,
+      conditions: formData.sharayatlar,
+      duties: formData.májburiyatlar,
+      salary: formData.tolem,
+      contact: formData.baylanis,
+      additional_info: formData.qosimsha
     };
 
     updateInternshipMutation.mutate(payload);
   };
+
+  // Show loading state while initializing
+  if (!isInitialized && data) {
+    return (
+      <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
+        <BackButton />
+        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+          {t("internship")}
+        </h2>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
@@ -84,6 +137,20 @@ const InternshipEditForm = ({ data }: InternshipType) => {
         {t("internship")}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
+        <Controller
+          name="region_id"
+          control={control}
+          render={({ field }) => (
+            <RegionSelect
+              field={field}
+              countryId={postCountryId}
+              onRegionChange={(val) => {
+                field.onChange(val);
+                setLocation(postCountryId ?? null, Number(val));
+              }}
+            />
+          )}
+        />
         <FormInput
           legend={t("role_name")}
           type="text"

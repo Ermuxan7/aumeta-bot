@@ -20,15 +20,6 @@ export default function RegionSelect({
   const t = useT();
   const prevCountryId = useRef<number | null>(countryId);
 
-  console.log("RegionSelect debug:", {
-    countryId,
-    fieldValue: field.value,
-    regionsCount: regions.length,
-    isLoading,
-    isError,
-    regions: regions.slice(0, 3) // Show first 3 regions for debugging
-  });
-
   // Set legend text based on translation
   const legendText = t("region") || "Region";
 
@@ -47,6 +38,20 @@ export default function RegionSelect({
     }
     prevCountryId.current = countryId;
   }, [countryId, field, onRegionChange]);
+
+  // Ensure the field value is valid when regions load
+  useEffect(() => {
+    if (!isLoading && regions.length > 0 && field.value) {
+      const regionExists = regions.some(
+        (r: any) => r.id.toString() === field.value
+      );
+      if (!regionExists && field.value !== "0") {
+        // If the current value doesn't exist in loaded regions, keep it anyway
+        // This handles the case where form data is set before regions are loaded
+        // The value will be validated by the backend
+      }
+    }
+  }, [isLoading, regions, field.value]);
 
   // If there's no country selected, show disabled state
   if (!countryId) {
@@ -100,13 +105,27 @@ export default function RegionSelect({
       ]
     : [{ value: "0", label: `No ${legendText.toLowerCase()}s available` }];
 
+  // If field has a value but region isn't in loaded regions yet, add it temporarily
+  const currentValue = field.value || "0";
+  if (currentValue !== "0" && hasValidRegions) {
+    const regionExists = regions.some(
+      (r: any) => r.id.toString() === currentValue
+    );
+    if (!regionExists) {
+      regionOptions.push({
+        value: currentValue,
+        label: `Region ${currentValue}` // Temporary label until regions refresh
+      });
+    }
+  }
+
   return (
     <FormInput
       legend={legendText}
       as="select"
       disabled={!hasValidRegions}
       options={regionOptions}
-      value={field.value || "0"}
+      value={currentValue}
       onChange={(value) => {
         if (value === "0") {
           field.onChange("");
