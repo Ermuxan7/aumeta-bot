@@ -80,72 +80,76 @@ const InternshipEditForm = ({ data }: InternshipType) => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-xl md:text-3xl font-semibold mb-4">Ámeliyat</h2>
+      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        {t("internship")}
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
-          legend="Lawazim ati"
+          legend={t("role_name")}
           type="text"
-          placeholder="Dizayner, menejer, esapshı h.t.b"
+          placeholder={t("placeholders.internship.role_name")}
           registration={register("lawazim")}
         />
         <FormInput
-          legend="Mekeme"
+          legend={t("institution_name")}
           type="text"
-          placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
+          placeholder={t("placeholders.internship.institution_name")}
           registration={register("mekeme")}
         />
         <FormInput
-          legend="Talaplar"
+          legend={t("requirements")}
           as="textarea"
-          placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
+          placeholder={t("placeholders.internship.requirements")}
           registration={register("talaplar")}
         />
 
         <FormInput
-          legend="Májburiyatlar"
+          legend={t("responsibilities")}
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
+          placeholder={t("placeholders.internship.responsibilities")}
           registration={register("májburiyatlar")}
         />
 
         <FormInput
-          legend="Sharayatlar"
+          legend={t("conditions")}
           as="textarea"
-          placeholder="Ofis, kompyuter, internet, obet ozimizden) h.t.b"
+          placeholder={t("placeholders.internship.conditions")}
           registration={register("sharayatlar")}
         />
         <FormInput
-          legend="Mánzil hám format"
+          legend={t("address&format")}
           type="text"
-          placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
+          placeholder={t("placeholders.internship.address&format")}
           registration={register("manzil")}
         />
 
         <FormInput
-          legend="To'lem"
+          legend={t("salary")}
           type="text"
-          placeholder="Kelisimli, $800, 7 mln swm h.t.b"
+          placeholder={t("placeholders.internship.salary")}
           registration={register("tolem")}
         />
         <FormInput
-          legend="Baylanıs"
+          legend={t("contact")}
           type="text"
-          placeholder="998901234567, ab@email.com, @hr"
+          placeholder={t("placeholders.internship.contact")}
           registration={register("baylanis")}
         />
 
         <FormInput
-          legend="Qosımsha"
+          legend={t("additional_info")}
           as="textarea"
-          placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
+          placeholder={t("placeholders.internship.additional_info")}
           registration={register("qosimsha")}
         />
         {updateInternshipMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         {updateInternshipMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(updateInternshipMutation.error)}</p>
+            <p>
+              {t("error")}: {String(updateInternshipMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (updateInternshipMutation.error as any)?.response?.data,
@@ -166,7 +170,7 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          {updateInternshipMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {updateInternshipMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

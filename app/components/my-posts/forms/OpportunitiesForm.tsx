@@ -67,22 +67,24 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">
-        Imkaniyatlar & grantlar
+        {t("opportunities&grands")}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
-          legend="Daǵaza teksti yáki mazmunı"
+          legend={t("ad_text_or_summary")}
           as="textarea"
           // rows={5}
-          placeholder="Daǵaza mazmunı"
+          placeholder={t(
+            "placeholders.opportunities&grands.ad_text_or_summary"
+          )}
           registration={register("daǵaza")}
           error={errors.daǵaza?.message}
         />
 
         <FormInput
-          legend="Baylanıs yáki silteme"
+          legend={t("contact_or_link")}
           type="text"
-          placeholder="998901234567, ab@email.com, @hr"
+          placeholder={t("placeholders.opportunities&grands.contact_or_link")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
@@ -92,7 +94,9 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
         />
         {updateOpportunityMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(updateOpportunityMutation.error)}</p>
+            <p>
+              {t("error")}: {String(updateOpportunityMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (updateOpportunityMutation.error as any)?.response?.data,
@@ -110,13 +114,13 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
           </div>
         )}
         {updateOpportunityMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-primary/70 transition-all"
         >
-          {updateOpportunityMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {updateOpportunityMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

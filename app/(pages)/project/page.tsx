@@ -141,48 +141,48 @@ const Project = () => {
         <FormInput
           legend={t("who_you_need")}
           type="text"
-          placeholder="Santexnik, Dilmash, Mobilograf, Muzikant"
+          placeholder={t("placeholders.one_time_job.who_you_need")}
           registration={register("lawazim")}
           error={errors.lawazim?.message}
         />
         <FormInput
           legend={t("what_to_do")}
           as="textarea"
-          placeholder="Júk tasıw kerek, ońlaw kerek, logotip yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń."
+          placeholder={t("placeholders.one_time_job.what_to_do")}
           registration={register("talaplar")}
           error={errors.talaplar?.message}
         />
         <FormInput
           legend={t("salary_income")}
           type="text"
-          placeholder="Kelisimli, $800, 7 mln swm h.t.b"
+          placeholder={t("placeholders.one_time_job.salary_income")}
           registration={register("tólem")}
           error={errors.tólem?.message}
         />
         <FormInput
           legend={t("deadline")}
-          placeholder="Búginge, 18:00 ge yáki 27 avgustqa shekem"
+          placeholder={t("placeholders.one_time_job.deadline")}
           registration={register("deadline")}
           error={errors.deadline?.message}
         />
         <FormInput
           legend={t("contact")}
           type="text"
-          placeholder="+998901234567, ab@email.com, @user"
+          placeholder={t("placeholders.one_time_job.contact")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
         <FormInput
           legend={t("address_location")}
           type="text"
-          placeholder="Nókis, A.Dosnazarov 16, online"
+          placeholder={t("placeholders.one_time_job.address_location")}
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
           legend={t("additional_info")}
           as="textarea"
-          placeholder="Qosımsha zat bolsa jazıń"
+          placeholder={t("placeholders.one_time_job.additional_info")}
           error={errors.qosimsha?.message}
         />
         {createProjectMutation.isError && (

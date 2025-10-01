@@ -150,63 +150,63 @@ const Vacancy = () => {
         <FormInput
           legend={t("role_name")}
           type="text"
-          placeholder="Dizayner, menejer, esapshı h.t.b"
+          placeholder={t("placeholders.vacancy.role_name")}
           registration={register("lawazim")}
           error={errors.lawazim?.message}
         />
         <FormInput
           legend={t("institution_name")}
           type="text"
-          placeholder="Bizler Group, ООО Ромашка h.t.b"
+          placeholder={t("placeholders.vacancy.institution_name")}
           registration={register("mekeme")}
           error={errors.mekeme?.message}
         />
         <FormInput
           legend={t("address")}
           type="text"
-          placeholder="Москва, Tashkent h.t.b"
+          placeholder={t("placeholders.vacancy.address")}
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
           legend={t("requirements")}
           as="textarea"
-          placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
+          placeholder={t("placeholders.vacancy.requirements")}
           registration={register("talaplar")}
           error={errors.talaplar?.message}
         />
         <FormInput
           legend={t("responsibilities")}
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar h.t.b"
+          placeholder={t("placeholders.vacancy.responsibilities")}
           registration={register("májburiyatlar")}
           error={errors.májburiyatlar?.message}
         />
         <FormInput
           legend={t("working_hours")}
           type="text"
-          placeholder="9:00 - 18:00, erkin grafik, 5/2"
+          placeholder={t("placeholders.vacancy.working_hours")}
           registration={register("jumisWaqiti")}
           error={errors.jumisWaqiti?.message}
         />
         <FormInput
           legend={t("monthly_salary")}
           type="text"
-          placeholder="Kelisimli, $800, 7 mln swm h.t.b"
+          placeholder={t("placeholders.vacancy.monthly_salary")}
           registration={register("ayliq")}
           error={errors.ayliq?.message}
         />
         <FormInput
           legend={t("contact")}
           type="text"
-          placeholder="998901234567, ab@email.com, @hr"
+          placeholder={t("placeholders.vacancy.contact")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
         <FormInput
           legend={t("additional_info")}
           as="textarea"
-          placeholder="Bonuslar, shárayatlar h.t.b"
+          placeholder={t("placeholders.vacancy.additional_info")}
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />

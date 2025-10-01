@@ -137,7 +137,9 @@ const Opportunities = () => {
           legend={t("ad_text_or_summary")}
           as="textarea"
           // rows={5}
-          placeholder="Daǵaza mazmunı"
+          placeholder={t(
+            "placeholders.opportunities&grands.ad_text_or_summary"
+          )}
           registration={register("daǵaza")}
           error={errors.daǵaza?.message}
         />
@@ -145,7 +147,7 @@ const Opportunities = () => {
         <FormInput
           legend={t("contact_or_link")}
           type="text"
-          placeholder="998901234567, ab@email.com, @hr"
+          placeholder={t("placeholders.opportunities&grands.contact_or_link")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />

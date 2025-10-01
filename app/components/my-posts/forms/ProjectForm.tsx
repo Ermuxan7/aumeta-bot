@@ -74,60 +74,62 @@ const ProjectEditForm = ({ data }: ProjectType) => {
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
       <h2 className="text-xl md:text-3xl font-semibold mb-4">
-        Bir mártelik wazıypa/joybar
+        {t("one_time_job")}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <FormInput
-          legend="Sizge kim kerek?"
+          legend={t("who_you_need")}
           type="text"
-          placeholder="Santexnik, Dilmash, Mobilograf, Muzikant"
+          placeholder={t("placeholders.one_time_job.who_you_need")}
           registration={register("lawazim")}
           error={errors.lawazim?.message}
         />
         <FormInput
-          legend="Ne islew kerek?"
+          legend={t("what_to_do")}
           as="textarea"
-          placeholder="Júk tasıw kerek, ońlaw kerek, logotip yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń."
+          placeholder={t("placeholders.one_time_job.what_to_do")}
           registration={register("talaplar")}
           error={errors.talaplar?.message}
         />
         <FormInput
-          legend="Is haqı, tólem"
+          legend={t("salary_income")}
           type="text"
-          placeholder="Kelisimli, $800, 7 mln swm h.t.b"
+          placeholder={t("placeholders.one_time_job.salary_income")}
           registration={register("tólem")}
           error={errors.tólem?.message}
         />
         <FormInput
-          legend="Orınlaw múddeti"
-          placeholder="Búginge, 18:00 ge yáki 27 avgustqa shekem"
+          legend={t("deadline")}
+          placeholder={t("placeholders.one_time_job.deadline")}
           registration={register("deadline")}
           error={errors.deadline?.message}
         />
         <FormInput
-          legend="Baylanıs"
+          legend={t("contact")}
           type="text"
-          placeholder="+998901234567, ab@email.com, @user"
+          placeholder={t("placeholders.one_time_job.contact")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
         />
         <FormInput
-          legend="Mánzil, lokaciya"
+          legend={t("address_location")}
           type="text"
-          placeholder="Nókis, A.Dosnazarov 16, online"
+          placeholder={t("placeholders.one_time_job.address_location")}
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
-          legend="Qosımsha"
+          legend={t("additional_info")}
           as="textarea"
-          placeholder="Qosımsha zat bolsa jazıń"
+          placeholder={t("placeholders.one_time_job.additional_info")}
           registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />
         {updateProjectMutation.isError && (
           <div className="text-red-500">
-            <p>Qatelik: {String(updateProjectMutation.error)}</p>
+            <p>
+              {t("error")}: {String(updateProjectMutation.error)}
+            </p>
             <pre className="text-xs whitespace-pre-wrap">
               {JSON.stringify(
                 (updateProjectMutation.error as any)?.response?.data,
@@ -145,13 +147,13 @@ const ProjectEditForm = ({ data }: ProjectType) => {
           </div>
         )}
         {updateProjectMutation.isSuccess && (
-          <p className="text-green-500">Vakansiya jiberildi ✅</p>
+          <p className="text-green-500">{t("vacancy_sent")} ✅</p>
         )}
         <button
           type="submit"
           className="px-4 py-2 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
-          {updateProjectMutation.isPending ? "Jiberilmekte" : "Jiberiw"}
+          {updateProjectMutation.isPending ? t("sending") : t("send")}
         </button>
       </form>
     </div>

@@ -148,7 +148,7 @@ const Internship = () => {
         <FormInput
           legend={t("role_name")}
           type="text"
-          placeholder="Dizayner, menejer, esapshı h.t.b"
+          placeholder={t("placeholders.internship.role_name")}
           registration={register("lawazim")}
         />
         {errors.lawazim && (
@@ -157,13 +157,13 @@ const Internship = () => {
         <FormInput
           legend={t("institution_name")}
           type="text"
-          placeholder="Bizler Group, ООО Ромашка, Delivery Express h.t.b"
+          placeholder={t("placeholders.internship.institution_name")}
           registration={register("mekeme")}
         />
         <FormInput
           legend={t("requirements")}
           as="textarea"
-          placeholder="Tájiriybe 2 jıl, Excel biliw, Inglis tili B2"
+          placeholder={t("placeholders.internship.requirements")}
           registration={register("talaplar")}
         />
         {errors.talaplar && (
@@ -172,7 +172,7 @@ const Internship = () => {
         <FormInput
           legend={t("responsibilities")}
           as="textarea"
-          placeholder="Klientlermen islew, esabatlar, satıw kerek h.t.b"
+          placeholder={t("placeholders.internship.responsibilities")}
           registration={register("májburiyatlar")}
         />
         {errors.májburiyatlar && (
@@ -181,13 +181,13 @@ const Internship = () => {
         <FormInput
           legend={t("conditions")}
           as="textarea"
-          placeholder="Ofis, kompyuter, internet, obet ozimizden) h.t.b"
+          placeholder={t("placeholders.internship.conditions")}
           registration={register("sharayatlar")}
         />
         <FormInput
           legend={t("address&format")}
           type="text"
-          placeholder="Москва, Tashkent, Ақтау, Бишкек ул. h.t.b"
+          placeholder={t("placeholders.internship.address&format")}
           registration={register("manzil")}
         />
         {errors.manzil && (
@@ -196,13 +196,13 @@ const Internship = () => {
         <FormInput
           legend={t("salary")}
           type="text"
-          placeholder="Kelisimli, $800, 7 mln swm h.t.b"
+          placeholder={t("placeholders.internship.salary")}
           registration={register("tolem")}
         />
         <FormInput
           legend={t("contact")}
           type="text"
-          placeholder="998901234567, ab@email.com, @hr"
+          placeholder={t("placeholders.internship.contact")}
           registration={register("baylanis")}
         />
         {errors.baylanis && (
@@ -211,7 +211,7 @@ const Internship = () => {
         <FormInput
           legend={t("additional_info")}
           as="textarea"
-          placeholder="Bonuslar, shárayatlar h.t.b qolaylıqlar"
+          placeholder={t("placeholders.internship.additional_info")}
           registration={register("qosimsha")}
         />
         {createInternshipMutation.isSuccess && (

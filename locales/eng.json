@@ -59,5 +59,42 @@
   "profile_updated": "eng: profile_updated",
   "saving": "eng: saving",
   "save": "eng: save",
-  "fullname": "eng: fullname"
+  "fullname": "eng: fullname",
+  "placeholders": {
+    "vacancy": {
+      "role_name": "eng: role_name",
+      "institution_name": "eng: institution_name",
+      "address": "eng: address",
+      "requirements": "eng: requirements",
+      "responsibilities": "eng: responsibilities",
+      "working_hours": "eng: working_hours",
+      "monthly_salary": "eng: monthly_salary",
+      "contact": "eng: contact",
+      "additional_info": "eng: additional_info"
+    },
+    "internship": {
+      "role_name": "eng: role_name",
+      "institution_name": "eng: institution_name",
+      "requirements": "eng: requirements",
+      "responsibilities": "eng: responsibilities",
+      "conditions": "eng: conditions",
+      "address&format": "eng: address&format",
+      "salary": "eng: salary",
+      "contact": "eng: contact",
+      "additional_info": "eng: additional_info"
+    },
+    "one_time_job": {
+      "who_you_need": "eng: who_you_need",
+      "what_to_do": "eng: what_to_do",
+      "salary_income": "eng: salary_income",
+      "deadline": "eng: deadline",
+      "contact": "eng: contact",
+      "address_location": "eng: address_location",
+      "additional_info": "eng: additional_info"
+    },
+    "opportunities&grands": {
+      "ad_text_or_summary": "eng: ad_text_or_summary",
+      "contact_or_link": "eng: contact_or_link"
+    }
+  }
 }
