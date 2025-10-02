@@ -142,6 +142,7 @@ const Opportunities = () => {
           )}
           registration={register("daǵaza")}
           error={errors.daǵaza?.message}
+          isRequired
         />
 
         <FormInput
@@ -150,6 +151,7 @@ const Opportunities = () => {
           placeholder={t("placeholders.opportunities&grands.contact_or_link")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
+          isRequired
         />
         <FileUpload oneFileSelect={oneFileSelect} />
         {createOpportunityMutation.isError && (

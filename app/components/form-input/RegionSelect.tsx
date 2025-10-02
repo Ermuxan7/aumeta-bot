@@ -63,6 +63,7 @@ export default function RegionSelect({
         options={[{ value: "no-country", label: "Select a country first" }]}
         value=""
         onChange={() => {}}
+        isRequired
       />
     );
   }
@@ -77,6 +78,7 @@ export default function RegionSelect({
         options={[{ value: "loading", label: "Loading regions..." }]}
         value=""
         onChange={() => {}}
+        isRequired
       />
     );
   }
@@ -90,6 +92,7 @@ export default function RegionSelect({
         options={[{ value: "no-regions", label: "No regions available" }]}
         value=""
         onChange={() => {}}
+        isRequired
       />
     );
   }
@@ -136,6 +139,7 @@ export default function RegionSelect({
           onRegionChange(stringValue);
         }
       }}
+      isRequired
     />
   );
 }

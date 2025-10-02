@@ -150,12 +150,13 @@ const Internship = () => {
           type="text"
           placeholder={t("placeholders.internship.role_name")}
           registration={register("lawazim")}
+          isRequired
         />
         {errors.lawazim && (
           <p className="text-red-500">{errors.lawazim.message}</p>
         )}
         <FormInput
-          legend={t("institution_name")}
+          legend={`${t("institution_name")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.internship.institution_name")}
           registration={register("mekeme")}
@@ -165,6 +166,7 @@ const Internship = () => {
           as="textarea"
           placeholder={t("placeholders.internship.requirements")}
           registration={register("talaplar")}
+          isRequired
         />
         {errors.talaplar && (
           <p className="text-red-500">{errors.talaplar.message}</p>
@@ -174,12 +176,13 @@ const Internship = () => {
           as="textarea"
           placeholder={t("placeholders.internship.responsibilities")}
           registration={register("májburiyatlar")}
+          isRequired
         />
         {errors.májburiyatlar && (
           <p className="text-red-500">{errors.májburiyatlar.message}</p>
         )}
         <FormInput
-          legend={t("conditions")}
+          legend={`${t("conditions")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.internship.conditions")}
           registration={register("sharayatlar")}
@@ -189,12 +192,13 @@ const Internship = () => {
           type="text"
           placeholder={t("placeholders.internship.address&format")}
           registration={register("manzil")}
+          isRequired
         />
         {errors.manzil && (
           <p className="text-red-500">{errors.manzil.message}</p>
         )}
         <FormInput
-          legend={t("salary")}
+          legend={`${t("salary")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.internship.salary")}
           registration={register("tolem")}
@@ -204,12 +208,13 @@ const Internship = () => {
           type="text"
           placeholder={t("placeholders.internship.contact")}
           registration={register("baylanis")}
+          isRequired
         />
         {errors.baylanis && (
           <p className="text-red-500">{errors.baylanis.message}</p>
         )}
         <FormInput
-          legend={t("additional_info")}
+          legend={`${t("additional_info")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.internship.additional_info")}
           registration={register("qosimsha")}

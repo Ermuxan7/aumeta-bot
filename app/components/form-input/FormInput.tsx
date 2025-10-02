@@ -16,6 +16,7 @@ type BaseProps = {
   className?: string;
   error?: string;
   disabled?: boolean;
+  isRequired?: boolean;
 };
 
 type InputProps = BaseProps &
@@ -49,7 +50,8 @@ const FormInput = (props: FormFieldProps) => {
     value,
     className,
     error,
-    disabled
+    disabled,
+    isRequired
   } = props;
   const inputId = id || legend.toLowerCase().replace(/\s+/g, "-");
 
@@ -74,7 +76,9 @@ const FormInput = (props: FormFieldProps) => {
               : "text-muted-foreground group-focus-within:text-primary"
           )}
         >
-          <label htmlFor={inputId}>{legend}</label>
+          <label htmlFor={inputId}>
+            {legend} {isRequired && <span className="text-red-500">*</span>}
+          </label>
         </legend>
         {as === "input" && (
           <input

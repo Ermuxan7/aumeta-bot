@@ -158,9 +158,10 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           placeholder={t("placeholders.vacancy.role_name")}
           registration={register("lawazim")}
           error={errors.lawazim?.message}
+          isRequired
         />
         <FormInput
-          legend={t("institution_name")}
+          legend={`${t("institution_name")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.vacancy.institution_name")}
           registration={register("mekeme")}
@@ -172,6 +173,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           placeholder={t("placeholders.vacancy.address")}
           registration={register("manzil")}
           error={errors.manzil?.message}
+          isRequired
         />
         <FormInput
           legend={t("requirements")}
@@ -179,9 +181,10 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           placeholder={t("placeholders.vacancy.requirements")}
           registration={register("talaplar")}
           error={errors.talaplar?.message}
+          isRequired
         />
         <FormInput
-          legend={t("responsibilities")}
+          legend={`${t("responsibilities")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.vacancy.responsibilities")}
           registration={register("májburiyatlar")}
@@ -193,6 +196,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           placeholder={t("placeholders.vacancy.working_hours")}
           registration={register("jumisWaqiti")}
           error={errors.jumisWaqiti?.message}
+          isRequired
         />
         <FormInput
           legend={t("monthly_salary")}
@@ -200,6 +204,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           placeholder={t("placeholders.vacancy.monthly_salary")}
           registration={register("ayliq")}
           error={errors.ayliq?.message}
+          isRequired
         />
         <FormInput
           legend={t("contact")}
@@ -207,9 +212,10 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           placeholder={t("placeholders.vacancy.contact")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
+          isRequired
         />
         <FormInput
-          legend={t("additional_info")}
+          legend={`${t("additional_info")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.vacancy.additional_info")}
           registration={register("qosimsha")}

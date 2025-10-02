@@ -144,6 +144,7 @@ const Project = () => {
           placeholder={t("placeholders.one_time_job.who_you_need")}
           registration={register("lawazim")}
           error={errors.lawazim?.message}
+          isRequired
         />
         <FormInput
           legend={t("what_to_do")}
@@ -151,6 +152,7 @@ const Project = () => {
           placeholder={t("placeholders.one_time_job.what_to_do")}
           registration={register("talaplar")}
           error={errors.talaplar?.message}
+          isRequired
         />
         <FormInput
           legend={t("salary_income")}
@@ -158,9 +160,10 @@ const Project = () => {
           placeholder={t("placeholders.one_time_job.salary_income")}
           registration={register("tólem")}
           error={errors.tólem?.message}
+          isRequired
         />
         <FormInput
-          legend={t("deadline")}
+          legend={`${t("deadline")} ${t("not_required")}`}
           placeholder={t("placeholders.one_time_job.deadline")}
           registration={register("deadline")}
           error={errors.deadline?.message}
@@ -171,18 +174,20 @@ const Project = () => {
           placeholder={t("placeholders.one_time_job.contact")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
+          isRequired
         />
         <FormInput
-          legend={t("address_location")}
+          legend={`${t("address_location")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.one_time_job.address_location")}
           registration={register("manzil")}
           error={errors.manzil?.message}
         />
         <FormInput
-          legend={t("additional_info")}
+          legend={`${t("additional_info")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.one_time_job.additional_info")}
+          registration={register("qosimsha")}
           error={errors.qosimsha?.message}
         />
         {createProjectMutation.isError && (

@@ -145,6 +145,7 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
           )}
           registration={register("daǵaza")}
           error={errors.daǵaza?.message}
+          isRequired
         />
 
         <FormInput
@@ -153,6 +154,7 @@ const OpportunitiesEditForm = ({ data }: OpportunitiesEditFormProps) => {
           placeholder={t("placeholders.opportunities&grands.contact_or_link")}
           registration={register("baylanis")}
           error={errors.baylanis?.message}
+          isRequired
         />
         <FileUpload
           oneFileSelect={oneFileSelect}

@@ -156,9 +156,10 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           type="text"
           placeholder={t("placeholders.internship.role_name")}
           registration={register("lawazim")}
+          isRequired
         />
         <FormInput
-          legend={t("institution_name")}
+          legend={`${t("institution_name")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.internship.institution_name")}
           registration={register("mekeme")}
@@ -168,6 +169,7 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           as="textarea"
           placeholder={t("placeholders.internship.requirements")}
           registration={register("talaplar")}
+          isRequired
         />
 
         <FormInput
@@ -175,10 +177,11 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           as="textarea"
           placeholder={t("placeholders.internship.responsibilities")}
           registration={register("májburiyatlar")}
+          isRequired
         />
 
         <FormInput
-          legend={t("conditions")}
+          legend={`${t("conditions")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.internship.conditions")}
           registration={register("sharayatlar")}
@@ -188,10 +191,11 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           type="text"
           placeholder={t("placeholders.internship.address&format")}
           registration={register("manzil")}
+          isRequired
         />
 
         <FormInput
-          legend={t("salary")}
+          legend={`${t("salary")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.internship.salary")}
           registration={register("tolem")}
@@ -201,10 +205,11 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           type="text"
           placeholder={t("placeholders.internship.contact")}
           registration={register("baylanis")}
+          isRequired
         />
 
         <FormInput
-          legend={t("additional_info")}
+          legend={`${t("additional_info")} ${t("not_required")}`}
           as="textarea"
           placeholder={t("placeholders.internship.additional_info")}
           registration={register("qosimsha")}
