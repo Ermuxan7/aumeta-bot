@@ -5,7 +5,10 @@ export const createProfileSchema = (t: any) =>
     full_name: z.string().optional(),
     contact: z.string().min(1, t("contact_required")),
     company_name: z.string().optional(),
-    country_id: z.number().min(1, t("country_required")),
+    country_id: z.union([
+      z.number().min(1, t("country_required")),
+      z.string().min(1, t("country_required"))
+    ]),
     region_id: z.string().optional(),
     language_code: z.string().optional()
   });
