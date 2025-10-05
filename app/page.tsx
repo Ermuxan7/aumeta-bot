@@ -3,30 +3,68 @@ import TelegramAuth from "@/components/features/auth/TelegramAuth";
 import { useMe } from "@/hooks/useMe";
 import { useT } from "@/hooks/useT";
 import { useLocationStore } from "@/store/locationStore";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+
+import InternshipSVG from "@/public/internship.svg";
+import OpportunitiesSVG from "@/public/opportunities.svg";
+import ProjectSVG from "@/public/project.svg";
+import VacancySVG from "@/public/vacancy.svg";
 
 const getCards = (t: any) => {
   const cards = t.raw("cards") || [];
   return [
     {
       title: cards[0] || "Vacancy",
-      img: <img src="/vacancy.svg" className="size-14 md:size-22" />,
+      img: (
+        <Image
+          src={VacancySVG}
+          className="size-14 md:size-22"
+          alt="vacancy page button image"
+          width={56}
+          height={56}
+        />
+      ),
       href: "/vacancy"
     },
     {
       title: cards[1] || "Internship",
-      img: <img src="/internship.svg" className="size-14 md:size-22" />,
+      img: (
+        <Image
+          src={InternshipSVG}
+          className="size-14 md:size-22"
+          alt="internship page button image"
+          width={56}
+          height={56}
+        />
+      ),
       href: "/internship"
     },
     {
       title: cards[2] || "Project",
-      img: <img src="/project.svg" className="size-14 md:size-22" />,
+      img: (
+        <Image
+          src={ProjectSVG}
+          className="size-14 md:size-22"
+          alt="project page button image"
+          width={56}
+          height={56}
+        />
+      ),
       href: "/project"
     },
     {
       title: cards[3] || "Opportunities",
-      img: <img src="/opportunities.svg" className="size-14 md:size-22" />,
+      img: (
+        <Image
+          src={OpportunitiesSVG}
+          className="size-14 md:size-22"
+          alt="opportunities page button image"
+          width={56}
+          height={56}
+        />
+      ),
       href: "/opportunities"
     }
   ];
@@ -81,13 +119,15 @@ export default function Home() {
             </p>
           </div>
         )}
-        <div className="text-sm sm:text-md text-muted-foreground text-center font-normal mt-6 sm:my-8">
+        <div className="text-base sm:text-md text-muted-foreground text-center font-normal mt-6 sm:my-8">
           <p>
             ❕ {t("ads_are_free")} <br />
           </p>
           <p>
             📩 {t("question_contact")}{" "}
-            <Link href="https://t.me/bizlergroup">@bizlergroup</Link>
+            <Link className="text-blue-500" href="https://t.me/bizlergroup">
+              @bizlergroup
+            </Link>
           </p>
         </div>
       </div>

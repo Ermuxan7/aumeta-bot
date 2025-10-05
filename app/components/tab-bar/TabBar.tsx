@@ -29,7 +29,7 @@ const TabBar = () => {
           href={tab.href}
           className={`flex items-center justify-center font-semibold text-xs md:text-lg w-full h-full ${
             pathName === tab.href && "bg-primary rounded-full"
-          } transition-all duration-300 ease-in-out`}
+          } transition-all duration-300 ease-in-out text-center`}
         >
           {tab.name}
         </Link>
