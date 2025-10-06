@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
+import AttentionPNG from "@/public/attention.png";
 import InternshipSVG from "@/public/internship.svg";
 import OpportunitiesSVG from "@/public/opportunities.svg";
 import ProjectSVG from "@/public/project.svg";
@@ -109,17 +110,28 @@ export default function Home() {
         </div>
         {countryId === null && (
           <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
-            <img
-              src="/attention.png"
-              alt="attention"
-              className="size-6 md:size-8 "
-            />
-            <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
-              {t("country_not_selected_error")}
+            <>
+              <Image
+                src={AttentionPNG}
+                alt="attention icon"
+                className="size-6 md:size-8 "
+                width={24}
+                height={24}
+              />
+              <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
+                {t("country_not_selected_error")}
+              </p>
+            </>
+          </div>
+        )}
+        {countryId !== null && (
+          <div className="w-full flex items-center justify-center gap-2 rounded-md my-4 shadow-md">
+            <p className="text-base text-primary-foreground font-semibold">
+              🌐 {t("publication_country")}: {me?.data?.location?.country?.name}
             </p>
           </div>
         )}
-        <div className="text-base sm:text-md text-muted-foreground text-center font-normal mt-6 sm:my-8">
+        <div className="text-base text-muted-foreground text-center font-normal mb-4">
           <p>
             ❕ {t("ads_are_free")} <br />
           </p>

@@ -66,6 +66,7 @@
   "saving": "Сохранение...",
   "save": "Сохранить",
   "fullname": "ФИО",
+  "publication_country": "Страна публикации",
   "placeholders": {
     "vacancy": {
       "role_name": "Дизайнер, менеджер, бухгалтер, продавец и т.д.",

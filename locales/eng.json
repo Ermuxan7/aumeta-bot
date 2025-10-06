@@ -66,6 +66,7 @@
   "saving": "Saving...",
   "save": "Save",
   "fullname": "Full Name",
+  "publication_country": "Country of publication",
   "placeholders": {
     "vacancy": {
       "role_name": "Designer, manager, accountant, salesperson, etc.",
