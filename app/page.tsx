@@ -89,11 +89,13 @@ export default function Home() {
 
   return (
     <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
-      <div className="w-full max-w-7xl flex flex-col justify-center items-center">
-        <TelegramAuth />
-        <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center mb-6 sm:mb-8">
-          {t("posting_instruction")}
-        </h1>
+      <div className="w-full max-w-7xl flex flex-col justify-center items-center gap-12">
+        <div className="flex flex-col justify-center items-center">
+          <TelegramAuth />
+          <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center">
+            {t("posting_instruction")}
+          </h1>
+        </div>
         <div className="grid grid-cols-2 gap-3 sm:gap-x-5 sm:gap-y-6 w-full">
           {getCards(t).map((card, index) => (
             <Link
@@ -108,39 +110,37 @@ export default function Home() {
             </Link>
           ))}
         </div>
-        {countryId === null && (
-          <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
-            <>
-              <Image
-                src={AttentionPNG}
-                alt="attention icon"
-                className="size-6 md:size-8 "
-                width={24}
-                height={24}
-              />
-              <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
-                {t("country_not_selected_error")}
-              </p>
-            </>
-          </div>
-        )}
-        {countryId !== null && (
-          <div className="w-full flex items-center justify-center gap-2 rounded-md my-4 shadow-md">
+        <div>
+          {countryId === null && (
+            <div className="w-full h-18 flex items-center justify-center gap-2 bg-primary rounded-md px-3 py-4 my-6 shadow-md">
+              <>
+                <Image
+                  src={AttentionPNG}
+                  alt="attention icon"
+                  className="size-6 md:size-8 "
+                  width={24}
+                  height={24}
+                />
+                <p className="text-sm sm:text-lg text-primary-foreground font-semibold">
+                  {t("country_not_selected_error")}
+                </p>
+              </>
+            </div>
+          )}
+          <div className="text-base text-muted-foreground text-center font-normal mb-4">
             <p className="text-base text-primary-foreground font-normal">
               🌐 {t("publication_country")}: {me?.data?.location?.country?.name}
             </p>
+            <p>
+              ❕{t("ads_are_free")} <br />
+            </p>
+            <p>
+              📩 {t("question_contact")}{" "}
+              <Link className="text-blue-500" href="https://t.me/bizlergroup">
+                @bizlergroup
+              </Link>
+            </p>
           </div>
-        )}
-        <div className="text-base text-muted-foreground text-center font-normal mb-4">
-          <p>
-            ❕{t("ads_are_free")} <br />
-          </p>
-          <p>
-            📩 {t("question_contact")}{" "}
-            <Link className="text-blue-500" href="https://t.me/bizlergroup">
-              @bizlergroup
-            </Link>
-          </p>
         </div>
       </div>
     </div>
