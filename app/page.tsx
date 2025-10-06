@@ -126,14 +126,14 @@ export default function Home() {
         )}
         {countryId !== null && (
           <div className="w-full flex items-center justify-center gap-2 rounded-md my-4 shadow-md">
-            <p className="text-base text-primary-foreground font-semibold">
+            <p className="text-base text-primary-foreground font-normal">
               🌐 {t("publication_country")}: {me?.data?.location?.country?.name}
             </p>
           </div>
         )}
         <div className="text-base text-muted-foreground text-center font-normal mb-4">
           <p>
-            ❕ {t("ads_are_free")} <br />
+            ❕{t("ads_are_free")} <br />
           </p>
           <p>
             📩 {t("question_contact")}{" "}
