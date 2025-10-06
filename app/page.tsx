@@ -131,6 +131,7 @@ export default function Home() {
             <p className="text-base text-primary-foreground font-normal">
               🌐 {t("publication_country")}: {me?.data?.location?.country?.name}
             </p>
+            <br />
             <p>
               ❕{t("ads_are_free")} <br />
             </p>
