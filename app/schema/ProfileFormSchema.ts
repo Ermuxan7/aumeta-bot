@@ -9,7 +9,12 @@ export const createProfileSchema = (t: any) =>
       z.number().min(1, t("country_required")),
       z.string().min(1, t("country_required"))
     ]),
-    region_id: z.string().optional(),
+    region_id: z
+      .string()
+      .min(1, t("region_required"))
+      .refine((val) => val !== "0" && val !== "", {
+        message: t("region_required")
+      }),
     language_code: z.string().optional()
   });
 

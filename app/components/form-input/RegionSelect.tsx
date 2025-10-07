@@ -9,12 +9,16 @@ type Props = {
   field: ControllerRenderProps<any, "region_id">;
   countryId: number | null;
   onRegionChange: (value: string | number) => void;
+  error?: string;
+  isOptional?: boolean;
 };
 
 export default function RegionSelect({
   field,
   countryId,
-  onRegionChange
+  onRegionChange,
+  error,
+  isOptional = false
 }: Props) {
   const { data: regions = [], isLoading, isError } = useRegions(countryId);
   const t = useT();
@@ -131,15 +135,21 @@ export default function RegionSelect({
       value={currentValue}
       onChange={(value) => {
         if (value === "0") {
-          field.onChange("");
-          onRegionChange("");
+          if (isOptional) {
+            field.onChange(""); // For optional fields, set empty string
+            onRegionChange("");
+          } else {
+            field.onChange("0"); // Keep "0" to trigger validation error for required fields
+            onRegionChange("");
+          }
         } else {
           const stringValue = String(value);
           field.onChange(stringValue);
           onRegionChange(stringValue);
         }
       }}
-      isRequired
+      error={error}
+      isRequired={!isOptional}
     />
   );
 }

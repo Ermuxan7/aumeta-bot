@@ -224,14 +224,10 @@ const MyProfile = () => {
                 field.onChange(val);
                 handleRegionChange(val);
               }}
+              error={errors.region_id?.message}
             />
           )}
         />
-        {errors.region_id && (
-          <p className="text-red-500 text-sm mt-1">
-            {errors.region_id.message}
-          </p>
-        )}
         <Controller
           name="language_code"
           control={control}

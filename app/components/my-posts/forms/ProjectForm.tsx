@@ -141,6 +141,7 @@ const ProjectEditForm = ({ data }: ProjectType) => {
                 field.onChange(val);
                 setLocation(postCountryId ?? null, Number(val));
               }}
+              error={errors.region_id?.message}
             />
           )}
         />

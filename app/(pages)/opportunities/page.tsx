@@ -130,6 +130,7 @@ const Opportunities = () => {
                 field.onChange(val);
                 setLocation(userCountryId ?? null, Number(val));
               }}
+              error={errors.region_id?.message}
             />
           )}
         />
