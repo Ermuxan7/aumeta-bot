@@ -8,6 +8,7 @@ import {
   ProfileFormValue
 } from "@/app/schema/ProfileFormSchema";
 import { useCountries, useRegions } from "@/hooks/useCountries";
+import { useIndustries } from "@/hooks/useIndustries";
 import { useGetLanguages } from "@/hooks/useLanguages";
 import { useMe, useUpdateProfile } from "@/hooks/useMe";
 import { useT } from "@/hooks/useT";
@@ -23,6 +24,8 @@ const MyProfile = () => {
     useCountries();
   const { data: languages = [], isLoading: isLoadingLanguages } =
     useGetLanguages();
+  const { data: industries = [], isLoading: isLoadingIndustries } =
+    useIndustries();
   const updateProfileMutation = useUpdateProfile();
   const { setLocation } = useLocationStore();
 
@@ -47,7 +50,8 @@ const MyProfile = () => {
       company_name: "",
       country_id: 0,
       region_id: "",
-      language_code: "kaa"
+      language_code: "kaa",
+      industry_id: ""
     }
   });
 
@@ -86,7 +90,8 @@ const MyProfile = () => {
         company_name: me.data?.company_name ?? "",
         country_id: userCountryId,
         region_id: userRegionId,
-        language_code: me.data?.language ?? "kaa"
+        language_code: me.data?.language ?? "kaa",
+        industry_id: me.data?.industry?.id ? me.data.industry.id.toString() : ""
       });
 
       setIsInitialized(true);
@@ -125,22 +130,23 @@ const MyProfile = () => {
     [setLocation, selectedCountryId]
   );
 
-  // confirm(JSON.stringify(me, null, 2));
   const onSubmit = (data: ProfileForm) => {
     setLocation(
       data.country_id ? Number(data.country_id) : null,
       data.region_id ? Number(data.region_id) : null
     );
-    updateProfileMutation.mutate({
+
+    const payload = {
       full_name: data.full_name || "",
       contact: data.contact,
       company_name: data.company_name || "",
       country_id: data.country_id ? Number(data.country_id) : null,
       region_id: data.region_id ? Number(data.region_id) : null,
-      language_code: data.language_code || "kaa"
-    });
+      language_code: data.language_code || "kaa",
+      industry_id: data.industry_id ? Number(data.industry_id) : null
+    };
 
-    // confirm(JSON.stringify(data, null, 2));
+    updateProfileMutation.mutate(payload);
   };
 
   // Show loading state
@@ -172,6 +178,11 @@ const MyProfile = () => {
   const languageOptions = languages.map((l: any) => ({
     value: l.code,
     label: l.official_name
+  }));
+
+  const industryOptions = (industries || []).map((i: any) => ({
+    value: i.id.toString(),
+    label: i.name
   }));
 
   return (
@@ -246,6 +257,24 @@ const MyProfile = () => {
             {errors.language_code.message}
           </p>
         )}
+        <Controller
+          name="industry_id"
+          control={control}
+          render={({ field }) => (
+            <FormInput
+              legend={`${t("industry")} ${t("not_required")}`}
+              as="select"
+              options={industryOptions}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        {errors.industry_id && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.industry_id.message}
+          </p>
+        )}
         <FormInput
           legend={`${t("institution_name")} ${t("not_required")}`}
           type="text"
@@ -279,7 +308,7 @@ const MyProfile = () => {
 
         <button
           type="submit"
-          className="px-4 py-2 mt-1 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
+          className="px-4 py-2 mt-1 mb-10 flex justify-center items-center w-full bg-primary text-white rounded-lg hover:bg-blue-600 transition-all"
         >
           {updateProfileMutation.isPending ? t("saving") : t("save")}
         </button>

@@ -15,7 +15,8 @@ export const createProfileSchema = (t: any) =>
       .refine((val) => val !== "0" && val !== "", {
         message: t("region_required")
       }),
-    language_code: z.string().optional()
+    language_code: z.string().optional(),
+    industry_id: z.union([z.number().optional(), z.string().optional()])
   });
 
 export type ProfileFormValue = z.infer<ReturnType<typeof createProfileSchema>>;
