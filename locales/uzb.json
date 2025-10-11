@@ -33,6 +33,7 @@
   "address_required": "Manzil kiritish majburiy!",
   "contact_required": "Aloqa ma'lumoti kiritish majburiy!",
   "country_required": "Mamlakat tanlash majburiy!",
+  "industry_required": "Sanoat tanlovi talab qilinadi!",
   "opportunities&grands": "Imkoniyatlar va grantlar",
   "ad_text_or_summary": "E'lon matni yoki mazmuni",
   "contact_or_link": "Aloqa yoki havola",

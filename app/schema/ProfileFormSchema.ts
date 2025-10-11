@@ -16,7 +16,10 @@ export const createProfileSchema = (t: any) =>
         message: t("region_required")
       }),
     language_code: z.string().optional(),
-    industry_id: z.union([z.number().optional(), z.string().optional()])
+    industry_id: z.union([
+      z.number().min(1, t("industry_required")),
+      z.string().min(1, t("industry_required"))
+    ])
   });
 
 export type ProfileFormValue = z.infer<ReturnType<typeof createProfileSchema>>;

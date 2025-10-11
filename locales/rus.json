@@ -33,6 +33,7 @@
   "address_required": "Ввод адреса обязателен!",
   "contact_required": "Ввод контактной информации обязателен!",
   "country_required": "Выбор страны обязателен!",
+  "industry_required": "Необходимо выбрать отрасль!",
   "opportunities&grands": "Возможности и гранты",
   "ad_text_or_summary": "Текст объявления или краткое содержание",
   "contact_or_link": "Контакт или ссылка",

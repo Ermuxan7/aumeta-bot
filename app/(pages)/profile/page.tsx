@@ -262,11 +262,12 @@ const MyProfile = () => {
           control={control}
           render={({ field }) => (
             <FormInput
-              legend={`${t("industry")} ${t("not_required")}`}
+              legend={t("industry")}
               as="select"
               options={industryOptions}
               value={field.value}
               onChange={field.onChange}
+              isRequired
             />
           )}
         />
