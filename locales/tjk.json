@@ -104,6 +104,11 @@
     "opportunities&grands": {
       "ad_text_or_summary": "Мундариҷаи эълон",
       "contact_or_link": "998901234567, ab@email.com, @hr"
+    },
+    "profile": {
+      "fullname": "Номи пурраи худро ворид кунед",
+      "company_name": "Номи ширкат",
+      "contact": "Маълумоти тамосро ворид кунед"
     }
   }
 }

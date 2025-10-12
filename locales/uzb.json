@@ -104,6 +104,11 @@
     "opportunities&grands": {
       "ad_text_or_summary": "E'lon mazmuni",
       "contact_or_link": "998901234567, ab@email.com, @hr"
+    },
+    "profile": {
+      "fullname": "To‘liq ismingizni kiriting",
+      "company_name": "Kompaniya nomini kiriting",
+      "contact": "Aloqa ma’lumotlarini yozing"
     }
   }
 }

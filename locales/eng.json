@@ -104,6 +104,11 @@
     "opportunities&grands": {
       "ad_text_or_summary": "Ad content",
       "contact_or_link": "998901234567, ab@email.com, @hr"
+    },
+    "profile": {
+      "fullname": "Enter your full name",
+      "company_name": "Company name",
+      "contact": "Enter your contact information"
     }
   }
 }

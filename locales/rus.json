@@ -10,17 +10,17 @@
   "ads_are_free": "Размещение бесплатно. Остерегайтесь мошенников.",
   "question_contact": "Вопросы и предложения:",
   "tab_bar_titles": ["Новый пост", "Мои посты", "Профиль"],
-  "region": "Регион",
+  "region": "Регион (для публикации)",
   "role_name": "Название должности",
-  "institution_name": "Учреждение",
+  "institution_name": "Название компании",
   "requirements": "Требования",
   "responsibilities": "Обязанности",
   "conditions": "Условия",
   "address&format": "Адрес и формат",
   "salary": "Зарплата",
-  "contact": "Контакт",
+  "contact": "Контакты",
   "additional_info": "Дополнительно",
-  "industry": "Отрасль",
+  "industry": "Сфера деятельности (отрасль)",
   "vacancy_sent": "Вакансия отправлена",
   "error": "Ошибка",
   "sending": "Отправка",
@@ -63,12 +63,12 @@
   "no_such_form": "Форма такого типа еще не готова",
   "my_profile": "Мой профиль",
   "located_country": "Страна расположения",
-  "language": "Язык",
+  "language": "Язык платформы",
   "profile_updated": "Профиль успешно обновлен",
   "saving": "Сохранение...",
   "save": "Сохранить",
   "fullname": "ФИО",
-  "publication_country": "Страна публикации",
+  "publication_country": "Страна размещения",
   "placeholders": {
     "vacancy": {
       "role_name": "Дизайнер, менеджер, бухгалтер, продавец и т.д.",
@@ -104,6 +104,11 @@
     "opportunities&grands": {
       "ad_text_or_summary": "Содержание объявления",
       "contact_or_link": "998901234567, ab@email.com, @hr"
+    },
+    "profile": {
+      "fullname": "Введите своё полное имя",
+      "company_name": "Название компании",
+      "contact": "Напишите контакты для связи"
     }
   }
 }

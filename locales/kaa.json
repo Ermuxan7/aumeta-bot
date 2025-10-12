@@ -10,9 +10,9 @@
   "ads_are_free": "Daǵazalaw biypul. Aldawshılardan abaylań.",
   "question_contact": "Soraw hám usınıslar:",
   "tab_bar_titles": ["Jańa daǵaza", "Daǵazalarım", "Profil"],
-  "region": "Region",
+  "region": "Aymaq (daǵazalaw ushın)",
   "role_name": "Lawazım atı",
-  "institution_name": "Mekeme",
+  "institution_name": "Mekeme atı",
   "requirements": "Talaplar",
   "responsibilities": "Wazıypalar",
   "conditions": "Shárayatlar",
@@ -26,7 +26,7 @@
   "sending": "Jiberilmekte",
   "send": "Jiberiw",
   "internship": "Ámeliyat",
-  "region_required": "Region tańlanıwı shárt!",
+  "region_required": "Aymaq tańlanıwı shárt!",
   "role_name_required": "Lawazım kiritiliwi shárt!",
   "requirements_required": "Talaplar kiritiliwi shárt!",
   "responsibilities_required": "Májburiyatlar kiritiliwi shárt!",
@@ -104,6 +104,11 @@
     "opportunities&grands": {
       "ad_text_or_summary": "Daǵaza mazmunı",
       "contact_or_link": "998901234567, ab@email.com, @hr"
+    },
+    "profile": {
+      "fullname": "Tolıq atıńızdı jazıń",
+      "company_name": "Mekeme atın jazıń",
+      "contact": "Baylanısıw ushın kontakt jazıń"
     }
   }
 }

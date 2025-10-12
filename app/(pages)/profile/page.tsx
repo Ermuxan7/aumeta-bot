@@ -195,6 +195,7 @@ const MyProfile = () => {
         <FormInput
           legend={`${t("fullname")} ${t("not_required")}`}
           type="text"
+          placeholder={t("placeholders.profile.fullname")}
           {...register("full_name")}
         />
         {errors.full_name && (
@@ -279,6 +280,7 @@ const MyProfile = () => {
         <FormInput
           legend={`${t("institution_name")} ${t("not_required")}`}
           type="text"
+          placeholder={t("placeholders.profile.company_name")}
           {...register("company_name")}
         />
         {errors.company_name && (
@@ -292,6 +294,7 @@ const MyProfile = () => {
           type="text"
           {...register("contact")}
           isRequired
+          placeholder={t("placeholders.profile.contact")}
         />
         {errors.contact && (
           <p className="text-red-500 text-sm mt-1">{errors.contact.message}</p>

@@ -104,6 +104,11 @@
     "opportunities&grands": {
       "ad_text_or_summary": "Жарыя мазмуну",
       "contact_or_link": "998901234567, ab@email.com, @hr"
+    },
+    "profile": {
+      "fullname": "Толук аты-жөнүңүздү киргизиңиз",
+      "company_name": "Компаниянын аталышы",
+      "contact": "Байланыш маалыматыңызды жазыңыз"
     }
   }
 }
