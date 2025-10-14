@@ -10,9 +10,9 @@
   "ads_are_free": "E’lon berish bepul. Firibgarlardan ehtiyot bo‘ling.",
   "question_contact": "Savol va takliflar:",
   "tab_bar_titles": ["Yangi post", "Mening postlarim", "Profil"],
-  "region": "Hudud",
+  "region": "Hudud (e’lon joylash uchun)",
   "role_name": "Lavozim nomi",
-  "institution_name": "Muassasa",
+  "institution_name": "Tashkilot nomi (agar bor bo‘lsa)",
   "requirements": "Talablar",
   "responsibilities": "Majburiyatlar",
   "conditions": "Sharoitlar",
@@ -20,7 +20,7 @@
   "salary": "Maosh",
   "contact": "Aloqa",
   "additional_info": "Qo'shimcha",
-  "industry": "Sanoat",
+  "industry": "Faoliyat sohasi",
   "vacancy_sent": "Vakansiya yuborildi",
   "error": "Xatolik",
   "sending": "Yuborilmoqda",
@@ -39,7 +39,7 @@
   "contact_or_link": "Aloqa yoki havola",
   "only_image_upload": "Faqat rasm yuklash mumkin!",
   "uploading_image": "Rasm yuklanmoqda",
-  "not_required": "(majburiy emas)",
+  "not_required": "(ixtiyoriy)",
   "uploading_file": "Fayl yuklash",
   "file_uploading_instruction": "Kerakli faylni belgilab shu yerga yuklang",
   "selected_file": "Tanlangan fayl",
@@ -63,11 +63,11 @@
   "no_such_form": "Bunday turdagi forma hali tayyor emas",
   "my_profile": "Mening profilim",
   "located_country": "Joylashgan mamlakat",
-  "language": "Til",
+  "language": "Platforma va e’lon tili",
   "profile_updated": "Profil muvaffaqiyatli yangilandi",
   "saving": "Saqlanmoqda...",
   "save": "Saqlash",
-  "fullname": "F.I.Sh",
+  "fullname": "FISH",
   "publication_country": "E’lon joylash mamlakati",
   "placeholders": {
     "vacancy": {
@@ -106,9 +106,9 @@
       "contact_or_link": "998901234567, ab@email.com, @hr"
     },
     "profile": {
-      "fullname": "To‘liq ismingizni kiriting",
-      "company_name": "Kompaniya nomini kiriting",
-      "contact": "Aloqa ma’lumotlarini yozing"
+      "fullname": "To‘liq ism-sharifingizni yozing",
+      "company_name": "Kompaniya nomini yozing",
+      "contact": "Aloqa uchun kontakt yozing"
     }
   }
 }

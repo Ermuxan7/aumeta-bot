@@ -10,9 +10,9 @@
   "ads_are_free": "Жарнама беру тегін. Алаяқтардан сақтаныңыз.",
   "question_contact": "Сұрақтар бойынша:",
   "tab_bar_titles": ["Жаңа пост", "Менің посттарым", "Профиль"],
-  "region": "Аймақ",
+  "region": "Аймақ (жариялау үшін)",
   "role_name": "Лауазым атауы",
-  "institution_name": "Мекеме",
+  "institution_name": "Компания аты (міндетті емес)",
   "requirements": "Талаптар",
   "responsibilities": "Міндеттер",
   "conditions": "Жағдайлар",
@@ -63,11 +63,11 @@
   "no_such_form": "Мұндай түрдегі форма әлі дайын емес",
   "my_profile": "Менің профилім",
   "located_country": "Орналасқан ел",
-  "language": "Тіл",
+  "language": "Платформа және жарнама тілі",
   "profile_updated": "Профиль сәтті жаңартылды",
   "saving": "Сақталуда...",
   "save": "Сақтау",
-  "fullname": "Т.А.Ә",
+  "fullname": "Аты-жөні",
   "publication_country": "Жарияланатын ел",
   "placeholders": {
     "vacancy": {
@@ -106,9 +106,9 @@
       "contact_or_link": "998901234567, ab@email.com, @hr"
     },
     "profile": {
-      "fullname": "Толық атыңызды енгізіңіз",
-      "company_name": "Компания атауы",
-      "contact": "Байланыс деректерін енгізіңіз"
+      "fullname": "Толық аты-жөніңізді енгізіңіз",
+      "company_name": "Компания атауын енгізіңіз",
+      "contact": "Байланыс үшін контакт жазыңыз"
     }
   }
 }

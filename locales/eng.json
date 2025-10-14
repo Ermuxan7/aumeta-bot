@@ -10,9 +10,9 @@
   "ads_are_free": "Posting is free. Beware of scammers.",
   "question_contact": "Questions and suggestions:",
   "tab_bar_titles": ["New Post", "My Posts", "Profile"],
-  "region": "Region",
+  "region": "Region (for posting)",
   "role_name": "Position Title",
-  "institution_name": "Institution",
+  "institution_name": "Company name (optional)",
   "requirements": "Requirements",
   "responsibilities": "Responsibilities",
   "conditions": "Conditions",
@@ -39,7 +39,7 @@
   "contact_or_link": "Contact or link",
   "only_image_upload": "You can only upload images!",
   "uploading_image": "Uploading image",
-  "not_required": "(not required)",
+  "not_required": "(optional)",
   "uploading_file": "Upload file",
   "file_uploading_instruction": "Select the required file and upload it here",
   "selected_file": "Selected file",
@@ -63,12 +63,12 @@
   "no_such_form": "This type of form is not yet ready",
   "my_profile": "My profile",
   "located_country": "Located country",
-  "language": "Language",
+  "language": "Platform and publication language",
   "profile_updated": "Profile updated successfully",
   "saving": "Saving...",
   "save": "Save",
   "fullname": "Full Name",
-  "publication_country": "Country of publication",
+  "publication_country": "Country of posting",
   "placeholders": {
     "vacancy": {
       "role_name": "Designer, manager, accountant, salesperson, etc.",
@@ -107,8 +107,8 @@
     },
     "profile": {
       "fullname": "Enter your full name",
-      "company_name": "Company name",
-      "contact": "Enter your contact information"
+      "company_name": "Enter your company name",
+      "contact": "Enter your details"
     }
   }
 }
