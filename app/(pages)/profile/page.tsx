@@ -245,7 +245,7 @@ const MyProfile = () => {
           control={control}
           render={({ field }) => (
             <FormInput
-              legend={`${t("language")} ${t("not_required")}`}
+              legend={t("language")}
               as="select"
               options={languageOptions}
               value={field.value}
@@ -278,7 +278,7 @@ const MyProfile = () => {
           </p>
         )}
         <FormInput
-          legend={`${t("institution_name")} ${t("not_required")}`}
+          legend={`${t("institution_name")}`}
           type="text"
           placeholder={t("placeholders.profile.company_name")}
           {...register("company_name")}

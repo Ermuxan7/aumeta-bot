@@ -12,7 +12,7 @@
   "tab_bar_titles": ["Jańa daǵaza", "Daǵazalarım", "Profil"],
   "region": "Aymaq (daǵazalaw ushın)",
   "role_name": "Lawazım atı",
-  "institution_name": "Mekeme atı",
+  "institution_name": "Mekeme atı (eger bar bolsa)",
   "requirements": "Talaplar",
   "responsibilities": "Wazıypalar",
   "conditions": "Shárayatlar",
@@ -20,7 +20,7 @@
   "salary": "Tólem",
   "contact": "Baylanıs",
   "additional_info": "Qosımsha",
-  "industry": "Taraw",
+  "industry": "Iskerlik tarawı",
   "vacancy_sent": "Vakansiya jiberildi",
   "error": "Qatelik",
   "sending": "Jiberilmekte",
@@ -63,7 +63,7 @@
   "no_such_form": "Bunday turdegi form ele tayyar emes",
   "my_profile": "Meniń profilim",
   "located_country": "Jaylasqan mámleket",
-  "language": "Til",
+  "language": "Platforma hám daǵaza tili",
   "profile_updated": "Profil áwmetli jańalandı",
   "saving": "Saqlanbaqta...",
   "save": "Saqlaw",
@@ -107,7 +107,7 @@
     },
     "profile": {
       "fullname": "Tolıq atıńızdı jazıń",
-      "company_name": "Mekeme atın jazıń",
+      "company_name": "Mekemeńizdiń atın jazıń",
       "contact": "Baylanısıw ushın kontakt jazıń"
     }
   }
