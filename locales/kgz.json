@@ -10,9 +10,9 @@
   "ads_are_free": "Жарнама берүү акысыз. Алдамчылардан сак болуңуз.",
   "question_contact": "Суроолор боюнча:",
   "tab_bar_titles": ["Жаңы пост", "Менин посттарым", "Профиль"],
-  "region": "Аймак",
+  "region": "Аймак (жариялоо үчүн)",
   "role_name": "Кызмат аталышы",
-  "institution_name": "Мекеме",
+  "institution_name": "Мекеме аты",
   "requirements": "Талаптар",
   "responsibilities": "Милдеттер",
   "conditions": "Шарттар",
@@ -20,7 +20,7 @@
   "salary": "Айлык акы",
   "contact": "Байланыш",
   "additional_info": "Кошумча",
-  "industry": "Өнөр жай",
+  "industry": "Кызмат тармагы",
   "vacancy_sent": "Вакансия жөнөтүлдү",
   "error": "Ката",
   "sending": "Жөнөтүлүүдө",
@@ -63,11 +63,11 @@
   "no_such_form": "Мындай түрдөгү форма али даяр эмес",
   "my_profile": "Менин профилим",
   "located_country": "Жайгашкан өлкө",
-  "language": "Тил",
+  "language": "Платформа жана жарыялоо тили",
   "profile_updated": "Профиль ийгиликтүү жаңыртылды",
   "saving": "Сакталууда...",
   "save": "Сактоо",
-  "fullname": "А.Ж.А",
+  "fullname": "Аты-жөнү",
   "publication_country": "Жарыялануучу өлкө",
   "placeholders": {
     "vacancy": {
@@ -108,7 +108,7 @@
     "profile": {
       "fullname": "Толук аты-жөнүңүздү киргизиңиз",
       "company_name": "Компаниянын аталышы",
-      "contact": "Байланыш маалыматыңызды жазыңыз"
+      "contact": "Байланыш үчүн контакт жазыңыз"
     }
   }
 }

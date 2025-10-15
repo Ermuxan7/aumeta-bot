@@ -10,9 +10,9 @@
   "ads_are_free": "Neşir mugt. Aldawçylardan ägä boluň.",
   "question_contact": "Sorag we teklipler:",
   "tab_bar_titles": ["Täze post", "Meniň postlarym", "Profil"],
-  "region": "Sebit",
+  "region": "Sebit (bildiriş üçin)",
   "role_name": "Wezipäniň ady",
-  "institution_name": "Edaralyk",
+  "institution_name": "Kärhana ady",
   "requirements": "Talaplar",
   "responsibilities": "Borçlar",
   "conditions": "Şertler",
@@ -20,7 +20,7 @@
   "salary": "Aýlyk",
   "contact": "Aragatnaşyk",
   "additional_info": "Goşmaça",
-  "industry": "Seneýat",
+  "industry": "Iş pudagy",
   "vacancy_sent": "Wakansiya iberildi",
   "error": "Ýalňyşlyk",
   "sending": "Iberilýär",
@@ -63,11 +63,11 @@
   "no_such_form": "Bu görnüşdäki forma entek taýyn däl",
   "my_profile": "Meniň profilim",
   "located_country": "Ýerleşýän ýurt",
-  "language": "Dil",
+  "language": "Platforma we bildiriş dili",
   "profile_updated": "Profil üstünlikli täzelendi",
   "saving": "Saklanýar...",
   "save": "Sakla",
-  "fullname": "A.A.A",
+  "fullname": "Doly adyňyz",
   "publication_country": "Neşir ýurdy",
   "placeholders": {
     "vacancy": {
@@ -106,9 +106,9 @@
       "contact_or_link": "998901234567, ab@email.com, @hr"
     },
     "profile": {
-      "fullname": "Doly adyňyzy giriziň",
-      "company_name": "Kompaniýanyň ady",
-      "contact": "Habarlaşmak üçin maglumatlary ýazyň"
+      "fullname": "Doly adyňyzy we familiýaňyzy ýazyň",
+      "company_name": "Kärhanaňyzyň adyny ýazyň",
+      "contact": "Habarlaşmak üçin kontakt ýazyň"
     }
   }
 }
