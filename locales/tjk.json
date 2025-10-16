@@ -10,17 +10,17 @@
   "ads_are_free": "Эълон ройгон аст. Аз қаллобон дур шавед",
   "question_contact": "Барои саволҳо:",
   "tab_bar_titles": ["Пости нав", "Постҳои ман", "Профил"],
-  "region": "Минтақа",
+  "region": "Минтақа (барои эълон)",
   "role_name": "Номи мақом",
-  "institution_name": "Муассиса",
+  "institution_name": "Номи корхона (агар бошад)",
   "requirements": "Талабот",
   "responsibilities": "Масъулиятҳо",
   "conditions": "Шароитҳо",
   "address&format": "Суроға ва формат",
   "salary": "Маош",
-  "contact": "Алоқа",
+  "contact": "Тамос",
   "additional_info": "Иловагӣ",
-  "industry": "Саноат",
+  "industry": "Соҳаи фаъолият",
   "vacancy_sent": "Вакансия фиристода шуд",
   "error": "Хато",
   "sending": "Фиристода мешавад",
@@ -39,7 +39,7 @@
   "contact_or_link": "Алоқа ё истинод",
   "only_image_upload": "Шумо танҳо тасвир боркунӣ метавонед!",
   "uploading_image": "Тасвир боркунӣ мешавад",
-  "not_required": "(ҳатмӣ нест)",
+  "not_required": "(ихтиёрӣ)",
   "uploading_file": "Боркунии файл",
   "file_uploading_instruction": "Файли заруриро интихоб карда ба ин ҷо боркунед",
   "selected_file": "Файли интихобшуда",
@@ -62,12 +62,12 @@
   "not_found": "Чунин пост ёфт нашуд",
   "no_such_form": "Формаи ин навъ ҳоло омода нест",
   "my_profile": "Профили ман",
-  "located_country": "Кишвари ҷойгиршуда",
-  "language": "Забон",
+  "located_country": "Кишвари ҷойгиршавӣ",
+  "language": "Забони платформа ва эълон",
   "profile_updated": "Профил бо муваффақият навсозӣ шуд",
   "saving": "Нигоҳ дошта мешавад...",
   "save": "Нигоҳ доштан",
-  "fullname": "Н.И.Н",
+  "fullname": "Ному насаб",
   "publication_country": "Мамлакати эълон",
   "placeholders": {
     "vacancy": {
@@ -106,9 +106,9 @@
       "contact_or_link": "998901234567, ab@email.com, @hr"
     },
     "profile": {
-      "fullname": "Номи пурраи худро ворид кунед",
-      "company_name": "Номи ширкат",
-      "contact": "Маълумоти тамосро ворид кунед"
+      "fullname": "Ному насаби пурраатонро нависед",
+      "company_name": "Номи корхонаи худро ворид кунед",
+      "contact": "Барои тамос маълумот нависед"
     }
   }
 }

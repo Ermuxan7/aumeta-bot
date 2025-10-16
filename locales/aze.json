@@ -10,9 +10,9 @@
   "ads_are_free": "Elan pulsuzdur. Dələduzlardan ehtiyatlı olun.",
   "question_contact": "Suallar və təkliflər:",
   "tab_bar_titles": ["Yeni post", "Mənim postlarım", "Profil"],
-  "region": "Region",
+  "region": "Region (elan yerləşdirmək üçün)",
   "role_name": "Vəzifə adı",
-  "institution_name": "Müəssisə",
+  "institution_name": "Şirkətin adı",
   "requirements": "Tələblər",
   "responsibilities": "Vəzifələr",
   "conditions": "Şərtlər",
@@ -20,7 +20,7 @@
   "salary": "Maaş",
   "contact": "Əlaqə",
   "additional_info": "Əlavə",
-  "industry": "Sənaye",
+  "industry": "Fəaliyyət sahəsi",
   "vacancy_sent": "Vakansiya göndərildi",
   "error": "Xəta",
   "sending": "Göndərilir",
@@ -39,7 +39,7 @@
   "contact_or_link": "Əlaqə və ya keçid",
   "only_image_upload": "Yalnız şəkil yükləyə bilərsiniz!",
   "uploading_image": "Şəkil yüklənir",
-  "not_required": "(mütləq deyil)",
+  "not_required": "(məcburi deyil)",
   "uploading_file": "Fayl yüklə",
   "file_uploading_instruction": "Lazımi faylı seçib bura yükləyin",
   "selected_file": "Seçilmiş fayl",
@@ -62,12 +62,12 @@
   "not_found": "Belə post tapılmadı",
   "no_such_form": "Bu tip forma hələ hazır deyil",
   "my_profile": "Mənim profilim",
-  "located_country": "Yerləşdiyi ölkə",
-  "language": "Dil",
+  "located_country": "Yerləşmə ölkəsi",
+  "language": "Platforma və elan dili",
   "profile_updated": "Profil uğurla yeniləndi",
   "saving": "Saxlanılır...",
   "save": "Saxla",
-  "fullname": "A.S.A",
+  "fullname": "Ad və soyad",
   "publication_country": "Elan ölkəsi",
   "placeholders": {
     "vacancy": {
@@ -106,9 +106,9 @@
       "contact_or_link": "998901234567, ab@email.com, @hr"
     },
     "profile": {
-      "fullname": "Tam adınızı daxil edin",
-      "company_name": "Şirkətin adını daxil edin",
-      "contact": "Əlaqə məlumatlarını yazın"
+      "fullname": "Tam adınızı və soyadınızı daxil edin",
+      "company_name": "Şirkətinizin adını daxil edin",
+      "contact": "Əlaqə üçün məlumatı daxil edin"
     }
   }
 }
