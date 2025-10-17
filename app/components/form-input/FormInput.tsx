@@ -55,6 +55,11 @@ const FormInput = (props: FormFieldProps) => {
   } = props;
   const inputId = id || legend.toLowerCase().replace(/\s+/g, "-");
 
+  const truncate = (text: string, limit = 35) => {
+    if (typeof text !== "string") return "";
+    return text.length > limit ? text.slice(0, limit) + "…" : text;
+  };
+
   return (
     <div className={className}>
       <fieldset
@@ -141,7 +146,7 @@ const FormInput = (props: FormFieldProps) => {
 
                     return (
                       <SelectItem key={optValue} value={optValue}>
-                        {optLabel}
+                        {truncate(optLabel)}
                       </SelectItem>
                     );
                   }
