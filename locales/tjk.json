@@ -11,6 +11,7 @@
   "question_contact": "Барои саволҳо:",
   "tab_bar_titles": ["Эълони нав", "Эълонҳои ман", "Профил"],
   "region": "Минтақа (барои эълон)",
+  "select_label": "Интихоб кунед",
   "role_name": "Номи мақом",
   "institution_name": "Номи корхона (агар бошад)",
   "requirements": "Талабот",

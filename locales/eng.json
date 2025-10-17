@@ -1,5 +1,5 @@
 {
-  "posting_instruction": "To post ads on Aumeta Jobs channels, click the button below and fill out the templates to send to the channel",
+  "posting_instruction": "To post your ad on Aumeta Jobs channels, just click the right button and fill out a simple form.",
   "cards": [
     "Job Vacancy",
     "Internship",
@@ -11,6 +11,7 @@
   "question_contact": "Questions and suggestions:",
   "tab_bar_titles": ["New Post", "My Posts", "Profile"],
   "region": "Region (for posting)",
+  "select_label": "Select",
   "role_name": "Position Title",
   "institution_name": "Company name (optional)",
   "requirements": "Requirements",

@@ -104,7 +104,10 @@ export default function RegionSelect({
   const hasValidRegions = regions.length > 0;
   const regionOptions = hasValidRegions
     ? [
-        { value: "0", label: `Select ${legendText.toLowerCase()}` },
+        {
+          value: "0",
+          label: `${t("select_label")} ${legendText.toLowerCase()}`
+        },
         ...regions.map((r: any) => ({
           value: r.id.toString(),
           label: r.name

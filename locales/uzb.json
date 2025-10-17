@@ -11,6 +11,7 @@
   "question_contact": "Savol va takliflar:",
   "tab_bar_titles": ["Yangi eʼlon", "Eʼlonlarim", "Profil"],
   "region": "Hudud (e’lon joylash uchun)",
+  "select_label": "Tanlang",
   "role_name": "Lavozim nomi",
   "institution_name": "Tashkilot nomi (agar bor bo‘lsa)",
   "requirements": "Talablar",
