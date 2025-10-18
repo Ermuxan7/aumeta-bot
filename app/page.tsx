@@ -127,15 +127,15 @@ export default function Home() {
               </>
             </div>
           )}
-          <div className="text-base text-muted-foreground text-center font-normal mb-4">
-            <p className="text-base text-primary-foreground font-normal">
+          <div className="text-muted-foreground text-center font-normal mb-4">
+            <p className="text-sm text-primary-foreground font-normal">
               🌐 {t("publication_country")}: {me?.data?.location?.country?.name}
             </p>
             <br />
-            <p>
+            <p className="text-[12px]">
               ❕{t("ads_are_free")} <br />
             </p>
-            <p>
+            <p className="text-[12px]">
               📩 {t("question_contact")}{" "}
               <Link className="text-blue-500" href="https://t.me/bizlergroup">
                 @bizlergroup
