@@ -89,7 +89,7 @@ export default function Home() {
 
   return (
     <div className="flex justify-center items-center w-full text-background py-3 px-4 md:px-6">
-      <div className="w-full max-w-7xl flex flex-col justify-center items-center gap-12">
+      <div className="w-full max-w-7xl flex flex-col justify-center items-center gap-7">
         <div className="flex flex-col justify-center items-center">
           <TelegramAuth />
           <h1 className="text-lg sm:text-xl font-normal tracking-tight text-foreground leading-5 text-center">
