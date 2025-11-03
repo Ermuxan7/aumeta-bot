@@ -1,10 +1,10 @@
 {
   "posting_instruction": "To post your ad on Aumeta Jobs channels, just click the right button and fill out a simple form.",
   "cards": [
-    "Job Vacancy",
+    "Post a Job (Hire)",
     "Internship",
-    "One-time job/gig",
-    "Opportunities & grants"
+    "One-time Task/Project",
+    "Opportunities & Grants"
   ],
   "country_not_selected_error": "Country not selected for posting. Go to profile → select country.",
   "ads_are_free": "Posting is free. Beware of scammers.",

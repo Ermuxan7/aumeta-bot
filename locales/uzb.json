@@ -1,10 +1,10 @@
 {
   "posting_instruction": "Aumeta Jobs kanallariga e’lon joylashtirish uchun quyidagi tugmani bosing va undagi shablonlarni to‘ldirib kanalga yuboring",
   "cards": [
-    "Ish vakansiyasi",
-    "Amaliyot",
-    "Bir martalik ish/podrabotka",
-    "Imkoniyatlar va grantlar"
+    "Ishchi kerak (Вакансия)",
+    "Amaliyot (стажировка)",
+    "Bir martalik vazifa/loyiha",
+    "Imkoniyatlar & grantlar"
   ],
   "country_not_selected_error": "E'lon joylash uchun mamlakat tanlanmagan. Profilga o'ting → mamlakatni tanlang.",
   "ads_are_free": "E’lon berish bepul. Firibgarlardan ehtiyot bo‘ling.",
