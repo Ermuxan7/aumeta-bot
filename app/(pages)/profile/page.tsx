@@ -290,7 +290,7 @@ const MyProfile = () => {
         )}
         {/* <FormInput legend="Taraw" as="select" options={sectors} /> */}
         <FormInput
-          legend={t("contact")}
+          legend={t("contact_profile")}
           type="text"
           {...register("contact")}
           isRequired

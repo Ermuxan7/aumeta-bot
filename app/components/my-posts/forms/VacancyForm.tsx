@@ -162,7 +162,7 @@ const VacancyEditForm = ({ data }: VacancyFormProps) => {
           isRequired
         />
         <FormInput
-          legend={`${t("institution_name")} ${t("not_required")}`}
+          legend={t("institution_name_form_legend")}
           type="text"
           placeholder={t("placeholders.vacancy.institution_name")}
           registration={register("mekeme")}

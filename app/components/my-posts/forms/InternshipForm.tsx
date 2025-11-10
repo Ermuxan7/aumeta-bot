@@ -160,7 +160,7 @@ const InternshipEditForm = ({ data }: InternshipType) => {
           isRequired
         />
         <FormInput
-          legend={`${t("institution_name")} ${t("not_required")}`}
+          legend={t("institution_name_form_legend")}
           type="text"
           placeholder={t("placeholders.internship.institution_name")}
           registration={register("mekeme")}

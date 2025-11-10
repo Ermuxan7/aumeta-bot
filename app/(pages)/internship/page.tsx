@@ -157,7 +157,7 @@ const Internship = () => {
           <p className="text-red-500">{errors.lawazim.message}</p>
         )}
         <FormInput
-          legend={`${t("institution_name")} ${t("not_required")}`}
+          legend={t("institution_name_form_legend")}
           type="text"
           placeholder={t("placeholders.internship.institution_name")}
           registration={register("mekeme")}
