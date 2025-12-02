@@ -13,6 +13,7 @@
   "region": "Регион (для публикации)",
   "select_label": "Выбрать",
   "role_name": "Должность",
+  "internship_type": "Тип стажировки (должность)",
   "institution_name": "Название компании (если есть)",
   "institution_name_form_legend": "Название компании (не обязательно)",
   "requirements": "Требования",

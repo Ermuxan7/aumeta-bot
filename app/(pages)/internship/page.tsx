@@ -147,7 +147,7 @@ const Internship = () => {
           )}
         />
         <FormInput
-          legend={t("role_name")}
+          legend={t("internship_type")}
           type="text"
           placeholder={t("placeholders.internship.role_name")}
           registration={register("lawazim")}

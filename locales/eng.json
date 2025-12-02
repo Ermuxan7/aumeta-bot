@@ -13,6 +13,7 @@
   "region": "Region (for posting)",
   "select_label": "Select",
   "role_name": "Job title",
+  "internship_type": "Internship type (position)",
   "institution_name": "Company name (optional)",
   "institution_name_form_legend": "Company name (optional)",
   "requirements": "Requirements",
