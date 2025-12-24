@@ -199,7 +199,7 @@ const Internship = () => {
           <p className="text-red-500">{errors.manzil.message}</p>
         )}
         <FormInput
-          legend={`${t("salary")} ${t("not_required")}`}
+          legend={`${t("internship_salary")} ${t("not_required")}`}
           type="text"
           placeholder={t("placeholders.internship.salary")}
           registration={register("tolem")}
