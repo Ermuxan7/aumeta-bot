@@ -55,7 +55,8 @@
   "monthly_salary": "Oylik maosh",
   "working_schedule_required": "Ish vaqtini berish majburiy!",
   "monthly_salary_required": "Oylik maoshni kiritish majburiy!",
-  "one_time_job": "Bir martalik ish/podrabotka",
+  "one_time_job": "Ijrochi izlash",
+  "one_time_job_description": "Bir martalik ish yoki frilans",
   "who_you_need": "Sizga kim kerak?",
   "what_to_do": "Nima qilish kerak?",
   "salary_income": "Ish haqi, to'lov",
@@ -98,13 +99,13 @@
       "additional_info": "Qo‘shimcha narsa bo‘lsa yozing. 16-martgacha, Tabiatni asrash loyihasi, 3 oy bo‘ladi. Sertifikat beriladi. v.h.k"
     },
     "one_time_job": {
-      "who_you_need": "Santexnik, Tarjimon, Mobil videograf, Musiqachi",
-      "what_to_do": "Yuk tashish kerak, ta'mirlash kerak, logotip yoki video suratga olish kerak va h.k. Vazifani qisqacha yozing.",
-      "salary_income": "Kelishilgan, $70, 100 000 so'm va h.k.",
-      "deadline": "Bugun, 18:00 gacha yoki 27-avgustgacha.",
+      "who_you_need": "Santexnik, Tarjimon, Mobilograf, Musiqachi",
+      "what_to_do": "Yuk tashish, ta’mirlash, logotip dizayn, tekst tarjima qilish yoki video olish kerak va h.k. Topshiriqni qisqacha yozing.",
+      "salary_income": "Kelishiladi, $70, 200.000 so‘m va h.k.",
+      "deadline": "`Bugunga, 18:00 ga yoki 27-maygacha",
       "contact": "+998901234567, ab@email.com, @user",
-      "address_location": "Nukus, A.Dosnazarov 16, onlayn",
-      "additional_info": "Qo'shimcha narsa bo'lsa yozing"
+      "address_location": "Toshkent, ул.Navoiy 16, online v.h.k",
+      "additional_info": "Qo‘shimcha narsa bo‘lsa yozing: asbob-uskunasi bo‘lishi kerak, tajriba va portfolio, mashinada kelishi kerak va h.k."
     },
     "opportunities&grands": {
       "ad_text_or_summary": "E'lon mazmuni",

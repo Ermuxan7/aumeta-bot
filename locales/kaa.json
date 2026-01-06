@@ -55,7 +55,8 @@
   "monthly_salary": "Aylıq is haqısı",
   "working_schedule_required": "Jumıs waqıtı beriliwi shárt!",
   "monthly_salary_required": "Aylıq kiritiliwi shárt!",
-  "one_time_job": "Bir mártelik wazıypa/joybar",
+  "one_time_job": "Orınlawshı izlew",
+  "one_time_job_description": "Bir mártelik jumıs yáki frilans",
   "who_you_need": "Sizge kim kerek?",
   "what_to_do": "Ne islew kerek?",
   "salary_income": "Is haqı, tólem",
@@ -99,12 +100,12 @@
     },
     "one_time_job": {
       "who_you_need": "Santexnik, Dilmash, Mobilograf, Muzikant",
-      "what_to_do": "Júk tasıw kerek, ońlaw kerek, logotip yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń.",
-      "salary_income": "Kelisimli, $70, 100.000 swm h.t.b",
-      "deadline": "Búginge, 18:00 ge yáki 27 avgustqa shekem.",
+      "what_to_do": "Júk tasıw, ońlaw, logotip islew, tekst awdarmalaw yáki video túsiriw kerek h.t.b. Tapsırmanı qısqasha jazıń.",
+      "salary_income": "Kelisiledi, $70, 200.000 swm h.t.b.",
+      "deadline": "Búginge, 18:00 gе yáki  27-mayǵa shekem",
       "contact": "+998901234567, ab@email.com, @user",
-      "address_location": "Nókis, A.Dosnazarov 16, online",
-      "additional_info": "Qosımsha zat bolsa jazıń"
+      "address_location": "Nókis, A.Dosnazarov 16, online h.t.b.",
+      "additional_info": "Qosımsha zat bolsa jazıń: ásbap-úskenesi bolıwı kerek, tájiriybe hám portfolio, mashınımen keliw kerek h.t.b"
     },
     "opportunities&grands": {
       "ad_text_or_summary": "Daǵaza mazmunı",
