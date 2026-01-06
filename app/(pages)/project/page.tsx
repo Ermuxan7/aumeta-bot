@@ -126,8 +126,8 @@ const Project = () => {
       <h2 className="text-xl md:text-3xl font-semibold mb-4">
         {t("one_time_job")}
       </h2>
-      <p className="text-sm text-gray-600 mb-6">
-        Post your one-time project and find the right person for the job
+      <p className="text-sm text-gray-300 mb-6">
+        {t("one_time_job_description")}
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
