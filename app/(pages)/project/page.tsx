@@ -107,7 +107,7 @@ const Project = () => {
     return (
       <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
         <BackButton />
-        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        <h2 className="text-xl md:text-3xl font-semibold mb-1">
           {t("one_time_job")}
         </h2>
         <p className="text-sm text-gray-300 mb-6">
@@ -123,7 +123,7 @@ const Project = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+      <h2 className="text-xl md:text-3xl font-semibold mb-1">
         {t("one_time_job")}
       </h2>
       <p className="text-sm text-gray-300 mb-6">
@@ -176,7 +176,7 @@ const Project = () => {
           error={errors.deadline?.message}
         />
         <FormInput
-          legend={t("contact")}
+          legend={t("contact_one_time_job")}
           type="text"
           placeholder={t("placeholders.one_time_job.contact")}
           registration={register("baylanis")}
