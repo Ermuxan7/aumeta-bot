@@ -137,7 +137,7 @@ const Opportunities = () => {
         <FormInput
           legend={t("ad_text_or_summary")}
           as="textarea"
-          // rows={5}
+          rows={7}
           placeholder={t(
             "placeholders.opportunities&grands.ad_text_or_summary"
           )}
