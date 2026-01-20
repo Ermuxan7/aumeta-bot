@@ -102,7 +102,7 @@ const Opportunities = () => {
     return (
       <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
         <BackButton />
-        <h2 className="text-xl md:text-3xl font-semibold mb-4">
+        <h2 className="text-xl md:text-3xl font-semibold mb-1">
           {t("opportunities&grands")}
         </h2>
         <p className="text-sm text-gray-300 mb-6">
@@ -118,7 +118,7 @@ const Opportunities = () => {
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-4 sm:px-8 md:px-12">
       <BackButton />
-      <h2 className="text-xl md:text-3xl font-semibold mb-4">
+      <h2 className="text-xl md:text-3xl font-semibold mb-1">
         {t("opportunities&grands")}
       </h2>
       <p className="text-sm text-gray-300 mb-6">
