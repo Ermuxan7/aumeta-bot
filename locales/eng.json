@@ -41,6 +41,7 @@
   "country_required": "Country selection is required!",
   "industry_required": "Industry selection is required!",
   "opportunities&grands": "Opportunities & grants",
+  "opportunities&grands_description": "Grants, startups, hackathons, events, and development opportunities",
   "ad_text_or_summary": "Ad text or summary",
   "contact_or_link": "Contact or link",
   "only_image_upload": "You can only upload images!",

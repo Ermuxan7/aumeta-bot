@@ -105,6 +105,9 @@ const Opportunities = () => {
         <h2 className="text-xl md:text-3xl font-semibold mb-4">
           {t("opportunities&grands")}
         </h2>
+        <p className="text-sm text-gray-300 mb-6">
+          {t("opportunities&grands_description")}
+        </p>
         <div className="space-y-4">
           <p>Loading...</p>
         </div>
@@ -118,6 +121,9 @@ const Opportunities = () => {
       <h2 className="text-xl md:text-3xl font-semibold mb-4">
         {t("opportunities&grands")}
       </h2>
+      <p className="text-sm text-gray-300 mb-6">
+        {t("opportunities&grands_description")}
+      </p>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
         <Controller
           name="region_id"

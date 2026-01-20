@@ -41,6 +41,7 @@
   "country_required": "Mamlakat tanlash majburiy!",
   "industry_required": "Sanoat tanlovi talab qilinadi!",
   "opportunities&grands": "Imkoniyatlar va grantlar",
+  "opportunities&grands_description": "Grantlar, startaplar, xakatonlar, tadbirlar va rivojlanish imkoniyatlari",
   "ad_text_or_summary": "E'lon matni yoki mazmuni",
   "contact_or_link": "Aloqa yoki havola",
   "only_image_upload": "Faqat rasm yuklash mumkin!",

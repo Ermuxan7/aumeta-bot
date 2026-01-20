@@ -41,6 +41,7 @@
   "country_required": "Выбор страны обязателен!",
   "industry_required": "Необходимо выбрать отрасль!",
   "opportunities&grands": "Возможности и гранты",
+  "opportunities&grands_description": "Гранты, стартапы, хакатоны, ивенты и возможности для развития",
   "ad_text_or_summary": "Текст объявления или краткое содержание",
   "contact_or_link": "Контакт или ссылка",
   "only_image_upload": "Можно загружать только изображения!",
