@@ -41,14 +41,14 @@
   "country_required": "Интихоби кишвар ҳатмӣ аст!",
   "industry_required": "Интихоби соҳа талаб карда мешавад!",
   "opportunities&grands": "Имконҳо ва грантҳо",
-  "opportunities&grands_description": "Грантҳо, стартапҳо, хакатонҳо, чорабиниҳо ва имкониятҳои рушд",
-  "ad_text_or_summary": "Матни эълон ё мундариҷа",
-  "contact_or_link": "Алоқа ё истинод",
+  "opportunities&grands_description": "Грантҳо, стартапҳо, хакатонҳо ва чорабиниҳои муфид",
+  "ad_text_or_summary": "Матни эълон ё муҳтаво",
+  "contact_or_link": "Тамос ё пайванд",
   "only_image_upload": "Шумо танҳо тасвир боркунӣ метавонед!",
-  "uploading_image": "Тасвир боркунӣ мешавад",
+  "uploading_image": "Боргузории акс",
   "not_required": "(ихтиёрӣ)",
-  "uploading_file": "Боркунии файл",
-  "file_uploading_instruction": "Файли заруриро интихоб карда ба ин ҷо боркунед",
+  "uploading_file": "Боргузории файл",
+  "file_uploading_instruction": "Файли лозимиро интихоб кунед ва ба ин ҷо бор кунед (афиша, баннер, постер, акси эълон)",
   "selected_file": "Файли интихобшуда",
   "ad_text_required": "Навиштани матни эълон ҳатмӣ аст!",
   "searching_worker": "Ҷустуҷӯи коргар",
@@ -110,8 +110,8 @@
       "additional_info": "Агар чизи иловагӣ бошад, нависед: асбобу анҷом дошта бошад, таҷриба ва портфолио, бо мошин ояд ва ғ."
     },
     "opportunities&grands": {
-      "ad_text_or_summary": "Мундариҷаи эълон",
-      "contact_or_link": "998901234567, ab@email.com, @hr"
+      "ad_text_or_summary": "Муҳтавои эълонро пурра нависед: номи чорабинӣ, шартҳои иштирок, муҳлати бақайдгирӣ, рӯз ва суроғаи баргузории чорабинӣ, тӯҳфаҳо, шароит ва ҳамаи дигар маълумоти зарурӣ",
+      "contact_or_link": "Телефон, Telegram, email ё пайванд"
     },
     "profile": {
       "fullname": "Ному насаби пурраатонро нависед",

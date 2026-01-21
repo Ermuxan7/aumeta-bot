@@ -41,14 +41,14 @@
   "country_required": "Ölkə seçimi mütləqdir!",
   "industry_required": "Sənaye seçimi tələb olunur!",
   "opportunities&grands": "İmkanlar və qrantlar",
-  "opportunities&grands_description": "Qrantlar, startaplar, hakatonlar, tədbirlər və inkişaf imkanları",
-  "ad_text_or_summary": "Elan mətni və ya məzmunu",
-  "contact_or_link": "Əlaqə və ya keçid",
+  "opportunities&grands_description": "Qrantlar, startaplar, hakatonlar və faydalı tədbirlər",
+  "ad_text_or_summary": "Elanın mətni və ya məzmunu",
+  "contact_or_link": "Əlaqə və ya link",
   "only_image_upload": "Yalnız şəkil yükləyə bilərsiniz!",
-  "uploading_image": "Şəkil yüklənir",
+  "uploading_image": "Şəkil yüklə",
   "not_required": "(məcburi deyil)",
-  "uploading_file": "Fayl yüklə",
-  "file_uploading_instruction": "Lazımi faylı seçib bura yükləyin",
+  "uploading_file": "Faylı yüklə",
+  "file_uploading_instruction": "Lazımi faylı seçib bura yükləyin (afişa, banner, poster, elan şəkli)",
   "selected_file": "Seçilmiş fayl",
   "ad_text_required": "Elan mətnini yazmaq mütləqdir!",
   "searching_worker": "İşçi axtarışı",
@@ -110,8 +110,8 @@
       "additional_info": "Əlavə qeydiniz varsa yazın: alətləri olmalıdır, təcrübə və portfoliо, maşınla gəlməlidir və s."
     },
     "opportunities&grands": {
-      "ad_text_or_summary": "Elan məzmunu",
-      "contact_or_link": "998901234567, ab@email.com, @hr"
+      "ad_text_or_summary": "Elanın məzmununu tam yazın: tədbirin adı, iştirak şərtləri, qeydiyyat müddəti, tədbirin keçirilmə günü və ünvanı, hədiyyələr, şərait və digər bütün lazımi məlumatlar",
+      "contact_or_link": "Telefon, Telegram, email və ya link"
     },
     "profile": {
       "fullname": "Tam adınızı və soyadınızı daxil edin",

@@ -41,14 +41,14 @@
   "country_required": "Ýurt saýlamak hökmany!",
   "industry_required": "Senagat saýlamak zerurdyr!",
   "opportunities&grands": "Mümkinçilikler we grantlar",
-  "opportunities&grands_description": "Grantlar, startaplar, hakatonlar, çäreler we ösüş mümkinçilikleri",
-  "ad_text_or_summary": "Mahabat teksti ýa-da mazmuny",
-  "contact_or_link": "Aragatnaşyk ýa-da baglanyşyk",
+  "opportunities&grands_description": "Grantlar, startaplar, hakatonlar we peýdaly çäreler",
+  "ad_text_or_summary": "Bildirişiň teksti ýa-da mazmuny",
+  "contact_or_link": "Habarlaşmak ýa-da link",
   "only_image_upload": "Diňe surat ýükläp bilýärsiňiz!",
-  "uploading_image": "Surat ýüklenýär",
+  "uploading_image": "Surat ýüklemek",
   "not_required": "(hökmany däl)",
-  "uploading_file": "Faýl ýükle",
-  "file_uploading_instruction": "Zerur faýly saýlap bu ýere ýükläň",
+  "uploading_file": "Faýly ýüklemek",
+  "file_uploading_instruction": "Gerekli faýly saýlap şu ýere ýükläň (afişa, banner, poster, bildiriş suraty)",
   "selected_file": "Saýlanan faýl",
   "ad_text_required": "Mahabat tekstini ýazmak hökmany!",
   "searching_worker": "Işgär gözlegi",
@@ -110,8 +110,8 @@
       "additional_info": "Goşmaça zadyňyz bolsa ýazyň: gurallary bolmaly, tejribe we portfolio, maşynly gelmeli we ş.m."
     },
     "opportunities&grands": {
-      "ad_text_or_summary": "Mahabat mazmuny",
-      "contact_or_link": "998901234567, ab@email.com, @hr"
+      "ad_text_or_summary": "Bildirişiň mazmunyny doly ýazyň: çäräniň ady, gatnaşmagyň şertleri, hasaba alynmagyň möhleti, çäräniň geçirilýän güni we salgysy, sowgatlar, mümkinçilikler we beýleki ähli gerekli maglumatlar",
+      "contact_or_link": "Telefon, Telegram, email ýa-da link"
     },
     "profile": {
       "fullname": "Doly adyňyzy we familiýaňyzy ýazyň",

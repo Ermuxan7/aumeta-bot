@@ -41,14 +41,14 @@
   "country_required": "Country selection is required!",
   "industry_required": "Industry selection is required!",
   "opportunities&grands": "Opportunities & grants",
-  "opportunities&grands_description": "Grants, startups, hackathons, events, and development opportunities",
-  "ad_text_or_summary": "Ad text or summary",
+  "opportunities&grands_description": "Grants, startups, hackathons, and useful events",
+  "ad_text_or_summary": "Announcement text or content",
   "contact_or_link": "Contact or link",
   "only_image_upload": "You can only upload images!",
-  "uploading_image": "Uploading image",
+  "uploading_image": "Upload photo",
   "not_required": "(optional)",
   "uploading_file": "Upload file",
-  "file_uploading_instruction": "Select the required file and upload it here",
+  "file_uploading_instruction": "Select the required file and upload it here (poster, banner, flyer, announcement photo)",
   "selected_file": "Selected file",
   "ad_text_required": "Ad text is required!",
   "searching_worker": "Employee search",
@@ -110,8 +110,8 @@
       "additional_info": "Write if there’s anything else: tools required, experience and portfolio, car needed, etc."
     },
     "opportunities&grands": {
-      "ad_text_or_summary": "Ad content",
-      "contact_or_link": "998901234567, ab@email.com, @hr"
+      "ad_text_or_summary": "Write the full content of the announcement: name of the event, participation requirements, registration deadline, date and address of the event, prizes, conditions, and all other necessary information",
+      "contact_or_link": "Phone, Telegram, email, or link"
     },
     "profile": {
       "fullname": "Enter your full name",

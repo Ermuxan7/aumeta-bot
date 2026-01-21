@@ -41,16 +41,16 @@
   "country_required": "Mamlakat tanlash majburiy!",
   "industry_required": "Sanoat tanlovi talab qilinadi!",
   "opportunities&grands": "Imkoniyatlar va grantlar",
-  "opportunities&grands_description": "Grantlar, startaplar, xakatonlar, tadbirlar va rivojlanish imkoniyatlari",
-  "ad_text_or_summary": "E'lon matni yoki mazmuni",
-  "contact_or_link": "Aloqa yoki havola",
+  "opportunities&grands_description": "Grantlar, startaplar, xakatonlar va foydali tadbirlar",
+  "ad_text_or_summary": "E’lon matni yoki mazmuni",
+  "contact_or_link": "Kontakt yoki havola",
   "only_image_upload": "Faqat rasm yuklash mumkin!",
-  "uploading_image": "Rasm yuklanmoqda",
+  "uploading_image": "Rasm yuklash",
   "not_required": "(shart emas)",
-  "uploading_file": "Fayl yuklash",
-  "file_uploading_instruction": "Kerakli faylni belgilab shu yerga yuklang",
+  "uploading_file": "Faylni yuklash",
+  "file_uploading_instruction": "Kerakli faylni tanlab shu yerga yuklang (afisha, banner, poster, e’lon rasmi)",
   "selected_file": "Tanlangan fayl",
-  "ad_text_required": "E'lon matnini yozish majburiy!",
+  "ad_text_required": "E’lon matnini yozish majburiy!",
   "searching_worker": "Ishchi izlash",
   "address": "Ish manzili",
   "working_hours": "Ish vaqti/formati",
@@ -110,8 +110,8 @@
       "additional_info": "Qo‘shimcha narsa bo‘lsa yozing: asbob-uskunasi bo‘lishi kerak, tajriba va portfolio, mashinada kelishi kerak va h.k."
     },
     "opportunities&grands": {
-      "ad_text_or_summary": "E'lon mazmuni",
-      "contact_or_link": "998901234567, ab@email.com, @hr"
+      "ad_text_or_summary": "E’lon mazmunini to‘liq yozing: tadbirning nomi, ishtirok etish shartlari, ro‘yxatdan o‘tish muddati, tadbir o‘tkazilish kuni va manzili, sovg‘alar, sharoitlar va boshqa barcha kerakli ma’lumotlar",
+      "contact_or_link": "Telefon, Telegram, email yoki havola"
     },
     "profile": {
       "fullname": "To‘liq ism-sharifingizni yozing",
